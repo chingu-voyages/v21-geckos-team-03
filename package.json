@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "autoprefixer-stylus": "0.14.0",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
     "firebase": "^7.15.5",
     "prop-types": "^15.6.0",
     "re-base": "4.0.0",
@@ -16,6 +18,8 @@
     "react-router-dom": "^4.2.2",
     "react-transition-group": "^2.2.1",
     "serve": "^10.1.2",
+    "styled-components": "^5.1.1",
+    "stylis": "^4.0.2",
     "stylus": "0.54.5"
   },
   "scripts": {
@@ -27,6 +31,9 @@
     "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
     "now-build": "npm run build && mv build dist",
     "styles:watch": "npm run styles -- -w"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   },
   "browserslist": [
     ">0.2%",
