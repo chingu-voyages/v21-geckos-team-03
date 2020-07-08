@@ -1,0 +1,19 @@
+{
+  "name": "v21-geckos-team-03",
+  "version": "1.0.0",
+  "description": "A movie app that allows the user to search movies and add them to a list",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chingu-voyages/v21-geckos-team-03.git"
+  },
+  "author": "Geckos Team 03",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chingu-voyages/v21-geckos-team-03/issues"
+  },
+  "homepage": "https://github.com/chingu-voyages/v21-geckos-team-03#readme"
+}
