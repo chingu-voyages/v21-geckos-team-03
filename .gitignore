@@ -105,3 +105,4 @@ dist
 
 # MacOS directory file
 .DS_Store
+node_modules
