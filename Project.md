@@ -1,9 +1,9 @@
-V21 Project Brief for Movie Directory App
+# V21 Project Brief for Movie Directory App
 
-Purpose
+## Purpose
 
-This document is where all details related to scope, and development reside.
+This document is where all details related to scope, and development reside. 
 
-Backlog
+## Backlog
 
 This section is where we'll document our User Stories, translate them into features and functionality, then break them down into tasks.
