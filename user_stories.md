@@ -1,21 +1,4 @@
 ## **User**, Stories
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-## MVP
-
-- As **User**, I want to **be able to search for movies and get back the results**.
-
-- As a **User**, I want to **be able to filter movie results by genre and year** so that **I can find movies that fit my criteria**.
-
-=======
 -----------
 
 ## MVP
@@ -24,7 +7,6 @@
 
 - As a **User**, I want to **be able to filter movie results by genre and year** so that **I can find movies that fit my criteria**.
 
->>>>>>> 39908d10b846a74c912b51e208514b37ebe2d7d3
 - As a **User**, I want to **be able to save my liked movies to a watch list** so that **I can view them whenever I want**.
 
 - As a **User**, I want to **store my watch list** so that **I can look at my watch list whenever I want**.
