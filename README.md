@@ -2,9 +2,9 @@
 
 ## Movie Directory App
 
-## Purpose 
-To create an app that allows the user to browse through a list of movies and create a watch list.
+## Purpose
 
+To create an app that allows the user to browse through a list of movies and create a watch list.
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -31,19 +31,11 @@ To create an app that allows the user to browse through a list of movies and cre
 
 ## 🏆 Team Goals
 
-
-
-
-
 ## ✅ Project Information
 
 An app that allows the user to browse through a list of movies and create custom watch lists.
 
 ### About
-
-
-
-
 
 ### MVP Definition
 
@@ -51,13 +43,7 @@ Users will be able to search through a library of movies and save movies to a pr
 
 #### Stretch Goals
 
-
-
-
 ### Tech Stack
-
-
-
 
 ### Design Mockup
 

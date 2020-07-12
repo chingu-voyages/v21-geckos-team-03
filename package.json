@@ -4,18 +4,27 @@
   "private": true,
   "devDependencies": {
     "concurrently": "4.1.0",
-    "react-scripts": "3.4.1"
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.7",
+    "prettier": "^2.0.5",
+    "prettier-eslint": "^9.0.1"
   },
   "dependencies": {
     "autoprefixer-stylus": "0.14.0",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
-    "firebase": "^7.15.5",
+    "firebase": "^7.16.0",
     "prop-types": "^15.6.0",
     "re-base": "4.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^4.2.2",
+    "react-scripts": "3.4.1",
     "react-transition-group": "^2.2.1",
     "serve": "^10.1.2",
     "styled-components": "^5.1.1",
@@ -30,7 +39,10 @@
     "eject": "react-scripts eject",
     "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
     "now-build": "npm run build && mv build dist",
-    "styles:watch": "npm run styles -- -w"
+    "styles:watch": "npm run styles -- -w",
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix . "
   },
   "resolutions": {
     "styled-components": "^5"

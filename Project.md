@@ -2,12 +2,11 @@
 
 ## Purpose
 
-This document is where all details related to scope, and development reside. 
+This document is where all details related to scope, and development reside.
 
 ## Backlog
 
-This section is where we'll document our User Stories, translate them into features and functionality, then break them down into tasks. 
-
+This section is where we'll document our User Stories, translate them into features and functionality, then break them down into tasks.
 
 ### Brian's User Stories
 
@@ -18,7 +17,6 @@ My User Stories will follow this pattern:
 This pattern is based on Michael Cohn on his website [Mountain Goat Software](https://www.mountaingoatsoftware.com/agile/user-stories).
 
 To see example User Stories, click [here](https://www.mountaingoatsoftware.com/uploads/documents/example-user-stories.pdf).
-
 
 - As a <span style="color: #24D6D3">**User**</span>, I want to <span style="color: #D63AB1">**store my watch list**</span> so that <span style="color: #D6B50F">**I can look at my watch list whenever I want.**</span>
 
