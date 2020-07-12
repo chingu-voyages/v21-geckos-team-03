@@ -12,7 +12,7 @@ This section is where we'll document our User Stories, translate them into featu
 
 My User Stories will follow this pattern:
 
-*As a < type of user >, I want < to achieve a specific goal > so that < a desired outcome is attained >.*
+_As a < type of user >, I want < to achieve a specific goal > so that < a desired outcome is attained >._
 
 This pattern is based on Michael Cohn on his website [Mountain Goat Software](https://www.mountaingoatsoftware.com/agile/user-stories).
 
@@ -31,9 +31,3 @@ To see example User Stories, click [here](https://www.mountaingoatsoftware.com/u
 - As a <span style="color: #24D6D3">**User**</span>, I want to <span style="color: #D63AB1">**tag my movies**</span> so that <span style="color: #D6B50F">**I can search movies based on their genre and the main actors in them.**</span>
 
 - As a <span style="color: #24D6D3">**User**</span>, I want to <span style="color: #D63AB1">**be able to switch between light and dark themes**</span> so that <span style="color: #D6B50F">**I can comfortably see my movies under most lighting conditions.**</span>
-
-
-
-
-
-
