@@ -1,19 +1,10 @@
-# v21-geckos-team-03
-
-## Movie Directory App
-
-## Purpose
-
-To create an app that allows the user to browse through a list of movies and create a watch list.
+# v21-geckos-team-03 <!-- omit in toc -->
 
 ## Table of Contents <!-- omit in toc -->
 
-- [🏆 Team Goals](#-team-goals)
 - [✅ Project Information](#-project-information)
   - [About](#about)
   - [MVP Definition](#mvp-definition)
-  - [Included Functions & Features](#included-functions--features)
-  - [User Stories](./user_stories)
   - [Tech Stack](#tech-stack)
   - [Design Mockup](#design-mockup)
 - [🔀 Git Strategy](#-git-strategy)
@@ -25,29 +16,28 @@ To create an app that allows the user to browse through a list of movies and cre
   - [Commit Messages](#commit-messages)
   - [Pushing Changes](#pushing-changes)
 - [💅 Code Style Guide](#-code-style-guide)
-  - [HTML formatting and style rules](#html-formatting-and-style-rules)
-  - [CSS formatting and style rules](#css-formatting-and-style-rules)
-  - [JavaScript formatting and style rules](#javascript-formatting-and-style-rules)
-
-## 🏆 Team Goals
+  - [Formatting related scripts](#formatting-related-scripts)
+  - [Pre-commit style check](#pre-commit-style-check)
 
 ## ✅ Project Information
 
-An app that allows the user to browse through a list of movies and create custom watch lists.
-
 ### About
+
+An app that allows the user to browse through a list of movies and create custom watch lists.
 
 ### MVP Definition
 
 Users will be able to search through a library of movies and save movies to a private watch list.
 
-#### Stretch Goals
-
 ### Tech Stack
+
+- React
+- Firebase (auth, database, hosting)
+- Styled Components
 
 ### Design Mockup
 
-Wireframes for the project can be viewed on [Sketch Cloud](#).
+Wireframes for the project can be viewed on [Sketch Cloud](https://www.sketch.com/s/7a10fe15-79a3-4bad-ac7c-a94f32a47494).
 
 ## 🔀 Git Strategy
 
@@ -119,8 +109,7 @@ A three-level hierarchy of branches is used, through which changes are promoted.
 
    - Install Babel plugin
    - Install Prettier plugin
-   - In VS Code global settings, make sure "auto format on save" is checked on.
-   - In Prettier plugin settings, turn on single quote and semi colons.
+   - Install ESLint plugin
 
 6. Start the development server
 
@@ -134,31 +123,18 @@ A three-level hierarchy of branches is used, through which changes are promoted.
 
 All normal development activities occur on team members' individual computers. Commits should be frequent and each commit should have a discrete, atomic purpose.
 
-A commit messages consists of three distinct parts separated by a blank line:
-
-- Title
-- Body (optional)
-- Footer (optional)
-
 The layout looks like this:
 
 ```text
 type: subject
-
-body
-
-footer
 ```
 
-- The title consists of the type of the message and subject.
+- The type is contained within the title and should be consistent with the working branches' type e.g **feature**, **bug** etc.
 
-  - The type is contained within the title and should be consistent with the working branches' type e.g **feature**, **bug** etc.
-
-  - Subjects should be no greater than 50 characters, should begin with a capital letter and do not end with a period. Use an imperative tone to describe what a commit does, rather than what it did. For example, use change; not changed or changes.
+- Subjects should be no greater than 50 characters, should begin with a capital letter and do not end with a period. Use an imperative tone to describe what a commit does, rather than what it did. For example, use change; not changed or changes.
 
   ```text
   feat: Summarize changes in around 50 characters or less
-
   ```
 
 ### Pushing Changes
@@ -186,25 +162,18 @@ footer
 
 ## 💅 Code Style Guide
 
-The following rules are enforced:
-
-### HTML formatting and style rules
-
-- HTML5 semantic tags such as `<header>`, `<footer>`, `<article>`, `<section>1`, etc. are used to add meaning to the code.
-- No div or section selectors are without a CSS class or id.
-- All code is lowercase
-- The code does not have trailing white spaces.
-- Indentation is consistent (2 spaces).
-- Code uses a new line for every block, list or table element and indent every such child element (it is acceptable to put all elements in one line).
-- When quoting attribute values, code uses consistent "double" quotation marks.
-- HTML documents HTML5 `<!doctype html>`
-- Code omits type attributes for style sheets and scripts.
-- Code does not use entity references unless necessary e.g. characters with special meaning (like < and &) as well as control or 'invisible' characters (like no-break spaces).
-
-### CSS formatting and style rules
-
-- CSS is organized using BEM methodology. See this [link](https://cssguidelin.es/#bem-like-naming) for specific rules.
-
-### JavaScript formatting and style rules
-
 This project uses a Prettier configuration file for code style and follows the [Airbnb Style Guide](https://github.com/airbnb/javascript) for Javascript formatting.
+
+### Formatting related scripts
+
+ ```text
+  npm run format // formats with Prettier
+  npm run lint // lints with ESLint
+  npm run lint:fix // lints and attempts to fix automatically
+  ```
+
+### Pre-commit style check
+  
+  To prevent unformatted code from being checked in to source control a Husky hook will ```npm run format``` and ```npm run lint:fix``` after entering a commit message.  Any errors found will need to be resolved before the commit will be accepted.
+
+ **Note**: thanks to the lint-staged package (and accompanying script), only changes that are staged in your current commit are checked against formatting and linting rules. This is so no ones commit is blocked for unformatted code you didn't write that may have slipped past linters in prior commits.
