@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-const */
 let watchList = {};
 
 let getList = (listName) => {
@@ -11,7 +13,7 @@ let setList = (listName, list) => {
 };
 
 let addToList = (movie, listName) => {
-  //adds a movie to a list
+  // adds a movie to a list
   let list = getList(listName);
   if (!list[movie]) {
     list[movie] = movie;
