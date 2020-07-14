@@ -5,6 +5,10 @@
 - [✅ Project Information](#-project-information)
   - [About](#about)
   - [MVP Definition](#mvp-definition)
+  - [User Stories](#user-stories)
+    - [MVP](#mvp)
+    - [Mid-tier](#mid-tier)
+    - [Stretch](#stretch)
   - [Tech Stack](#tech-stack)
   - [Design Mockup](#design-mockup)
 - [🔀 Git Strategy](#-git-strategy)
@@ -28,6 +32,40 @@ An app that allows the user to browse through a list of movies and create custom
 ### MVP Definition
 
 Users will be able to search through a library of movies and save movies to a private watch list.
+
+### User Stories
+
+#### MVP
+
+- [ ] As **User**, I want to **be able to search for movies and get back the results**.
+
+- [ ] As a **User**, I want to **be able to filter movie results by genre and year** so that **I can find movies that fit my criteria**.
+
+- [ ] As a **User**, I want to **be able to save my liked movies to a watch list** so that **I can view them whenever I want**.
+
+- [ ] As a **User**, I want to **store my watch list** so that **I can look at my watch list whenever I want**.
+
+- [ ] As a **User**, I want to **remove movies from my watch list** so that **I can keep my watch list relevant**.
+
+- [ ] As a **User**, I want to **be able to add movies to my list while searching** so that **I don't have to leave the page/stop scrolling through options**.
+
+#### Mid-tier
+
+- [ ] As a **User**, I want to **tag my movies** so that **I can search movies based on their genre and the main actors in them**.
+
+- [ ] As a **User**, I want to **rate the movies I save** so that **I can filter movies by my own ratings**.
+
+- [ ] As a **User**, I want to **be able to see reviews on a movie** so that **I can get a better understanding of the movie before watching it my self**.
+
+- [ ] As a **User**, I want to **be able to create my own lists with their own names** so that **I can customize my movie organization. (Eg, 'to watch' and 'sci-fi movie night' and 'sad foreign films for when i'm feeling ennui')**
+
+#### Stretch
+
+- [ ] As a **User**, I want to be able to watch the trailer of the movie so i can see determine if its a movie i would invest my time into watching.
+
+- [ ] As a **User**, I want to **be able to choose 'stay logged in'** so that **I can access my account easily on my own computer or be logged out on someone elses**.
+
+- [ ] As a **User**, I want to **be able to switch between light and dark themes** so that **I can comfortably see my movies under most lighting conditions**.
 
 ### Tech Stack
 
@@ -166,14 +204,14 @@ This project uses a Prettier configuration file for code style and follows the [
 
 ### Formatting related scripts
 
- ```text
-  npm run format // formats with Prettier
-  npm run lint // lints with ESLint
-  npm run lint:fix // lints and attempts to fix automatically
-  ```
+```text
+ npm run format // formats with Prettier
+ npm run lint // lints with ESLint
+ npm run lint:fix // lints and attempts to fix automatically
+```
 
 ### Pre-commit style check
-  
-  To prevent unformatted code from being checked in to source control a Husky hook will ```npm run format``` and ```npm run lint:fix``` after entering a commit message.  Any errors found will need to be resolved before the commit will be accepted.
 
- **Note**: thanks to the lint-staged package (and accompanying script), only changes that are staged in your current commit are checked against formatting and linting rules. This is so no ones commit is blocked for unformatted code you didn't write that may have slipped past linters in prior commits.
+To prevent unformatted code from being checked in to source control a Husky hook will `npm run format` and `npm run lint:fix` after entering a commit message. Any errors found will need to be resolved before the commit will be accepted.
+
+**Note**: thanks to the lint-staged package (and accompanying script), only changes that are staged in your current commit are checked against formatting and linting rules. This is so no ones commit is blocked for unformatted code you didn't write that may have slipped past linters in prior commits.
