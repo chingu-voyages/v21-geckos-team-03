@@ -2,12 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   :root {
-    --limegreen: hsl(163, 72%, 41%);
-    --brightred: hsl(356, 69%, 56%);
-    --facebook: hsl(208, 92%, 53%);
-    --twitter: hsl(203, 89%, 53%);
-    --instagram: linear-gradient(to right,hsl(37, 97%, 70%), hsl(329, 70%, 58%));
-    --youtube: hsl(348, 97%, 39%);
     --auto-grid-min-size: 27rem;
     --shadow-hover: 0 8px 20px -15px rgba(0, 0, 0, 0.2);
   }
