@@ -1,5 +1,5 @@
 {
-  "name": "geckos",
+  "name": "v21-geckos-team-03",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,6 +21,19 @@
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
     "lint": "eslint .",
     "lint:fix": "eslint --fix . "
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint . --fix"
+    ],
+    "*.+(json|css|md)": [
+      "prettier --write"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
