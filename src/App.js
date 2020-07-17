@@ -1,13 +1,18 @@
 import React from 'react';
-import './App.css';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyles, darkTheme } from './style';
+import Layout from './components/Layout';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello Word. This is my push</h1>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <Layout>
+        <header className="App-header">
+          <h1>Hello Word. This is my push</h1>
+        </header>
+      </Layout>
+      <GlobalStyles />
+    </ThemeProvider>
   );
 }
 
