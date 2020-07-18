@@ -4,14 +4,12 @@ import Navbar from '../NavBar';
 
 import { StyledMainContainer } from './styles';
 
-const Layout = ({ children }) => {
-  return (
-    <>
-      <Navbar />
-      <StyledMainContainer>{children}</StyledMainContainer>
-    </>
-  );
-};
+const Layout = ({ children }) => (
+  <>
+    <Navbar />
+    <StyledMainContainer>{children}</StyledMainContainer>
+  </>
+);
 
 export default Layout;
 

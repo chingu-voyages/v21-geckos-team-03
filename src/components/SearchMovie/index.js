@@ -42,9 +42,9 @@ function SearchMovies() {
       <div className="cardList">
         {movies
           .filter((movie) => movie.poster_path)
-          .map(function (movie) {
-            return <MovieCard movie={movie} key={movie.id} />;
-          })}
+          .map((movie) => (
+            <MovieCard movie={movie} key={movie.id} />
+          ))}
       </div>
     </>
   );

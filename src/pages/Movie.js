@@ -1,9 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
-const Movie = (props) => {
-  return <div>Movie Page</div>;
-};
+const Movie = (props) => <div>Movie Page</div>;
 
 Movie.propTypes = {};
 
