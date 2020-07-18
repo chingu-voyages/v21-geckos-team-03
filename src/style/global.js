@@ -3,7 +3,11 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
   :root {
     --auto-grid-min-size: 27rem;
+    --border-radius: 8px;
     --shadow-hover: 0 8px 20px -15px rgba(0, 0, 0, 0.2);
+    --shadow-high: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
+	  --shadow-low: 0 10px 30px -15px rgba(0, 0, 0, 0.2);
+    --transition-main: all 0.2s ease-in-out;
   }
 
   *,
@@ -20,7 +24,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html {
-	font-size: 62.5%; // 1rem = 10px
+    font-size: 62.5%; // 1rem = 10px
   }
 
   body {
@@ -46,6 +50,17 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     color: ${({ theme }) => theme.textPrimary};
     display: inline-block;
+  }
+
+  button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 0;
+    transition: var(--transition-main);
+    &:focus,
+    &:active {
+      outline: 0;
+    }
   }
 `;
 
