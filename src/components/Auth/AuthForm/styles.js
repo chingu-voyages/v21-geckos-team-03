@@ -25,6 +25,13 @@ export const UserFormStyles = styled.div`
   border-radius: var(--border-radius);
   box-shadow: var(shadow-low);
 
+  .error-text {
+    margin: 0.25em 0 0.5em 0;
+    padding: 0;
+    color: red;
+    font-style: bold;
+  }
+
   form {
     background-color: transparent;
     text-align: center;
@@ -49,6 +56,11 @@ export const UserFormStyles = styled.div`
       font-size: 1.6rem;
       font-weight: 400;
       text-align: center;
+
+      .error-input {
+        border: 2px solid red;
+        border-radius: 4px;
+      }
     }
     button {
       background-image: ${({ theme }) => theme.gradient};

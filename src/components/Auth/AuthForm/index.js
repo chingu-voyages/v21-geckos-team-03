@@ -19,6 +19,7 @@ const AuthForm = () => {
   const {
     errors,
     handleChange,
+    handleBlur,
     handleSubmit,
     isSubmitting,
     values,
@@ -53,6 +54,7 @@ const AuthForm = () => {
         )}
         <input
           onChange={handleChange}
+          onBlur={handleBlur}
           value={values.email}
           name="email"
           type="email"
