@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import useFormValidation from '../../../hooks/useFormValidation';
 import validateLogin from '../../../utils';
+import firebase from '../../../firebase';
 
 import { FlexContainer, UserFormStyles } from './styles';
 
@@ -12,14 +13,29 @@ const INITIAL_STATE = {
 };
 
 const AuthForm = () => {
+  const history = useHistory();
+  const [firebaseError, setFirebaseError] = useState(null);
+  const [login, setLogin] = useState(true);
   const {
     errors,
     handleChange,
     handleSubmit,
     isSubmitting,
     values,
-  } = useFormValidation(INITIAL_STATE, validateLogin);
-  const [login, setLogin] = useState(true);
+  } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
+
+  async function authenticateUser() {
+    const { name, email, password } = values;
+    try {
+      login
+        ? await firebase.login(email, password)
+        : await firebase.register(name, email, password);
+      history.push('/');
+    } catch (error) {
+      console.error('Authentication Error', error);
+      setFirebaseError(error.message);
+    }
+  }
 
   return (
     <UserFormStyles>
@@ -54,6 +70,7 @@ const AuthForm = () => {
           placeholder="Choose a secure password"
         />
         {errors.password && <p className="error-text">{errors.password}</p>}
+        {firebaseError && <p className="error-text">{firebaseError}</p>}
 
         <FlexContainer column>
           <button type="submit" disabled={isSubmitting}>

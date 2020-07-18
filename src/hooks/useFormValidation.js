@@ -9,7 +9,7 @@ function useFormValidation(initialState, validate, authenticate) {
     if (isSubmitting) {
       const noErrors = Object.keys(errors).length === 0;
       if (noErrors) {
-        // authenticate();
+        authenticate();
         console.log('authenticated', values);
         setSubmitting(false);
       } else {
@@ -37,6 +37,7 @@ function useFormValidation(initialState, validate, authenticate) {
     setErrors(validationErrors);
     setSubmitting(true);
   }
+
   return {
     errors,
     handleChange,
