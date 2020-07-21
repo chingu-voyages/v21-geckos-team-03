@@ -5,7 +5,7 @@ import { StyledNavbar } from './styles';
 
 function NavBar() {
   const { user, firebase } = useContext(FirebaseContext);
-
+  console.log(user);
   return (
     <StyledNavbar>
       <NavLink to="/">Movie Search</NavLink>

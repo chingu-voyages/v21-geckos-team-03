@@ -35,6 +35,9 @@ class Firebase {
         console.log('error creating user', error.message);
       }
     }
+    return user.updateProfile({
+      displayName: name,
+    });
   }
 
   async login(email, password) {

@@ -1,7 +1,11 @@
 import React from 'react';
+import CreateList from '../components/CreateList';
+
 // import PropTypes from 'prop-types';
 
-const UserLists = (props) => <div>user lists page</div>;
+const UserLists = (props) => {
+  return <CreateList />;
+};
 
 UserLists.propTypes = {};
 
