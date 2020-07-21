@@ -17,6 +17,12 @@ class Firebase {
       email,
       password
     );
+    // this is the method that needs to be replace updateProfile
+    // createUserProfileDocument
+    // if (!newUser) return
+    // get userRef of uid
+    // take snapshot
+    // if snapshot doesn't exist create new one...
     return await newUser.user.updateProfile({
       displayName: name,
     });
