@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import firebase, { FirebaseContext } from './firebase';
 import { GlobalStyles, darkTheme } from './style';
-import { Forgot, Home, Login, Movie, UserLists } from './pages';
+import { Forgot, Home, Login, Movie, UserLists, CreateList } from './pages';
 import Layout from './components/Layout';
 import useAuth from './hooks/useAuth';
 
@@ -22,6 +22,7 @@ function App() {
               <Route path="/login" component={Login} />
               <Route path="/lists" component={UserLists} />
               <Route path="/forgot" component={Forgot} />
+              <Route path="/create-list" component={CreateList} />
               <Route render={() => <h1>404</h1>} />
             </Switch>
           </Layout>
