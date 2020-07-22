@@ -10,7 +10,7 @@ class CreateListForm extends React.Component {
   }
 
   handleChange(event) {
-    return this.setState({value: event.target.value});
+    return this.setState({ value: event.target.value });
   }
 
   handleSubmit(event) {
@@ -41,11 +41,13 @@ class CreateListForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label>
+          <label htmlFor="input-list-name">
             List Name:
             <input
               type="text"
-              value={this.state.value}
+              name="input-list-name"
+              id="input-list-name"
+              value=""
               onChange={this.handleChange}
             />
             <input type="submit" value="Submit" />
