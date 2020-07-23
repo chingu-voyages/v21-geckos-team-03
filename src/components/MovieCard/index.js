@@ -8,7 +8,9 @@ import {
   MenuGroup,
   MenuItem,
   MenuDivider,
+  Link,
 } from '@chakra-ui/core';
+import { NavLink } from 'react-router-dom';
 import { FirebaseContext } from '../../firebase';
 
 function MovieCard(props) {
@@ -68,7 +70,9 @@ function MovieCard(props) {
               {user ? (
                 <MenuItem> + New List</MenuItem>
               ) : (
-                <MenuItem>Log In/Sign Up</MenuItem>
+                <Link as={NavLink} to="/login">
+                  <MenuItem>Log In/Sign Up</MenuItem>
+                </Link>
               )}
             </MenuGroup>
           </MenuList>
