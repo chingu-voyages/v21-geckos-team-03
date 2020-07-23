@@ -1,8 +1,18 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import {
+  Menu,
+  Button,
+  MenuButton,
+  MenuList,
+  MenuGroup,
+  MenuItem,
+  MenuDivider,
+} from '@chakra-ui/core';
+import { FirebaseContext } from '../../firebase';
 
 function MovieCard(props) {
-  const [activeList, setActiveList] = useState([]);
+  const { user } = useContext(FirebaseContext);
   console.log(props);
   const { movie } = props;
 
@@ -15,23 +25,15 @@ function MovieCard(props) {
     console.log('generating lists for dropdown', userLists);
     const options = userLists.map((list) => {
       console.log(list);
-      return (
-        <option key={list.name} value={list.name}>
-          {list.name}
-        </option>
-      );
+      return <MenuItem key={list.name}>{list.name}</MenuItem>;
     });
     return options;
   };
 
-  const saveMovie = () => {
-    // firebase logic needs to go here
-    console.log('saving movie to list', movie, activeList);
-  };
-
-  const handleChange = (e) => {
-    setActiveList(e.target.value);
-  };
+  // const saveMovie = () => {
+  //   // firebase logic needs to go here
+  //   console.log('saving movie to list', movie);
+  // };
 
   return (
     <div className="card">
@@ -57,12 +59,20 @@ function MovieCard(props) {
         <p className="card--desc">{movie.overview}</p>
       </div>
       <div>
-        <select name="list" id="list" onChange={handleChange}>
-          {generateLists()}
-        </select>
-        <button type="submit" onClick={saveMovie}>
-          Save
-        </button>
+        <Menu>
+          <MenuButton as={Button}>Save to List</MenuButton>
+          <MenuList>
+            <MenuGroup title="Lists:">{generateLists()}</MenuGroup>
+            <MenuDivider />
+            <MenuGroup>
+              {user ? (
+                <MenuItem> + New List</MenuItem>
+              ) : (
+                <MenuItem>Log In/Sign Up</MenuItem>
+              )}
+            </MenuGroup>
+          </MenuList>
+        </Menu>
       </div>
     </div>
   );
