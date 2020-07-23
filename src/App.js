@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, CSSReset } from '@chakra-ui/core';
+import { customTheme } from './theme';
 import firebase, { FirebaseContext } from './firebase';
-import { GlobalStyles, darkTheme } from './style';
 import { Forgot, Home, Login, Movie, UserLists } from './pages';
 import Layout from './components/Layout';
 import useAuth from './hooks/useAuth';
@@ -13,7 +13,7 @@ function App() {
   const user = useAuth();
   return (
     <Router>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={customTheme}>
         <FirebaseContext.Provider value={{ user, firebase }}>
           <Layout>
             <Switch>
@@ -25,7 +25,7 @@ function App() {
               <Route render={() => <h1>404</h1>} />
             </Switch>
           </Layout>
-          <GlobalStyles />
+          <CSSReset />
         </FirebaseContext.Provider>
       </ThemeProvider>
     </Router>
