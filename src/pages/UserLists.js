@@ -18,7 +18,8 @@ const UserLists = (props) => {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              setLists((prev) => [...prev, doc.data()]);
+              // setLists((prev) => [...prev, doc.data()]);
+              setLists((prev) => [...prev, { [doc.id]: doc.data() }]);
             });
           });
       } catch (err) {
