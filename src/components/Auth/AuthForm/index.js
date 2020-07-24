@@ -1,10 +1,23 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import {
+  Flex,
+  Box,
+  Text,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanel,
+  TabPanels,
+  Input,
+  Button,
+  useColorMode,
+  Icon,
+} from '@chakra-ui/core';
 import useFormValidation from '../../../hooks/useFormValidation';
 import validateLogin from '../../../utils';
 import firebase from '../../../firebase';
-
-import { FlexContainer, UserFormStyles } from './styles';
 
 const INITIAL_STATE = {
   name: '',
@@ -24,6 +37,7 @@ const AuthForm = () => {
     isSubmitting,
     values,
   } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
+  const { colorMode, toggleColorMode } = useColorMode();
 
   async function authenticateUser() {
     const { name, email, password } = values;
@@ -39,57 +53,65 @@ const AuthForm = () => {
   }
 
   return (
-    <UserFormStyles>
-      <h2>{login ? 'Login' : 'Create account'}</h2>
-      <form onSubmit={handleSubmit}>
-        {!login && (
-          <input
-            onChange={handleChange}
-            value={values.name}
-            name="name"
-            type="text"
-            placeholder="Your name"
-            autoComplete="off"
-          />
-        )}
-        <input
-          onChange={handleChange}
-          onBlur={handleBlur}
-          value={values.email}
-          name="email"
-          type="email"
-          className={errors.email && 'error-input'}
-          placeholder="Your email"
-          autoComplete="off"
-        />
-        {errors.email && <p className="error-text">{errors.email}</p>}
-        <input
-          onChange={handleChange}
-          value={values.password}
-          name="password"
-          type="password"
-          className={errors.password && 'error-input'}
-          placeholder="Choose a secure password"
-        />
-        {errors.password && <p className="error-text">{errors.password}</p>}
-        {firebaseError && <p className="error-text">{firebaseError}</p>}
-
-        <FlexContainer column>
-          <button type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
-          <button
-            type="button"
-            onClick={() => setLogin((prevLogin) => !prevLogin)}
-          >
-            {login ? 'need to create an account?' : 'already have an account?'}
-          </button>
-        </FlexContainer>
-      </form>
-      <div>
-        <Link to="/forgot">Forgot Password?</Link>
-      </div>
-    </UserFormStyles>
+    <>
+      <Flex align="center" justify="center">
+        <Button
+          position="absolute"
+          top={1}
+          left={1}
+          rounded="50%"
+          onClick={() => toggleColorMode()}
+        >
+          <Icon name={colorMode === 'light' ? 'moon' : 'sun'} />
+        </Button>
+        <Box
+          p={5}
+          bg={colorMode === 'light' ? '#C8C8C8' : '#313641'}
+          rounded="20px"
+        >
+          <Flex align="center" justify="center" direction="column">
+            <Text fontSize="20px">Auth Form</Text>
+            <Tabs mt="15px">
+              <TabList>
+                <Tab w="50%">Login</Tab>
+                <Tab w="50%">Register</Tab>
+              </TabList>
+              <TabPanels mt={4}>
+                <TabPanel>
+                  <Flex align="center" justify="center" direction="column">
+                    <Input type="text" placeholder="Email" size="lg" />
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      size="lg"
+                      mt={5}
+                    />
+                    <Button mt={5} width="100%">
+                      Login
+                    </Button>
+                  </Flex>
+                </TabPanel>
+                <TabPanel>
+                  <Flex align="center" justify="center" direction="column">
+                    <Input type="text" placeholder="Username" size="lg" />
+                    <Input type="text" placeholder="Email" size="lg" mt={5} />
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      size="lg"
+                      mt={5}
+                    />
+                    <Button mt={5} width="100%">
+                      Register
+                    </Button>
+                  </Flex>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </Flex>
+        </Box>
+      </Flex>
+    </>
   );
 };
 

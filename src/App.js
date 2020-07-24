@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ThemeProvider, CSSReset } from '@chakra-ui/core';
+import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';
 import { customTheme } from './theme';
 import firebase, { FirebaseContext } from './firebase';
 import { Forgot, Home, Login, Movie, UserLists } from './pages';
@@ -14,19 +14,21 @@ function App() {
   return (
     <Router>
       <ThemeProvider theme={customTheme}>
-        <FirebaseContext.Provider value={{ user, firebase }}>
-          <Layout>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/movie/:id" component={Movie} />
-              <Route path="/login" component={Login} />
-              <Route path="/lists" component={UserLists} />
-              <Route path="/forgot" component={Forgot} />
-              <Route render={() => <h1>404</h1>} />
-            </Switch>
-          </Layout>
-          <CSSReset />
-        </FirebaseContext.Provider>
+        <ColorModeProvider>
+          <FirebaseContext.Provider value={{ user, firebase }}>
+            <Layout>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/movie/:id" component={Movie} />
+                <Route path="/login" component={Login} />
+                <Route path="/lists" component={UserLists} />
+                <Route path="/forgot" component={Forgot} />
+                <Route render={() => <h1>404</h1>} />
+              </Switch>
+            </Layout>
+            <CSSReset />
+          </FirebaseContext.Provider>
+        </ColorModeProvider>
       </ThemeProvider>
     </Router>
   );

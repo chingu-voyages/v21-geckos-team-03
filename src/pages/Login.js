@@ -1,13 +1,11 @@
 import React from 'react';
+import { Flex } from '@chakra-ui/core';
 import AuthForm from '../components/Auth/AuthForm';
-// import PropTypes from 'prop-types';
 
-const Login = (props) => (
-  <div>
+const Login = () => (
+  <Flex justify="center" align="center" mt="20%" p={3}>
     <AuthForm />
-  </div>
+  </Flex>
 );
-
-Login.propTypes = {};
 
 export default Login;
