@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -28,6 +28,12 @@ function NavBar() {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
   const { colorMode, toggleColorMode } = useColorMode();
+  const history = useHistory();
+
+  function handleLogout() {
+    firebase.logout();
+    history.push('/login');
+  }
 
   return (
     <Flex
@@ -91,7 +97,7 @@ function NavBar() {
               size="sm"
               bg="transparent"
               border="1px"
-              onClick={() => firebase.logout()}
+              onClick={handleLogout}
             >
               Logout
             </Button>
