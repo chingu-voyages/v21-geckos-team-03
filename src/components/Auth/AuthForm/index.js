@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -13,7 +12,8 @@ import {
   Input,
   Button,
   useColorMode,
-  Icon,
+  FormErrorMessage,
+  FormControl,
 } from '@chakra-ui/core';
 import useFormValidation from '../../../hooks/useFormValidation';
 import validateLogin from '../../../utils';
@@ -37,7 +37,7 @@ const AuthForm = () => {
     isSubmitting,
     values,
   } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
 
   async function authenticateUser() {
     const { name, email, password } = values;
@@ -54,48 +54,123 @@ const AuthForm = () => {
 
   return (
     <>
-      <Flex align="center" justify="center">
+      <Flex
+        align="center"
+        justify="center"
+        height="auto"
+        mx={0}
+        maxWidth="600px"
+      >
         <Box
-          p={5}
+          py={10}
+          px={6}
           bg={colorMode === 'light' ? '#C8C8C8' : '#313641'}
           rounded="20px"
         >
           <Flex align="center" justify="center" direction="column">
-            <Text fontSize="20px">Auth Form</Text>
-            <Tabs mt="15px">
+            <Text fontSize="md">{login ? 'Login' : 'Create account'}</Text>
+            <Tabs mt={4} isFitted>
               <TabList>
-                <Tab w="50%">Login</Tab>
-                <Tab w="50%">Register</Tab>
+                <Tab onClick={() => setLogin(true)}>Login</Tab>
+                <Tab onClick={() => setLogin(false)}>Register</Tab>
               </TabList>
               <TabPanels mt={4}>
                 <TabPanel>
-                  <Flex align="center" justify="center" direction="column">
-                    <Input type="text" placeholder="Email" size="lg" />
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      size="lg"
-                      mt={5}
-                    />
-                    <Button mt={5} width="100%">
-                      Login
-                    </Button>
-                  </Flex>
+                  {/* Login */}
+                  <form onSubmit={handleSubmit}>
+                    <Flex align="center" justify="center" direction="column">
+                      <FormControl isInvalid={errors.email}>
+                        <Input
+                          value={values.email}
+                          type="email"
+                          name="email"
+                          placeholder="Email"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          size="lg"
+                          mt={5}
+                          width="100%"
+                        />
+                        <FormErrorMessage maxWidth="200px">
+                          {errors.email}
+                        </FormErrorMessage>
+                      </FormControl>
+                      <FormControl isInvalid={errors.password}>
+                        <Input
+                          value={values.password}
+                          type="password"
+                          name="password"
+                          placeholder="Password"
+                          onChange={handleChange}
+                          size="lg"
+                          mt={5}
+                        />
+                        <FormErrorMessage>{errors.password}</FormErrorMessage>
+                      </FormControl>
+                      <Button
+                        type="submit"
+                        mt={5}
+                        width="100%"
+                        bg="primary"
+                        disabled={isSubmitting}
+                      >
+                        Login
+                      </Button>
+                      <FormControl isInvalid={firebaseError}>
+                        <FormErrorMessage maxWidth="220px">
+                          {firebaseError}
+                        </FormErrorMessage>
+                      </FormControl>
+                    </Flex>
+                  </form>
                 </TabPanel>
                 <TabPanel>
-                  <Flex align="center" justify="center" direction="column">
-                    <Input type="text" placeholder="Username" size="lg" />
-                    <Input type="text" placeholder="Email" size="lg" mt={5} />
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      size="lg"
-                      mt={5}
-                    />
-                    <Button mt={5} width="100%">
-                      Register
-                    </Button>
-                  </Flex>
+                  {/* Register */}
+                  <form onSubmit={handleSubmit}>
+                    <Flex align="center" justify="center" direction="column">
+                      <Input
+                        value={values.name}
+                        type="text"
+                        name="name"
+                        placeholder="Your name"
+                        onChange={handleChange}
+                        size="lg"
+                      />
+                      <Input
+                        value={values.email}
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        isInvalid={errors.email}
+                        size="lg"
+                        mt={5}
+                      />
+                      <FormErrorMessage>{errors.email}</FormErrorMessage>
+                      <Input
+                        value={values.password}
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        onChange={handleChange}
+                        size="lg"
+                        mt={5}
+                      />
+                      <FormErrorMessage>{errors.password}</FormErrorMessage>
+
+                      <Button
+                        type="submit"
+                        mt={5}
+                        width="100%"
+                        variant="outline"
+                        borderColor="primary"
+                        disabled={isSubmitting}
+                      >
+                        Register
+                      </Button>
+                    </Flex>
+                  </form>
                 </TabPanel>
               </TabPanels>
             </Tabs>

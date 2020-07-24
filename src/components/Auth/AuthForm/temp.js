@@ -4,8 +4,6 @@ import useFormValidation from '../../../hooks/useFormValidation';
 import validateLogin from '../../../utils';
 import firebase from '../../../firebase';
 
-import { FlexContainer, UserFormStyles } from './styles';
-
 const INITIAL_STATE = {
   name: '',
   email: '',
@@ -39,7 +37,7 @@ const AuthForm = () => {
   }
 
   return (
-    <UserFormStyles>
+    <div>
       <h2>{login ? 'Login' : 'Create account'}</h2>
       <form onSubmit={handleSubmit}>
         {!login && (
@@ -74,7 +72,7 @@ const AuthForm = () => {
         {errors.password && <p className="error-text">{errors.password}</p>}
         {firebaseError && <p className="error-text">{firebaseError}</p>}
 
-        <FlexContainer column>
+        <div column>
           <button type="submit" disabled={isSubmitting}>
             Submit
           </button>
@@ -84,12 +82,12 @@ const AuthForm = () => {
           >
             {login ? 'need to create an account?' : 'already have an account?'}
           </button>
-        </FlexContainer>
+        </div>
       </form>
       <div>
         <Link to="/forgot">Forgot Password?</Link>
       </div>
-    </UserFormStyles>
+    </div>
   );
 };
 
