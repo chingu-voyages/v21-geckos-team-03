@@ -13,9 +13,9 @@ function App() {
   const user = useAuth();
   return (
     <Router>
-      <ThemeProvider theme={customTheme}>
-        <ColorModeProvider>
-          <FirebaseContext.Provider value={{ user, firebase }}>
+      <FirebaseContext.Provider value={{ user, firebase }}>
+        <ThemeProvider theme={customTheme}>
+          <ColorModeProvider>
             <Layout>
               <Switch>
                 <Route exact path="/" component={Home} />
@@ -27,9 +27,9 @@ function App() {
               </Switch>
             </Layout>
             <CSSReset />
-          </FirebaseContext.Provider>
-        </ColorModeProvider>
-      </ThemeProvider>
+          </ColorModeProvider>
+        </ThemeProvider>
+      </FirebaseContext.Provider>
     </Router>
   );
 }

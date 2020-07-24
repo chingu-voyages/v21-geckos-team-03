@@ -1,7 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Box, Heading, Flex, Text, Button, Link } from '@chakra-ui/core';
+import {
+  Box,
+  Heading,
+  Flex,
+  Text,
+  Button,
+  Link,
+  Icon,
+  useColorMode,
+} from '@chakra-ui/core';
 import { FirebaseContext } from '../../firebase';
 
 const MenuItems = ({ children }) => (
@@ -18,6 +27,7 @@ function NavBar() {
   const { user, firebase } = useContext(FirebaseContext);
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow(!show);
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Flex
@@ -26,10 +36,14 @@ function NavBar() {
       justify="space-between"
       wrap="wrap"
       padding="1.5rem"
-      bg="teal.500"
-      color="white"
+      borderBottom="1px solid #C8C8C8"
     >
-      <Flex align="center" mr={5}>
+      <Flex align="center" justify="center" mr={5}>
+        <Box mr={5}>
+          <Button rounded="50%" onClick={() => toggleColorMode()}>
+            <Icon name={colorMode === 'light' ? 'moon' : 'sun'} />
+          </Button>
+        </Box>
         <Link as={NavLink} to="/">
           <Heading as="h1" size="lg">
             WatchList
@@ -39,7 +53,7 @@ function NavBar() {
 
       <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
         <svg
-          fill="white"
+          fill="#63b3ed"
           width="12px"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"

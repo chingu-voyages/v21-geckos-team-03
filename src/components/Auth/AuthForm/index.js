@@ -55,15 +55,6 @@ const AuthForm = () => {
   return (
     <>
       <Flex align="center" justify="center">
-        <Button
-          position="absolute"
-          top={1}
-          left={1}
-          rounded="50%"
-          onClick={() => toggleColorMode()}
-        >
-          <Icon name={colorMode === 'light' ? 'moon' : 'sun'} />
-        </Button>
         <Box
           p={5}
           bg={colorMode === 'light' ? '#C8C8C8' : '#313641'}
