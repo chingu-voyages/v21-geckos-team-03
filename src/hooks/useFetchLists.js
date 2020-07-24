@@ -14,10 +14,11 @@ function useFetchLists() {
           .collection('lists')
           .get()
           .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              // setLists((prev) => [...prev, doc.data()]);
-              setLists((prev) => [...prev, { [doc.id]: doc.data() }]);
-            });
+            const fetchedLists = querySnapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+            setLists(fetchedLists);
           });
       } catch (err) {
         console.log(err.message);

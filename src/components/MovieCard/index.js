@@ -15,7 +15,7 @@ import { FirebaseContext } from '../../firebase';
 
 function MovieCard(props) {
   const { user } = useContext(FirebaseContext);
-  console.log(props);
+  console.log('movieCard props: ', props);
   const { movie, userLists } = props;
 
   const saveMovie = (list) => {
@@ -24,20 +24,24 @@ function MovieCard(props) {
   };
 
   const generateLists = () => {
+    // generates list names for the dropdown
     if (!userLists) {
       return [];
     }
+    let i = 0;
     const options = userLists.map((list) => {
-      console.log('list:', list);
+      i += 1;
       return (
-        <MenuItem key={list.title} onClick={saveMovie('listName')}>
+        <MenuItem
+          key={`${i}-${list.title}`}
+          onClick={() => saveMovie('listName')}
+        >
           {list.title}
         </MenuItem>
       );
     });
     return options;
   };
-
   return (
     <div className="card">
       <img

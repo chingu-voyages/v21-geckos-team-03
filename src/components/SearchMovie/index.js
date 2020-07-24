@@ -25,6 +25,7 @@ function SearchMovies() {
       console.log('err');
     }
   };
+
   return (
     <>
       <form className="form" onSubmit={searchMovies}>
