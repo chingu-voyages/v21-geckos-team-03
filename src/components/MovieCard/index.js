@@ -12,14 +12,11 @@ import {
 } from '@chakra-ui/core';
 import { NavLink } from 'react-router-dom';
 import { FirebaseContext } from '../../firebase';
-import FetchLists from '../../hooks/FetchLists';
 
 function MovieCard(props) {
   const { user } = useContext(FirebaseContext);
   console.log(props);
-  const { movie } = props;
-
-  const userLists = FetchLists();
+  const { movie, userLists } = props;
 
   const saveMovie = (list) => {
     // firebase logic needs to go here

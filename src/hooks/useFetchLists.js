@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { FirebaseContext } from '../firebase';
 
-function FetchLists() {
+function useFetchLists() {
   const { user, firebase } = useContext(FirebaseContext);
   const [lists, setLists] = useState([]);
   console.log(lists);
@@ -28,4 +28,4 @@ function FetchLists() {
   return lists;
 }
 
-export default FetchLists;
+export default useFetchLists;
