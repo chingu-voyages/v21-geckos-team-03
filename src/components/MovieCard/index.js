@@ -14,12 +14,17 @@ import { NavLink } from 'react-router-dom';
 import { FirebaseContext } from '../../firebase';
 
 function MovieCard(props) {
-  const { user } = useContext(FirebaseContext);
+  const { user, firebase } = useContext(FirebaseContext);
   console.log('movieCard props: ', props);
   const { movie, userLists } = props;
 
   const saveMovie = (list) => {
-    // firebase logic needs to go here
+    firebase.db
+      .doc(`users/${user.uid}`)
+      .collection('lists')
+      .doc(list.id)
+      .collection('movies')
+      .add(movie);
     console.log('saving movie to list', movie, list);
   };
 
@@ -32,10 +37,7 @@ function MovieCard(props) {
     const options = userLists.map((list) => {
       i += 1;
       return (
-        <MenuItem
-          key={`${i}-${list.title}`}
-          onClick={() => saveMovie('listName')}
-        >
+        <MenuItem key={`${i}-${list.title}`} onClick={() => saveMovie(list)}>
           {list.title}
         </MenuItem>
       );
