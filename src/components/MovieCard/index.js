@@ -12,30 +12,34 @@ import {
 } from '@chakra-ui/core';
 import { NavLink } from 'react-router-dom';
 import { FirebaseContext } from '../../firebase';
+import FetchLists from '../../hooks/FetchLists';
 
 function MovieCard(props) {
   const { user } = useContext(FirebaseContext);
   console.log(props);
   const { movie } = props;
 
-  const userLists = [{ name: 'action movies' }, { name: 'movie night' }];
+  const userLists = FetchLists();
+
+  const saveMovie = (list) => {
+    // firebase logic needs to go here
+    console.log('saving movie to list', movie, list);
+  };
 
   const generateLists = () => {
     if (!userLists) {
       return [];
     }
-    console.log('generating lists for dropdown', userLists);
     const options = userLists.map((list) => {
-      console.log(list);
-      return <MenuItem key={list.name}>{list.name}</MenuItem>;
+      console.log('list:', list);
+      return (
+        <MenuItem key={list.title} onClick={saveMovie('listName')}>
+          {list.title}
+        </MenuItem>
+      );
     });
     return options;
   };
-
-  // const saveMovie = () => {
-  //   // firebase logic needs to go here
-  //   console.log('saving movie to list', movie);
-  // };
 
   return (
     <div className="card">
@@ -64,17 +68,21 @@ function MovieCard(props) {
         <Menu>
           <MenuButton as={Button}>Save to List</MenuButton>
           <MenuList>
-            <MenuGroup title="Lists:">{generateLists()}</MenuGroup>
-            <MenuDivider />
-            <MenuGroup>
-              {user ? (
+            {user ? (
+              <MenuGroup>
+                {generateLists()}
+                <MenuDivider />
                 <MenuItem> + New List</MenuItem>
-              ) : (
-                <Link as={NavLink} to="/login">
-                  <MenuItem>Log In/Sign Up</MenuItem>
-                </Link>
-              )}
-            </MenuGroup>
+              </MenuGroup>
+            ) : (
+              <>
+                <MenuGroup>
+                  <Link as={NavLink} to="/login">
+                    <MenuItem>Log In/Sign Up</MenuItem>
+                  </Link>
+                </MenuGroup>
+              </>
+            )}
           </MenuList>
         </Menu>
       </div>

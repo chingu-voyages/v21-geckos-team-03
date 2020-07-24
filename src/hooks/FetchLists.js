@@ -1,10 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
-import CreateList from '../components/CreateList';
+import { useState, useContext, useEffect } from 'react';
 import { FirebaseContext } from '../firebase';
 
-// import PropTypes from 'prop-types';
-
-const UserLists = (props) => {
+function FetchLists() {
   const { user, firebase } = useContext(FirebaseContext);
   const [lists, setLists] = useState([]);
   console.log(lists);
@@ -28,9 +25,7 @@ const UserLists = (props) => {
     }
   }, [user, firebase.db]);
 
-  return <CreateList />;
-};
+  return lists;
+}
 
-UserLists.propTypes = {};
-
-export default UserLists;
+export default FetchLists;
