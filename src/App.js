@@ -7,8 +7,6 @@ import { Forgot, Home, Login, Movie, UserLists } from './pages';
 import Layout from './components/Layout';
 import useAuth from './hooks/useAuth';
 
-// Thinking UserList should be a nested route, will come back to it.
-
 function App() {
   const user = useAuth();
   return (

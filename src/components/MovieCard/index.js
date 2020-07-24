@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
+/* 
+  Renders fetched single movie.  Props are passed in from API call in Search Movie Component
+*/
+
 function MovieCard(props) {
-  console.log(props);
   const { movie } = props;
   return (
     <div className="card">
