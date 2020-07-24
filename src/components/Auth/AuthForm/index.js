@@ -136,29 +136,31 @@ const AuthForm = () => {
                         onChange={handleChange}
                         size="lg"
                       />
-                      <Input
-                        value={values.email}
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        isInvalid={errors.email}
-                        size="lg"
-                        mt={5}
-                      />
-                      <FormErrorMessage>{errors.email}</FormErrorMessage>
-                      <Input
-                        value={values.password}
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        onChange={handleChange}
-                        size="lg"
-                        mt={5}
-                      />
-                      <FormErrorMessage>{errors.password}</FormErrorMessage>
-
+                      <FormControl isInvalid={errors.email}>
+                        <Input
+                          value={values.email}
+                          type="email"
+                          name="email"
+                          placeholder="Email"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          size="lg"
+                          mt={5}
+                        />
+                        <FormErrorMessage>{errors.email}</FormErrorMessage>
+                      </FormControl>
+                      <FormControl isInvalid={errors.password}>
+                        <Input
+                          value={values.password}
+                          type="password"
+                          name="password"
+                          placeholder="Password"
+                          onChange={handleChange}
+                          size="lg"
+                          mt={5}
+                        />
+                        <FormErrorMessage>{errors.password}</FormErrorMessage>
+                      </FormControl>
                       <Button
                         type="submit"
                         mt={5}
