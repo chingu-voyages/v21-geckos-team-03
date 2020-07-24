@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Box } from '@chakra-ui/core';
 import FirebaseContext from '../../firebase/context';
 
 const CreateList = () => {
@@ -23,9 +24,11 @@ const CreateList = () => {
     }
   };
   return (
-    <form onSubmit={handleCreateList}>
-      <button type="submit">Create New List</button>
-    </form>
+    <Box>
+      <form onSubmit={handleCreateList}>
+        <button type="submit">Create New List</button>
+      </form>
+    </Box>
   );
 };
 
