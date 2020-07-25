@@ -1,16 +1,15 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import useFetchLists from '../../hooks/useFetchLists';
 import MovieCard from '../MovieCard';
 
-// the portion of the page containing all the search results.
+// displays a list of movies passed in as props
 
 function Movies({ movies }) {
   const userLists = useFetchLists();
 
-  const generateResultCards = (results) => {
-    movies
+  const generateResultCards = () => {
+    return movies
       .filter((movie) => movie.poster_path)
       .map((movie) => (
         <MovieCard movie={movie} key={movie.id} userLists={userLists} />
@@ -20,7 +19,7 @@ function Movies({ movies }) {
 }
 
 Movies.propTypes = {
-  movies: PropTypes.node.isRequired,
+  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Movies;
