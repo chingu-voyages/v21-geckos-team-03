@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box } from '@chakra-ui/core';
+import { Button } from '@chakra-ui/core';
 import FirebaseContext from '../../firebase/context';
+import SimpleBox from '../SimpleBox/SimpleBox';
 
 const CreateList = () => {
   const { firebase, user } = useContext(FirebaseContext);
@@ -24,11 +25,13 @@ const CreateList = () => {
     }
   };
   return (
-    <Box>
+    <SimpleBox>
       <form onSubmit={handleCreateList}>
-        <button type="submit">Create New List</button>
+        <Button variantColor="green" type="submit">
+          Create New List
+        </Button>
       </form>
-    </Box>
+    </SimpleBox>
   );
 };
 

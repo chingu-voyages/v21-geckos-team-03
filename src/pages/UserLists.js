@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Divider } from '@chakra-ui/core';
+import { Divider } from '@chakra-ui/core';
 import CreateList from '../components/CreateList';
 import useFetchLists from '../hooks/useFetchLists';
+import SimpleBox from '../components/SimpleBox/SimpleBox';
 
 // page for viewing all of a user's lists
 
@@ -18,21 +19,20 @@ const UserLists = (props) => {
     const options = userLists.map((list) => {
       i += 1;
       return (
-        <Box key={`${i}-${list.title}`}>
+        <SimpleBox key={`${i}-${list.title}`}>
           {list.title}
           <Divider />
           {list.description}
-        </Box>
+        </SimpleBox>
       );
     });
     return options;
   };
   return (
-    <Box>
-      <CreateList />
+    <SimpleBox>
       {generateLists()}
       <CreateList />
-    </Box>
+    </SimpleBox>
   );
 };
 
