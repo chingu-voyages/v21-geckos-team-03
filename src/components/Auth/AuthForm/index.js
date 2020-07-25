@@ -19,6 +19,14 @@ import useFormValidation from '../../../hooks/useFormValidation';
 import validateLogin from '../../../utils';
 import firebase from '../../../firebase';
 
+/* 
+JSX rendered on the login page.
+Takes in user text input for both login and register Firebase functions.
+A single button toggles login state as true or false.  
+When true, onSubmit calls login to firebase auth
+When false register is called
+*/
+
 const INITIAL_STATE = {
   name: '',
   email: '',
@@ -39,6 +47,12 @@ const AuthForm = () => {
   } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
   const { colorMode } = useColorMode();
 
+  /* 
+    Passed into form validation hook above
+    Called with in the hook with handleSubmit if no errors in hook state
+    On submission, an auth state change is "heard"  in firebase's auth service.
+    New state is reported, set, and made available in the useAuth hook
+  */
   async function authenticateUser() {
     const { name, email, password } = values;
     try {
@@ -53,133 +67,125 @@ const AuthForm = () => {
   }
 
   return (
-    <>
-      <Flex
-        align="center"
-        justify="center"
-        height="auto"
-        mx={0}
-        maxWidth="600px"
+    <Flex align="center" justify="center" height="auto" mx={0} maxWidth="600px">
+      <Box
+        py={10}
+        px={6}
+        bg={colorMode === 'light' ? 'gray.100' : '#313641'}
+        rounded="20px"
       >
-        <Box
-          py={10}
-          px={6}
-          bg={colorMode === 'light' ? '#C8C8C8' : '#313641'}
-          rounded="20px"
-        >
-          <Flex align="center" justify="center" direction="column">
-            <Text fontSize="md">{login ? 'Login' : 'Create account'}</Text>
-            <Tabs mt={4} isFitted>
-              <TabList>
-                <Tab onClick={() => setLogin(true)}>Login</Tab>
-                <Tab onClick={() => setLogin(false)}>Register</Tab>
-              </TabList>
-              <TabPanels mt={4}>
-                <TabPanel>
-                  {/* Login */}
-                  <form onSubmit={handleSubmit}>
-                    <Flex align="center" justify="center" direction="column">
-                      <FormControl isInvalid={errors.email}>
-                        <Input
-                          value={values.email}
-                          type="email"
-                          name="email"
-                          placeholder="Email"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          size="lg"
-                          mt={5}
-                          width="100%"
-                        />
-                        <FormErrorMessage maxWidth="200px">
-                          {errors.email}
-                        </FormErrorMessage>
-                      </FormControl>
-                      <FormControl isInvalid={errors.password}>
-                        <Input
-                          value={values.password}
-                          type="password"
-                          name="password"
-                          placeholder="Password"
-                          onChange={handleChange}
-                          size="lg"
-                          mt={5}
-                        />
-                        <FormErrorMessage>{errors.password}</FormErrorMessage>
-                      </FormControl>
-                      <Button
-                        type="submit"
+        <Flex align="center" p={4} justify="center" direction="column">
+          <Text fontSize="md">{login ? 'Login' : 'Create account'}</Text>
+          <Tabs mt={4} isFitted>
+            <TabList>
+              <Tab onClick={() => setLogin(true)}>Login</Tab>
+              <Tab onClick={() => setLogin(false)}>Register</Tab>
+            </TabList>
+            <TabPanels mt={4}>
+              <TabPanel>
+                {/* Login */}
+                <form onSubmit={handleSubmit}>
+                  <Flex align="center" justify="center" direction="column">
+                    <FormControl isInvalid={errors.email}>
+                      <Input
+                        value={values.email}
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        size="lg"
                         mt={5}
                         width="100%"
-                        bg="primary"
-                        disabled={isSubmitting}
-                      >
-                        Login
-                      </Button>
-                      <FormControl isInvalid={firebaseError}>
-                        <FormErrorMessage maxWidth="220px">
-                          {firebaseError}
-                        </FormErrorMessage>
-                      </FormControl>
-                    </Flex>
-                  </form>
-                </TabPanel>
-                <TabPanel>
-                  {/* Register */}
-                  <form onSubmit={handleSubmit}>
-                    <Flex align="center" justify="center" direction="column">
+                      />
+                      <FormErrorMessage maxWidth="200px">
+                        {errors.email}
+                      </FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid={errors.password}>
                       <Input
-                        value={values.name}
-                        type="text"
-                        name="name"
-                        placeholder="Your name"
+                        value={values.password}
+                        type="password"
+                        name="password"
+                        placeholder="Password"
                         onChange={handleChange}
                         size="lg"
-                      />
-                      <FormControl isInvalid={errors.email}>
-                        <Input
-                          value={values.email}
-                          type="email"
-                          name="email"
-                          placeholder="Email"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          size="lg"
-                          mt={5}
-                        />
-                        <FormErrorMessage>{errors.email}</FormErrorMessage>
-                      </FormControl>
-                      <FormControl isInvalid={errors.password}>
-                        <Input
-                          value={values.password}
-                          type="password"
-                          name="password"
-                          placeholder="Password"
-                          onChange={handleChange}
-                          size="lg"
-                          mt={5}
-                        />
-                        <FormErrorMessage>{errors.password}</FormErrorMessage>
-                      </FormControl>
-                      <Button
-                        type="submit"
                         mt={5}
-                        width="100%"
-                        variant="outline"
-                        borderColor="primary"
-                        disabled={isSubmitting}
-                      >
-                        Register
-                      </Button>
-                    </Flex>
-                  </form>
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
-          </Flex>
-        </Box>
-      </Flex>
-    </>
+                      />
+                      <FormErrorMessage>{errors.password}</FormErrorMessage>
+                    </FormControl>
+                    <Button
+                      type="submit"
+                      mt={5}
+                      width="100%"
+                      bg="primary"
+                      disabled={isSubmitting}
+                    >
+                      Login
+                    </Button>
+                    <FormControl isInvalid={firebaseError}>
+                      <FormErrorMessage maxWidth="220px">
+                        {firebaseError}
+                      </FormErrorMessage>
+                    </FormControl>
+                  </Flex>
+                </form>
+              </TabPanel>
+              <TabPanel>
+                {/* Register */}
+                <form onSubmit={handleSubmit}>
+                  <Flex align="center" justify="center" direction="column">
+                    <Input
+                      value={values.name}
+                      type="text"
+                      name="name"
+                      placeholder="Your name"
+                      onChange={handleChange}
+                      size="lg"
+                    />
+                    <FormControl isInvalid={errors.email}>
+                      <Input
+                        value={values.email}
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        size="lg"
+                        mt={5}
+                      />
+                      <FormErrorMessage>{errors.email}</FormErrorMessage>
+                    </FormControl>
+                    <FormControl isInvalid={errors.password}>
+                      <Input
+                        value={values.password}
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        onChange={handleChange}
+                        size="lg"
+                        mt={5}
+                      />
+                      <FormErrorMessage>{errors.password}</FormErrorMessage>
+                    </FormControl>
+                    <Button
+                      type="submit"
+                      mt={5}
+                      width="100%"
+                      variant="outline"
+                      borderColor="primary"
+                      disabled={isSubmitting}
+                    >
+                      Register
+                    </Button>
+                  </Flex>
+                </form>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </Flex>
+      </Box>
+    </Flex>
   );
 };
 

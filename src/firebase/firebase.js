@@ -4,6 +4,12 @@ import 'firebase/firestore';
 
 import fireBaseConfig from './config';
 
+/* 
+  Initializes firebase authentication and firestore db in a class.  
+  Class also contains methods that contain firebase user auth functionality 
+  Entire class is exported and made available to the app via react context
+*/
+
 class Firebase {
   constructor() {
     app.initializeApp(fireBaseConfig);
@@ -36,6 +42,7 @@ class Firebase {
         console.log('error creating user', error.message);
       }
     }
+    // returns so newly created displayName name is passed into state for UI
     return user.updateProfile({
       displayName: name,
     });

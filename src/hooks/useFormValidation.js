@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react';
 
+/* 
+  Hook for both login and register auth handling.
+  Handles front end error validation
+  Takes in state object, a function for validating email and passwords,
+  and a function that calls register or login to 
+  firebase auth depending on user selected form 
+ */
+
 function useFormValidation(initialState, validate, authenticate) {
   const [values, setValues] = useState(initialState);
   const [errors, setErrors] = useState({});

@@ -2,11 +2,23 @@
 import React, { useState } from 'react';
 
 import MovieCard from '../MovieCard';
+import useFetchLists from '../../hooks/useFetchLists';
+
+/* 
+  Takes user input, queries API with input.  
+  Returns an array of movies and sets in state.
+  maps over state and passes in movies with a valid poster path via props to MovieCard component
+
+  wip: needs error handling and loading set
+*/
 
 function SearchMovies() {
   const [query, setQuery] = useState('');
   // create the state for movies, and update that state appropriate
   const [movies, setMovies] = useState([]);
+
+  const userLists = useFetchLists();
+
   const searchMovies = async function (e) {
     e.preventDefault();
     console.log('submit');
@@ -21,6 +33,7 @@ function SearchMovies() {
       console.log('err');
     }
   };
+
   return (
     <>
       <form className="form" onSubmit={searchMovies}>
@@ -43,7 +56,7 @@ function SearchMovies() {
         {movies
           .filter((movie) => movie.poster_path)
           .map((movie) => (
-            <MovieCard movie={movie} key={movie.id} />
+            <MovieCard movie={movie} key={movie.id} userLists={userLists} />
           ))}
       </div>
     </>

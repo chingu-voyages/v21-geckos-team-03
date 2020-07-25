@@ -13,6 +13,13 @@ import {
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../../firebase';
 
+/* 
+Primary navigation bar for the app.
+Responsive/mobile first
+Hides watchlist navlink  with no logged in user.  
+Says hello to logged in user's display name
+*/
+
 const MenuItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
     {children}
@@ -57,6 +64,7 @@ function NavBar() {
         </Link>
       </Flex>
 
+      {/* Mobile dropdown,shown until md breakpoint (768px) */}
       <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
         <svg
           fill="#63b3ed"
@@ -69,6 +77,7 @@ function NavBar() {
         </svg>
       </Box>
 
+      {/* Container for navlinks */}
       <Box
         display={{ sm: show ? 'block' : 'none', md: 'flex' }}
         width={{ sm: 'full', md: 'auto' }}
@@ -83,7 +92,7 @@ function NavBar() {
           </MenuItems>
         )}
       </Box>
-
+      {/* Container for auth button and user name */}
       <Box
         display={{ sm: show ? 'block' : 'none', md: 'block' }}
         mt={{ base: 4, md: 0 }}
