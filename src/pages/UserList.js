@@ -1,4 +1,5 @@
 import React from 'react';
+import Movies from '../components/Movies';
 // import PropTypes from 'prop-types';
 
 /* 
@@ -6,7 +7,10 @@ import React from 'react';
   Page for rendering components in a single user created watch list
 */
 
-const UserList = () => <div>user list page</div>;
+function UserList() {
+  const movies = [];
+  return <Movies movies={movies} />;
+}
 
 UserList.propTypes = {};
 
