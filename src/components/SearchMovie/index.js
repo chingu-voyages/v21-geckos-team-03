@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 
 import MovieCard from '../MovieCard';
+import useFetchLists from '../../hooks/useFetchLists';
 
 /* 
   Takes user input, queries API with input.  
@@ -15,6 +16,9 @@ function SearchMovies() {
   const [query, setQuery] = useState('');
   // create the state for movies, and update that state appropriate
   const [movies, setMovies] = useState([]);
+
+  const userLists = useFetchLists();
+
   const searchMovies = async function (e) {
     e.preventDefault();
     console.log('submit');
@@ -29,6 +33,7 @@ function SearchMovies() {
       console.log('err');
     }
   };
+
   return (
     <>
       <form className="form" onSubmit={searchMovies}>
@@ -51,7 +56,7 @@ function SearchMovies() {
         {movies
           .filter((movie) => movie.poster_path)
           .map((movie) => (
-            <MovieCard movie={movie} key={movie.id} />
+            <MovieCard movie={movie} key={movie.id} userLists={userLists} />
           ))}
       </div>
     </>
