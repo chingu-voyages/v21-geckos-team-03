@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';
 import { customTheme } from './theme';
 import firebase, { FirebaseContext } from './firebase';
-import { Forgot, SearchPage, Login, Movie, UserLists } from './pages';
+import { Forgot, SearchPage, Login, Movie, UserLists, UserList } from './pages';
 
 import Layout from './components/Layout';
 import useAuth from './hooks/useAuth';
