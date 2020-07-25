@@ -19,8 +19,8 @@ function App() {
                 <Route exact path="/" component={SearchPage} />
                 <Route path="/movie/:movieid" component={Movie} />
                 <Route path="/login" component={Login} />
-                <Route path="/lists/:listid" component={UserList} />
                 <Route path="/lists" component={UserLists} />
+                <Route path="/list/:listid" component={UserList} />
                 <Route path="/forgot" component={Forgot} />
                 <Route render={() => <h1>404</h1>} />
               </Switch>

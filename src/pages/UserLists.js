@@ -1,7 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React from 'react';
+import { Divider, Heading, Link } from '@chakra-ui/core';
 // import PropTypes from 'prop-types';
 import CreateList from '../components/CreateList';
-import { FirebaseContext } from '../firebase';
+import useFetchLists from '../hooks/useFetchLists';
+import SimpleBox from '../components/SimpleBox/SimpleBox';
+
+// page for viewing all of a user's lists
 
 /* 
   Route: "/lists"
@@ -12,30 +16,42 @@ import { FirebaseContext } from '../firebase';
 */
 
 const UserLists = (props) => {
-  const { user, firebase } = useContext(FirebaseContext);
-  const [lists, setLists] = useState([]);
-  console.log(lists);
+  const userLists = useFetchLists();
 
-  useEffect(() => {
-    if (user) {
-      try {
-        firebase.db
-          .doc(`users/${user.uid}`)
-          .collection('lists')
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              // setLists((prev) => [...prev, doc.data()]);
-              setLists((prev) => [...prev, { [doc.id]: doc.data() }]);
-            });
-          });
-      } catch (err) {
-        console.log(err.message);
-      }
+  const generateLists = () => {
+    if (!userLists) {
+      return [];
     }
-  }, [user, firebase.db]);
-
-  return <CreateList />;
+    let i = 0;
+    const options = userLists.map((list) => {
+      i += 1;
+      return (
+        <SimpleBox key={`${i}-${list.title}`}>
+          <Link href={`/list/${list.id}`}>
+            <Heading as="h4" size="md">
+              {list.title}
+            </Heading>
+          </Link>
+          <Divider />
+          {list.description}
+        </SimpleBox>
+      );
+    });
+    return options;
+  };
+  return (
+    <>
+      <SimpleBox>
+        <Heading as="h1" size="2xl">
+          My Lists
+        </Heading>
+      </SimpleBox>
+      <SimpleBox>
+        {generateLists()}
+        <CreateList />
+      </SimpleBox>
+    </>
+  );
 };
 
 UserLists.propTypes = {};

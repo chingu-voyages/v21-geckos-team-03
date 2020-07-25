@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// the portion of the page containing various searching components.
+
+// the portion of the page containing the search box and button, etc.
 
 function SearchPanel({ setMovies }) {
   const [query, setQuery] = useState('');
@@ -42,7 +43,7 @@ function SearchPanel({ setMovies }) {
 }
 
 SearchPanel.propTypes = {
-  setMovies: PropTypes.node.isRequired,
+  setMovies: PropTypes.func.isRequired,
 };
 
 export default SearchPanel;

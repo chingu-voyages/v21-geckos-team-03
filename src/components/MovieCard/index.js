@@ -1,53 +1,15 @@
-/* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
-import {
-  Menu,
-  Button,
-  MenuButton,
-  MenuList,
-  MenuGroup,
-  MenuItem,
-  MenuDivider,
-  Link,
-} from '@chakra-ui/core';
-import { NavLink } from 'react-router-dom';
-import { FirebaseContext } from '../../firebase';
+/* eslint-disable react/forbid-prop-types */
+import React from 'react';
+import PropTypes from 'prop-types';
+import ListDropDown from '../ListDropDown';
 
 /* 
-  Renders fetched single movie.  Props are passed in from API call in Search Movie Component
+  Renders a single movie passed in as a prop
 */
 
 function MovieCard(props) {
-  const { user, firebase } = useContext(FirebaseContext);
-  console.log('movieCard props: ', props);
   const { movie, userLists } = props;
-
-  const saveMovie = (list) => {
-    firebase.db
-      .doc(`users/${user.uid}`)
-      .collection('lists')
-      .doc(list.id)
-      .collection('movies')
-      .add(movie);
-    console.log('saving movie to list', movie, list);
-  };
-
-  const generateLists = () => {
-    // generates list names for the dropdown
-    if (!userLists) {
-      return [];
-    }
-    let i = 0;
-    const options = userLists.map((list) => {
-      i += 1;
-      return (
-        <MenuItem key={`${i}-${list.title}`} onClick={() => saveMovie(list)}>
-          {list.title}
-        </MenuItem>
-      );
-    });
-    return options;
-  };
+  console.log('movie', movie);
   return (
     <div className="card">
       <img
@@ -71,30 +33,14 @@ function MovieCard(props) {
         </p>
         <p className="card--desc">{movie.overview}</p>
       </div>
-      <div>
-        <Menu>
-          <MenuButton as={Button}>Save to List</MenuButton>
-          <MenuList>
-            {user ? (
-              <MenuGroup>
-                {generateLists()}
-                <MenuDivider />
-                <MenuItem> + New List</MenuItem>
-              </MenuGroup>
-            ) : (
-              <>
-                <MenuGroup>
-                  <Link as={NavLink} to="/login">
-                    <MenuItem>Log In/Sign Up</MenuItem>
-                  </Link>
-                </MenuGroup>
-              </>
-            )}
-          </MenuList>
-        </Menu>
-      </div>
+      <ListDropDown movie={movie} userLists={userLists} />
     </div>
   );
 }
+
+MovieCard.propTypes = {
+  userLists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  movie: PropTypes.object.isRequired,
+};
 
 export default MovieCard;
