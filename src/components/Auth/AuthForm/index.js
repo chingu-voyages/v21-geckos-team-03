@@ -3,8 +3,15 @@ import { Link, useHistory } from 'react-router-dom';
 import useFormValidation from '../../../hooks/useFormValidation';
 import validateLogin from '../../../utils';
 import firebase from '../../../firebase';
-
 import { FlexContainer, UserFormStyles } from './styles';
+
+/* 
+JSX rendered on the login page.
+Takes in user text input for both login and register Firebase functions.
+A single button toggles login state as true or false.  
+When true, onSubmit calls login to firebase auth
+When false register is called
+*/
 
 const INITIAL_STATE = {
   name: '',
@@ -25,6 +32,12 @@ const AuthForm = () => {
     values,
   } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
 
+  /* 
+    Passed into form validation hook above
+    Called with in the hook with handleSubmit if no errors in hook state
+    On submission, an auth state change is "heard"  in firebase's auth service.
+    New state is reported, set, and made available in the useAuth hook
+  */
   async function authenticateUser() {
     const { name, email, password } = values;
     try {
@@ -42,6 +55,7 @@ const AuthForm = () => {
     <UserFormStyles>
       <h2>{login ? 'Login' : 'Create account'}</h2>
       <form onSubmit={handleSubmit}>
+        {/* Asking for name input on register only */}
         {!login && (
           <input
             onChange={handleChange}
@@ -71,7 +85,9 @@ const AuthForm = () => {
           className={errors.password && 'error-input'}
           placeholder="Choose a secure password"
         />
+        {/* Front end validation error */}
         {errors.password && <p className="error-text">{errors.password}</p>}
+        {/* Backend error */}
         {firebaseError && <p className="error-text">{firebaseError}</p>}
 
         <FlexContainer column>

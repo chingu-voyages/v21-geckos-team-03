@@ -13,6 +13,10 @@ import {
 import { NavLink } from 'react-router-dom';
 import { FirebaseContext } from '../../firebase';
 
+/* 
+  Renders fetched single movie.  Props are passed in from API call in Search Movie Component
+*/
+
 function MovieCard(props) {
   const { user, firebase } = useContext(FirebaseContext);
   console.log('movieCard props: ', props);

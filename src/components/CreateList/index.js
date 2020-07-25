@@ -2,6 +2,13 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import FirebaseContext from '../../firebase/context';
 
+/* 
+  Contains the current implementation of creating new watchlists and submitting them to Firestore
+  Renders a button that submits a newList object to the current logged in user's list collection.
+  Will eventually take in user input
+  Work in progress
+*/
+
 const CreateList = () => {
   const { firebase, user } = useContext(FirebaseContext);
   const history = useHistory();
