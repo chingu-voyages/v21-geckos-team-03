@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider } from '@chakra-ui/core';
+import { Divider, Heading, Link } from '@chakra-ui/core';
 // import PropTypes from 'prop-types';
 import CreateList from '../components/CreateList';
 import useFetchLists from '../hooks/useFetchLists';
@@ -27,7 +27,11 @@ const UserLists = (props) => {
       i += 1;
       return (
         <SimpleBox key={`${i}-${list.title}`}>
-          {list.title}
+          <Link href={`/list/${list.id}`}>
+            <Heading as="h4" size="md">
+              {list.title}
+            </Heading>
+          </Link>
           <Divider />
           {list.description}
         </SimpleBox>
@@ -36,10 +40,17 @@ const UserLists = (props) => {
     return options;
   };
   return (
-    <SimpleBox>
-      {generateLists()}
-      <CreateList />
-    </SimpleBox>
+    <>
+      <SimpleBox>
+        <Heading as="h1" size="2xl">
+          My Lists
+        </Heading>
+      </SimpleBox>
+      <SimpleBox>
+        {generateLists()}
+        <CreateList />
+      </SimpleBox>
+    </>
   );
 };
 
