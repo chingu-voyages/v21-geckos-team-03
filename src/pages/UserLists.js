@@ -1,12 +1,19 @@
 import React from 'react';
 import { Divider } from '@chakra-ui/core';
+// import PropTypes from 'prop-types';
 import CreateList from '../components/CreateList';
 import useFetchLists from '../hooks/useFetchLists';
 import SimpleBox from '../components/SimpleBox/SimpleBox';
 
 // page for viewing all of a user's lists
 
-// import PropTypes from 'prop-types';
+/* 
+  Route: "/lists"
+  Page for rendering all user created watch lists
+
+  Currently contains mvp functionality for fetching all created lists in a logged in users list collection.
+  This should be moved eventually
+*/
 
 const UserLists = (props) => {
   const userLists = useFetchLists();

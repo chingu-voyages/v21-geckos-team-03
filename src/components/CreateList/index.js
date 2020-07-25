@@ -4,6 +4,13 @@ import { Button } from '@chakra-ui/core';
 import FirebaseContext from '../../firebase/context';
 import SimpleBox from '../SimpleBox/SimpleBox';
 
+/* 
+  Contains the current implementation of creating new watchlists and submitting them to Firestore
+  Renders a button that submits a newList object to the current logged in user's list collection.
+  Will eventually take in user input
+  Work in progress
+*/
+
 const CreateList = () => {
   const { firebase, user } = useContext(FirebaseContext);
   const history = useHistory();

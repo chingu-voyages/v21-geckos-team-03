@@ -1,6 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 
+/* 
+  Not sure where this came from, redundant with Movie Card perhaps
+*/
+
 // the portion of the page containing all the search results.
 
 function SearchResults() {

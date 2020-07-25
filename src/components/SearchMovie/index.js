@@ -4,6 +4,14 @@ import React, { useState } from 'react';
 import MovieCard from '../MovieCard';
 import useFetchLists from '../../hooks/useFetchLists';
 
+/* 
+  Takes user input, queries API with input.  
+  Returns an array of movies and sets in state.
+  maps over state and passes in movies with a valid poster path via props to MovieCard component
+
+  wip: needs error handling and loading set
+*/
+
 function SearchMovies() {
   const [query, setQuery] = useState('');
   // create the state for movies, and update that state appropriate
