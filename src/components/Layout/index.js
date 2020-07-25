@@ -8,10 +8,10 @@ import Navbar from '../NavBar';
   that wraps all other JSX components as children in App.js
 */
 
-const StyledMainContainer = styled.main`
-  max-width: 1200px;
+export const StyledMainContainer = styled.main`
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 50px;
+  padding: 24px;
 `;
 
 const Layout = ({ children }) => (
