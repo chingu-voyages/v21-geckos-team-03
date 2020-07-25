@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex } from '@chakra-ui/core';
-import AuthForm from '../components/Auth/AuthForm';
+import AuthForm from '../components/AuthForm';
 
 /* 
   Routes: "/login"
@@ -8,7 +8,7 @@ import AuthForm from '../components/Auth/AuthForm';
 */
 
 const Login = () => (
-  <Flex justify="center" align="center" mt="20%" p={3}>
+  <Flex justify="center" align="center" mt="10%" p={3}>
     <AuthForm />
   </Flex>
 );

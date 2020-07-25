@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import {
   Flex,
   Box,
-  Text,
+  Heading,
   Tabs,
   TabList,
   Tab,
@@ -15,9 +15,9 @@ import {
   FormErrorMessage,
   FormControl,
 } from '@chakra-ui/core';
-import useFormValidation from '../../../hooks/useFormValidation';
-import validateLogin from '../../../utils';
-import firebase from '../../../firebase';
+import useFormValidation from '../../hooks/useFormValidation';
+import validateLogin from '../../utils';
+import firebase from '../../firebase';
 
 /* 
 JSX rendered on the login page.
@@ -67,21 +67,23 @@ const AuthForm = () => {
   }
 
   return (
-    <Flex align="center" justify="center" height="auto" mx={0} maxWidth="600px">
+    <Flex align="center" justify="center" height="auto" mx={0}>
       <Box
         py={10}
         px={6}
-        bg={colorMode === 'light' ? 'gray.100' : '#313641'}
+        bg={colorMode === 'light' ? 'gray.600' : '#313641'}
         rounded="20px"
       >
         <Flex align="center" p={4} justify="center" direction="column">
-          <Text fontSize="md">{login ? 'Login' : 'Create account'}</Text>
+          <Heading fontSize="lg" color="white" mb={4}>
+            {login ? 'Login' : 'Create account'}
+          </Heading>
           <Tabs mt={4} isFitted>
-            <TabList>
+            <TabList mb={6}>
               <Tab onClick={() => setLogin(true)}>Login</Tab>
               <Tab onClick={() => setLogin(false)}>Register</Tab>
             </TabList>
-            <TabPanels mt={4}>
+            <TabPanels>
               <TabPanel>
                 {/* Login */}
                 <form onSubmit={handleSubmit}>
@@ -95,7 +97,6 @@ const AuthForm = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         size="lg"
-                        mt={5}
                         width="100%"
                       />
                       <FormErrorMessage maxWidth="200px">
@@ -116,7 +117,7 @@ const AuthForm = () => {
                     </FormControl>
                     <Button
                       type="submit"
-                      mt={5}
+                      mt={6}
                       width="100%"
                       bg="primary"
                       disabled={isSubmitting}
