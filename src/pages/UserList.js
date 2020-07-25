@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import Movies from '../components/Movies';
 // import PropTypes from 'prop-types';
 
@@ -8,7 +9,9 @@ import Movies from '../components/Movies';
 */
 
 function UserList() {
+  const { listid } = useParams();
   const movies = [];
+  console.log('listid:', listid);
   return <Movies movies={movies} />;
 }
 
