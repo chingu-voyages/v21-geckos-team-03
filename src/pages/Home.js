@@ -1,6 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import SearchMovie from '../components/SearchMovie';
+import LoadScreen from '../components/LoadScreen';
 
 /* 
   Route: "/"
@@ -10,6 +11,7 @@ import SearchMovie from '../components/SearchMovie';
 const Home = (props) => (
   <div>
     <SearchMovie />
+    <LoadScreen />
   </div>
 );
 
