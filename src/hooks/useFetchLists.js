@@ -20,7 +20,7 @@ function useFetchLists() {
             setLists(fetchedLists);
           });
       } catch (err) {
-        console.log(err.message);
+        console.log('error: ', err.message);
       }
     }
   }, [user, firebase.db]);
