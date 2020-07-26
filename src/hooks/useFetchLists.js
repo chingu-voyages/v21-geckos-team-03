@@ -4,7 +4,6 @@ import { FirebaseContext } from '../firebase';
 function useFetchLists() {
   const { user, firebase } = useContext(FirebaseContext);
   const [lists, setLists] = useState([]);
-  console.log(lists);
 
   useEffect(() => {
     if (user) {
