@@ -14,23 +14,30 @@ function UserList() {
   const { user, firebase } = useContext(FirebaseContext);
   const { listid } = useParams();
   const [movies, setMovies] = useState([]);
-  // const [list, setList] = useState({});
+  const [list, setList] = useState({});
 
   useEffect(() => {
     try {
-      // firebase.db
-      //   .doc(`users/${user.uid}`)
-      //   .collection('lists')
-      //   .doc(`${listid}`)
-      //   .get()
-      //   .then((querySnapshot) => {
-      //     const fetchedList = querySnapshot.docs.map((doc) => ({
-      //       id: doc.id,
-      //       ...doc.data(),
-      //     }));
-      //     setList(fetchedList);
-      //     console.log('list: ', list);
-      //   });
+      firebase.db
+        .doc(`users/${user.uid}`)
+        .collection('lists')
+        .get()
+        .then((querySnapshot) => {
+          const fetchedLists = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          const currentList = fetchedLists.find((l) => l.id === listid);
+          setList(currentList);
+          console.log('list: ', currentList);
+        });
+    } catch (err) {
+      console.log('error: ', err.message);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    try {
       firebase.db
         .doc(`users/${user.uid}`)
         .collection('lists')
@@ -49,12 +56,10 @@ function UserList() {
     }
   }, [user]);
 
-  console.log('listid:', listid);
-  console.log('movies', movies);
   return (
     <Box>
       <Heading as="h2" size="lg">
-        List Title Here
+        {list.title}
       </Heading>
       <Movies movies={movies} />
     </Box>
