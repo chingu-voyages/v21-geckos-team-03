@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Button } from '@chakra-ui/core';
 import FirebaseContext from '../../firebase/context';
 import SimpleBox from '../SimpleBox/SimpleBox';
+import useWatchLists from '../../hooks/useWatchLists';
 
 /* 
   Contains the current implementation of creating new watchlists and submitting them to Firestore
@@ -12,28 +13,31 @@ import SimpleBox from '../SimpleBox/SimpleBox';
 */
 
 const CreateList = () => {
-  const { firebase, user } = useContext(FirebaseContext);
+  const { user } = useContext(FirebaseContext);
   const history = useHistory();
+  const { createWatchList } = useWatchLists();
 
-  const handleCreateList = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
       history.push('/login');
     } else {
-      const createdAt = new Date();
-      const newList = {
-        createdAt,
-        title: 'My second list',
-        description: 'this is another test list created from front end',
-        movies: [10293, 10290, 1090],
-      };
-      firebase.db.doc(`users/${user.uid}`).collection('lists').add(newList);
-      history.push('/');
+      createWatchList(newList);
+      history.push('/lists');
     }
   };
+
+  const createdAt = new Date();
+  const newList = {
+    createdAt,
+    title: 'My Third list',
+    description: 'this is a new test list created from front end',
+    movies: [10293, 10290, 1090],
+  };
+
   return (
     <SimpleBox>
-      <form onSubmit={handleCreateList}>
+      <form onSubmit={handleSubmit}>
         <Button variantColor="green" type="submit">
           Create New List
         </Button>

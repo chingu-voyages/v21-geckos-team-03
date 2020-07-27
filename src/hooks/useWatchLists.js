@@ -7,6 +7,10 @@ function useWatchLists() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  function createWatchList(newList) {
+    firebase.db.doc(`users/${user.uid}`).collection('lists').add(newList);
+  }
+
   useEffect(() => {
     setLoading(true);
     setError(false);
@@ -33,7 +37,7 @@ function useWatchLists() {
     return () => unsubscribe();
   }, [user, firebase.db]);
 
-  return { watchLists, loading, error };
+  return { watchLists, loading, error, createWatchList };
 }
 
 export default useWatchLists;
