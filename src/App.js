@@ -4,7 +4,6 @@ import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';
 import { customTheme } from './theme';
 import firebase, { FirebaseContext } from './firebase';
 import { Forgot, SearchPage, Login, Movie, UserLists, UserList } from './pages';
-
 import Layout from './components/Layout';
 import useAuth from './hooks/useAuth';
 
@@ -18,10 +17,10 @@ function App() {
             <Layout>
               <Switch>
                 <Route exact path="/" component={SearchPage} />
-                <Route path="/movie/:id" component={Movie} />
+                <Route path="/movie/:movieid" component={Movie} />
                 <Route path="/login" component={Login} />
                 <Route path="/lists" component={UserLists} />
-                <Route path="/list/:id" component={UserList} />
+                <Route path="/list/:listid" component={UserList} />
                 <Route path="/forgot" component={Forgot} />
                 <Route render={() => <h1>404</h1>} />
               </Switch>

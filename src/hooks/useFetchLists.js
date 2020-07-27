@@ -4,7 +4,6 @@ import { FirebaseContext } from '../firebase';
 function useFetchLists() {
   const { user, firebase } = useContext(FirebaseContext);
   const [lists, setLists] = useState([]);
-  console.log(lists);
 
   useEffect(() => {
     if (user) {
@@ -21,7 +20,7 @@ function useFetchLists() {
             setLists(fetchedLists);
           });
       } catch (err) {
-        console.log(err.message);
+        console.log('error: ', err.message);
       }
     }
   }, [user, firebase.db]);
