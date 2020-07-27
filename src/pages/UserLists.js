@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Divider, Heading, Link, Text, Flex, Button } from '@chakra-ui/core';
 import useWatchLists from '../hooks/useWatchLists';
 import SimpleBox from '../components/SimpleBox/SimpleBox';
+import { FirebaseContext } from '../firebase';
 
 /* 
   Route: "/lists"
@@ -12,18 +14,24 @@ import SimpleBox from '../components/SimpleBox/SimpleBox';
 */
 
 const UserLists = (props) => {
-  const { watchLists, loading, error, createWatchList } = useWatchLists();
+  const { watchLists, loading, error } = useWatchLists();
+  const { firebase, user } = useContext(FirebaseContext);
+  const history = useHistory();
 
   const newList = {
     createdAt: new Date(),
-    title: 'My Fifth list',
+    title: 'My Sixth list',
     description: 'this is a new test list created from front end',
     movies: [10293, 10290, 1090],
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createWatchList(newList);
+    if (!user) {
+      history.push('login');
+    } else {
+      firebase.createNewWatchList(newList, user.uid);
+    }
   };
 
   const generateLists = () => {

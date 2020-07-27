@@ -59,6 +59,10 @@ class Firebase {
   async resetPassword(email) {
     await this.auth.sendPasswordResetEmail(email);
   }
+
+  async createNewWatchList(newList, userId) {
+    await this.db.doc(`users/${userId}`).collection('lists').add(newList);
+  }
 }
 
 const firebase = new Firebase();

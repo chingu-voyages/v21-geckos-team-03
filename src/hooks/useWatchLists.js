@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { FirebaseContext } from '../firebase';
 
 function useWatchLists() {
@@ -7,15 +6,6 @@ function useWatchLists() {
   const [watchLists, setWatchLists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const history = useHistory();
-
-  function createWatchList(newList) {
-    if (!user) {
-      history.push('/login');
-    } else {
-      firebase.db.doc(`users/${user.uid}`).collection('lists').add(newList);
-    }
-  }
 
   useEffect(() => {
     setLoading(true);
@@ -43,7 +33,7 @@ function useWatchLists() {
     return () => unsubscribe();
   }, [user, firebase.db]);
 
-  return { watchLists, loading, error, createWatchList };
+  return { watchLists, loading, error };
 }
 
 export default useWatchLists;
