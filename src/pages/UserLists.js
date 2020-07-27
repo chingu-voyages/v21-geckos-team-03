@@ -1,6 +1,5 @@
 import React from 'react';
-import { Divider, Heading, Link, Text } from '@chakra-ui/core';
-import CreateList from '../components/CreateList';
+import { Divider, Heading, Link, Text, Flex, Button } from '@chakra-ui/core';
 import useWatchLists from '../hooks/useWatchLists';
 import SimpleBox from '../components/SimpleBox/SimpleBox';
 
@@ -13,7 +12,19 @@ import SimpleBox from '../components/SimpleBox/SimpleBox';
 */
 
 const UserLists = (props) => {
-  const { watchLists, loading, error } = useWatchLists();
+  const { watchLists, loading, error, createWatchList } = useWatchLists();
+
+  const newList = {
+    createdAt: new Date(),
+    title: 'My Fifth list',
+    description: 'this is a new test list created from front end',
+    movies: [10293, 10290, 1090],
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createWatchList(newList);
+  };
 
   const generateLists = () => {
     if (!watchLists) {
@@ -43,14 +54,16 @@ const UserLists = (props) => {
   return (
     <>
       <SimpleBox>
-        <Heading as="h1" size="2xl">
-          My Lists
-        </Heading>
+        <Flex align="center" justify="space-between">
+          <Heading as="h1" size="2xl">
+            My Lists
+          </Heading>
+          <Button variantColor="green" type="submit" onClick={handleSubmit}>
+            Create New List
+          </Button>
+        </Flex>
       </SimpleBox>
-      <SimpleBox>
-        {generateLists()}
-        <CreateList />
-      </SimpleBox>
+      <SimpleBox>{generateLists()}</SimpleBox>
     </>
   );
 };
