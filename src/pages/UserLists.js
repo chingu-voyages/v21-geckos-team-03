@@ -1,11 +1,8 @@
 import React from 'react';
-import { Divider, Heading, Link } from '@chakra-ui/core';
-// import PropTypes from 'prop-types';
+import { Divider, Heading, Link, Text } from '@chakra-ui/core';
 import CreateList from '../components/CreateList';
-import useFetchLists from '../hooks/useFetchLists';
+import useWatchLists from '../hooks/useWatchLists';
 import SimpleBox from '../components/SimpleBox/SimpleBox';
-
-// page for viewing all of a user's lists
 
 /* 
   Route: "/lists"
@@ -16,14 +13,14 @@ import SimpleBox from '../components/SimpleBox/SimpleBox';
 */
 
 const UserLists = (props) => {
-  const userLists = useFetchLists();
+  const { watchLists, loading, error } = useWatchLists();
 
   const generateLists = () => {
-    if (!userLists) {
+    if (!watchLists) {
       return [];
     }
     let i = 0;
-    const options = userLists.map((list) => {
+    const options = watchLists.map((list) => {
       i += 1;
       return (
         <SimpleBox key={`${i}-${list.title}`}>
@@ -39,6 +36,10 @@ const UserLists = (props) => {
     });
     return options;
   };
+
+  if (loading) return <Text>Loading Lists...</Text>;
+  if (error) return <Text>Error loading Lists</Text>;
+
   return (
     <>
       <SimpleBox>
@@ -53,7 +54,5 @@ const UserLists = (props) => {
     </>
   );
 };
-
-UserLists.propTypes = {};
 
 export default UserLists;
