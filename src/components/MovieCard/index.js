@@ -1,45 +1,45 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Image, Flex, Heading, Text, Box } from '@chakra-ui/core';
 import ListDropDown from '../ListDropDown';
+import useFetchLists from '../../hooks/useFetchLists';
+import SimpleBox from '../SimpleBox';
 
 /* 
   Renders a single movie passed in as a prop
 */
 
-function MovieCard(props) {
-  const { movie, userLists } = props;
+// eslint-disable-next-line react/prop-types
+function MovieCard({ image, movieId, movie }) {
+  const userLists = useFetchLists();
   console.log('movie', movie);
   return (
-    <div className="card">
-      <img
-        className="card--image"
-        src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2/${movie.poster_path}`}
-        alt={movie.title}
-      />
-      <div className="card--content">
-        <h3 className="card--title">{movie.title}</h3>
-        <p>
-          <small>
+    <SimpleBox>
+      <Flex className="card--content">
+        <Image width="20%" height="auto" src={image} alt={movie.title} />
+        <Box>
+          <Flex align="center" justify="space-between">
+            <Heading className="card--title">{movie.title}</Heading>
+            <ListDropDown movie={movie} userLists={userLists} />
+          </Flex>
+          <Text>
             RELEASE DATE:
             {movie.release_date}
-          </small>
-        </p>
-        <p>
-          <small>
+          </Text>
+          <Text>
             RATING:
             {movie.vote_average}
-          </small>
-        </p>
-        <p className="card--desc">{movie.overview}</p>
-      </div>
-      <ListDropDown movie={movie} userLists={userLists} />
-    </div>
+          </Text>
+          <p className="card--desc">{movie.overview}</p>
+        </Box>
+      </Flex>
+    </SimpleBox>
   );
 }
 
 MovieCard.propTypes = {
-  userLists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  image: PropTypes.string.isRequired,
   movie: PropTypes.object.isRequired,
 };
 

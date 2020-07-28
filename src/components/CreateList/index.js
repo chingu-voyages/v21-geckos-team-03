@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@chakra-ui/core';
 import FirebaseContext from '../../firebase/context';
-import SimpleBox from '../SimpleBox/SimpleBox';
+import SimpleBox from '../SimpleBox';
 
 /* 
   Contains the current implementation of creating new watchlists and submitting them to Firestore

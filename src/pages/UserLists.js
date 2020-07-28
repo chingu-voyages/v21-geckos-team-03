@@ -3,7 +3,7 @@ import { Divider, Heading, Link } from '@chakra-ui/core';
 // import PropTypes from 'prop-types';
 import CreateList from '../components/CreateList';
 import useFetchLists from '../hooks/useFetchLists';
-import SimpleBox from '../components/SimpleBox/SimpleBox';
+import SimpleBox from '../components/SimpleBox';
 
 // page for viewing all of a user's lists
 
