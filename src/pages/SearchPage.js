@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import SearchPanel from '../components/SearchPanel';
 import Movies from '../components/Movies';
+import LoadScreen from '../components/LoadScreen/index';
 
 /* 
   Route: "/"
@@ -14,6 +15,7 @@ function SearchPage(props) {
     <div>
       <SearchPanel setMovies={setMovies} />
       <Movies movies={movies} />
+      <LoadScreen />
     </div>
   );
 }
