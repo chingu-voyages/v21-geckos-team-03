@@ -9,8 +9,7 @@ import {
 
 import useHomeFetch from '../hooks/useHomeFetch';
 
-// import PropTypes from 'prop-types';
-import SearchBar from '../components/SearchBar';
+import SearchPanel from '../components/SearchPanel';
 import NoImage from '../images/no_image.png';
 import MovieCard from '../components/MovieCard';
 
@@ -19,7 +18,7 @@ import MovieCard from '../components/MovieCard';
   will contain search movie, movie results components
 */
 
-const Home = (props) => {
+const Home = () => {
   const [{ state, loading, error }, fetchMovies] = useHomeFetch();
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -51,7 +50,7 @@ const Home = (props) => {
       {!searchTerm && (
         <Heading>Search for movies and add them to a watch list!</Heading>
       )}
-      <SearchBar callback={searchMovies} />
+      <SearchPanel callback={searchMovies} />
       <Heading>{searchTerm ? 'Search Result' : 'Trending Movies'}</Heading>
       <Stack>
         {loading && <Spinner />}
@@ -78,7 +77,5 @@ const Home = (props) => {
     </>
   );
 };
-
-Home.propTypes = {};
 
 export default Home;

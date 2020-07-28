@@ -1,49 +1,52 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-// the portion of the page containing the search box and button, etc.
+import {
+  Input,
+  InputGroup,
+  IconButton,
+  Flex,
+  InputRightElement,
+} from '@chakra-ui/core';
+import SimpleBox from '../SimpleBox';
 
-function SearchPanel({ setMovies }) {
-  const [query, setQuery] = useState('');
+const SearchPanel = ({ callback }) => {
+  const [state, setState] = useState('');
+  const timeOut = useRef(null);
 
-  const searchMovies = async (e) => {
-    e.preventDefault();
-    console.log('submit');
+  const handleSearch = (event) => {
+    const { value } = event.target;
 
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=6ee25636d25df9899ed46e80a13383ff&language=en-US&query=${query}&page=1&include_adult=false`;
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      console.log(data);
-      setMovies(data.results);
-    } catch {
-      console.log('err');
-    }
+    clearTimeout(timeOut.current);
+    setState(value);
+    // when a user types into the input it will wait for 1/2 second before invoking the callback function
+    // which will trigger a search.  otherwise the search happens on first keypress which was weird UX
+    timeOut.current = setTimeout(() => {
+      callback(value);
+    }, 500);
   };
 
   return (
-    <form className="form" onSubmit={searchMovies}>
-      <label className="label" htmlFor="query">
-        Movie Name
-      </label>
-      <input
-        className="input"
-        type="text"
-        placeholder="search movie"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        name="query"
-      />
-      <button className="button" type="submit">
-        Search
-      </button>
-    </form>
+    <SimpleBox>
+      <Flex align="center" justify="center">
+        <InputGroup width="50%" size="lg">
+          <InputRightElement>
+            <IconButton icon="search" />
+          </InputRightElement>
+          <Input
+            type="text"
+            onChange={handleSearch}
+            value={state}
+            placeholder="Search for movies"
+          />
+        </InputGroup>
+      </Flex>
+    </SimpleBox>
   );
-}
+};
 
 SearchPanel.propTypes = {
-  setMovies: PropTypes.func.isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 export default SearchPanel;

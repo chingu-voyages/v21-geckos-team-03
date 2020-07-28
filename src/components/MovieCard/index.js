@@ -6,10 +6,6 @@ import ListDropDown from '../ListDropDown';
 import useFetchLists from '../../hooks/useFetchLists';
 import SimpleBox from '../SimpleBox';
 
-/* 
-  Renders a single movie passed in as a prop
-*/
-
 // eslint-disable-next-line react/prop-types
 function MovieCard({ image, movieId, movie }) {
   const userLists = useFetchLists();

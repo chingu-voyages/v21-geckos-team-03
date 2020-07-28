@@ -1,11 +1,11 @@
 // Configuration for TMDB
-// Read more about the API here: https://developers.themoviedb.org/
+// https://developers.themoviedb.org/
 
 const API_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '6ee25636d25df9899ed46e80a13383ff';
 
 const SEARCH_BASE_URL = `${API_URL}search/movie?api_key=${API_KEY}&query=`;
-const POPULAR_BASE_URL = `${API_URL}movie/popular?api_key=${API_KEY}`;
+const POPULAR_BASE_URL = `${API_URL}movie/popular?api_key=${API_KEY}`; // not used currently
 const TRENDING_BASE_URL = `${API_URL}trending/movie/week?api_key=${API_KEY}`;
 
 const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
