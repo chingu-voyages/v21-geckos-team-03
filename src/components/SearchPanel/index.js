@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import {
   Input,
   InputGroup,
-  IconButton,
+  Icon,
   Flex,
-  InputRightElement,
+  InputLeftElement,
 } from '@chakra-ui/core';
 import SimpleBox from '../SimpleBox';
 
@@ -30,9 +30,10 @@ const SearchPanel = ({ callback }) => {
     <SimpleBox>
       <Flex align="center" justify="center">
         <InputGroup width="50%" size="lg">
-          <InputRightElement>
-            <IconButton icon="search" />
-          </InputRightElement>
+          <InputLeftElement>
+            <Icon name="search" color="gray.300" />
+          </InputLeftElement>
+
           <Input
             type="text"
             onChange={handleSearch}

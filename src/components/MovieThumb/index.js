@@ -16,7 +16,7 @@ const MovieThumb = ({ image, movieId, clickable }) => {
 
   return (
     <Flex>
-      <PseudoBox _hover={{ opacity: 0.8 }} width="200px" height="200px">
+      <PseudoBox _hover={{ opacity: 0.8 }} width="200px" height="150px">
         {clickable ? (
           <Link to={`movie/${movieId}`} cursor="pointer">
             <MovieImage />

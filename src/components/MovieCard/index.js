@@ -16,18 +16,18 @@ function MovieCard({ image, movieId, movie }) {
         <MovieThumb image={image} movieId={movieId} clickable />
         <Box>
           <Flex align="center" justify="space-between">
-            <Heading className="card--title">{movie.title}</Heading>
+            <Heading as="h3">{movie.title}</Heading>
             <ListDropDown movie={movie} userLists={userLists} />
           </Flex>
-          <Text>
+          <Text fontSize="xs">
             RELEASE DATE:
             {movie.release_date}
           </Text>
-          <Text>
+          <Text fontSize="xs">
             RATING:
             {movie.vote_average}
           </Text>
-          <p className="card--desc">{movie.overview}</p>
+          <Text fontSize="sm">{movie.overview}</Text>
         </Box>
       </Flex>
     </SimpleBox>

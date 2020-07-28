@@ -62,7 +62,7 @@ function UserList() {
       <Heading as="h2" size="lg">
         {list.title}
       </Heading>
-      <Stack>
+      <Stack align="center">
         {movies.map((movie) => (
           <MovieCard
             key={movie.id}
