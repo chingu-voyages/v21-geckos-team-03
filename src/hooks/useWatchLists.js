@@ -10,6 +10,7 @@ function useWatchLists() {
   useEffect(() => {
     setLoading(true);
     setError(false);
+
     function getWatchLists() {
       if (user) {
         return firebase.db

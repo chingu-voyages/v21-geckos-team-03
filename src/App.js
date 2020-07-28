@@ -27,7 +27,7 @@ function App() {
                 <Route path="/movie/:movieid" component={Movie} />
                 <Route path="/login" component={Login} />
                 <Route path="/lists" component={WatchLists} />
-                <Route path="/list/:listid" component={WatchList} />
+                <Route path="/list/:listId" component={WatchList} />
                 <Route path="/forgot" component={Forgot} />
                 <Route render={() => <h1>404</h1>} />
               </Switch>
