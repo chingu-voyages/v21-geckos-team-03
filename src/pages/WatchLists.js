@@ -13,7 +13,7 @@ import { FirebaseContext } from '../firebase';
   This should be moved eventually
 */
 
-const UserLists = (props) => {
+const WatchLists = (props) => {
   const { watchLists, loading, error } = useWatchLists();
   const { firebase, user } = useContext(FirebaseContext);
   const history = useHistory();
@@ -63,8 +63,10 @@ const UserLists = (props) => {
     <>
       <SimpleBox>
         <Flex align="center" justify="space-between">
-          <Heading as="h1" size="2xl">
-            My Lists
+          <Heading as="h2" size="2xl">
+            {user
+              ? `${user.displayName.toUpperCase()}'s Watch Lists`
+              : 'You Watchlists'}
           </Heading>
           <Button variantColor="green" type="submit" onClick={handleSubmit}>
             Create New List
@@ -76,4 +78,4 @@ const UserLists = (props) => {
   );
 };
 
-export default UserLists;
+export default WatchLists;
