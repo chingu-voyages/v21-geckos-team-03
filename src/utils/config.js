@@ -6,6 +6,7 @@ const API_KEY = '6ee25636d25df9899ed46e80a13383ff';
 
 const SEARCH_BASE_URL = `${API_URL}search/movie?api_key=${API_KEY}&query=`;
 const POPULAR_BASE_URL = `${API_URL}movie/popular?api_key=${API_KEY}`;
+const TRENDING_BASE_URL = `${API_URL}trending/movie/week?api_key=${API_KEY}`;
 
 const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
 // Sizes: w300, w780, w1280, original
@@ -21,4 +22,5 @@ export {
   POPULAR_BASE_URL,
   POSTER_SIZE,
   SEARCH_BASE_URL,
+  TRENDING_BASE_URL,
 };

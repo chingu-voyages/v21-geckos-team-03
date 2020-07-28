@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Stack, Heading, Spinner, Text, Button, Flex } from '@chakra-ui/core';
-import { API_URL, API_KEY, IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
+import {
+  IMAGE_BASE_URL,
+  POSTER_SIZE,
+  SEARCH_BASE_URL,
+  TRENDING_BASE_URL,
+} from '../utils/config';
 
 import useHomeFetch from '../hooks/useHomeFetch';
 
@@ -16,17 +21,21 @@ import MovieCard from '../components/MovieCard';
 
 const Home = (props) => {
   const [{ state, loading, error }, fetchMovies] = useHomeFetch();
-  // eslint-disable-next-line no-unused-vars
   const [searchTerm, setSearchTerm] = useState('');
 
-  console.log(state);
+  const searchMovies = (search) => {
+    const endpoint = search ? SEARCH_BASE_URL + search : TRENDING_BASE_URL;
+
+    setSearchTerm(search);
+    fetchMovies(endpoint);
+  };
 
   const loadMoreMovies = () => {
-    const searchEndPoint = `${API_URL}search/movie/?api_key=${API_KEY}&query=${searchTerm}&page=${
+    const searchEndPoint = `${SEARCH_BASE_URL}${searchTerm}&page=${
       state.currentPage + 1
     }`;
 
-    const trendingEndpoint = `${API_URL}trending/movie/week?api_key=${API_KEY}&page=${
+    const trendingEndpoint = `${TRENDING_BASE_URL}&page=${
       state.currentPage + 1
     }`;
 
@@ -39,7 +48,10 @@ const Home = (props) => {
 
   return (
     <>
-      <SearchBar />
+      {!searchTerm && (
+        <Heading>Search for movies and add them to a watch list!</Heading>
+      )}
+      <SearchBar callback={searchMovies} />
       <Heading>{searchTerm ? 'Search Result' : 'Trending Movies'}</Heading>
       <Stack>
         {loading && <Spinner />}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { API_URL, API_KEY } from '../utils/config';
+import { TRENDING_BASE_URL } from '../utils/config';
 
 const useHomeFetch = () => {
   const [state, setState] = useState({ movies: [] });
@@ -36,7 +36,9 @@ const useHomeFetch = () => {
 
   useEffect(() => {
     // fetchMovies(`${API_URL}movie/popular?api_key=${API_KEY}`);
-    fetchMovies(`${API_URL}trending/movie/week?api_key=${API_KEY}`);
+    // fetchMovies(`${API_URL}trending/movie/week?api_key=${API_KEY}`);
+    fetchMovies(TRENDING_BASE_URL);
+    // fetchMovies(POPULAR_BASE_URL)
   }, []);
 
   return [{ state, loading, error }, fetchMovies];

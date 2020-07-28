@@ -13,11 +13,11 @@ import SimpleBox from '../SimpleBox';
 // eslint-disable-next-line react/prop-types
 function MovieCard({ image, movieId, movie }) {
   const userLists = useFetchLists();
-  console.log('movie', movie);
+  // console.log('movie', movie);
   return (
     <SimpleBox>
       <Flex className="card--content">
-        <Image width="20%" height="auto" src={image} alt={movie.title} />
+        <Image width="auto" height="200px" src={image} alt={movie.title} />
         <Box>
           <Flex align="center" justify="space-between">
             <Heading className="card--title">{movie.title}</Heading>
