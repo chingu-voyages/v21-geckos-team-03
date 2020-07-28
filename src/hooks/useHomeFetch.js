@@ -10,13 +10,20 @@ const useHomeFetch = () => {
     setError(false);
     setLoading(true);
 
+    // If the endpoint passed in contains the string 'page', we know its a request to load more movies.
+    // If its a request to load more movies will need to be appended to state, rather than a search request where
+    // movies will need to be wiped and repopulated
+    const isLoadMore = endpoint.search('page');
+
     try {
       const result = await (await fetch(endpoint)).json();
 
       setState((prev) => ({
         ...prev,
-        movies: [...result.results],
-        heroImage: prev.heroImage || result.results[0],
+        movies:
+          isLoadMore !== -1
+            ? [...prev.movies, ...result.results]
+            : [...result.results],
         currentPage: result.page,
         totalPages: result.total_pages,
       }));
