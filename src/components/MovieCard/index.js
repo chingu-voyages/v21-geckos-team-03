@@ -1,19 +1,19 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image, Flex, Heading, Text, Box } from '@chakra-ui/core';
+import { Flex, Heading, Text, Box } from '@chakra-ui/core';
 import ListDropDown from '../ListDropDown';
 import useFetchLists from '../../hooks/useFetchLists';
 import SimpleBox from '../SimpleBox';
+import MovieThumb from '../MovieThumb';
 
-// eslint-disable-next-line react/prop-types
 function MovieCard({ image, movieId, movie }) {
   const userLists = useFetchLists();
-  // console.log('movie', movie);
+
   return (
     <SimpleBox>
-      <Flex className="card--content">
-        <Image width="auto" height="200px" src={image} alt={movie.title} />
+      <Flex align="center" justify="flex-start">
+        <MovieThumb image={image} movieId={movieId} clickable />
         <Box>
           <Flex align="center" justify="space-between">
             <Heading className="card--title">{movie.title}</Heading>
@@ -37,6 +37,7 @@ function MovieCard({ image, movieId, movie }) {
 MovieCard.propTypes = {
   image: PropTypes.string.isRequired,
   movie: PropTypes.object.isRequired,
+  movieId: PropTypes.number.isRequired,
 };
 
 export default MovieCard;
