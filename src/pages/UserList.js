@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Heading } from '@chakra-ui/core';
+import { Box, Heading, Stack } from '@chakra-ui/core';
+import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
 import { FirebaseContext } from '../firebase';
-import Movies from '../components/Movies';
-// import PropTypes from 'prop-types';
+import MovieCard from '../components/MovieCard';
+import NoImage from '../images/no_image.png';
 
 /* 
   Route: "/lists/:TBA"
@@ -61,11 +62,22 @@ function UserList() {
       <Heading as="h2" size="lg">
         {list.title}
       </Heading>
-      <Movies movies={movies} />
+      <Stack align="center">
+        {movies.map((movie) => (
+          <MovieCard
+            key={movie.id}
+            movieId={movie.id}
+            movie={movie}
+            image={
+              movie.poster_path
+                ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
+                : NoImage
+            }
+          />
+        ))}
+      </Stack>
     </Box>
   );
 }
-
-UserList.propTypes = {};
 
 export default UserList;
