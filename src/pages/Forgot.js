@@ -23,7 +23,6 @@ const Forgot = () => {
       setIsPasswordReset(true);
       setPasswordResetError(null);
     } catch (error) {
-      console.error('Error sending email', error);
       setPasswordResetError(error.message);
       setIsPasswordReset(false);
     }
