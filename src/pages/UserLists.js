@@ -1,6 +1,7 @@
 import React from 'react';
 import { Divider, Heading, Link } from '@chakra-ui/core';
 // import PropTypes from 'prop-types';
+import { Link as RouterLink } from 'react-router-dom';
 import CreateList from '../components/CreateList';
 import useFetchLists from '../hooks/useFetchLists';
 import SimpleBox from '../components/SimpleBox';
@@ -27,7 +28,7 @@ const UserLists = (props) => {
       i += 1;
       return (
         <SimpleBox key={`${i}-${list.title}`}>
-          <Link href={`/list/${list.id}`}>
+          <Link as={RouterLink} to={`/list/${list.id}`}>
             <Heading as="h4" size="md">
               {list.title}
             </Heading>
