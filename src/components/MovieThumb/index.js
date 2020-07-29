@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Image, PseudoBox, Flex } from '@chakra-ui/core';
+import NoImage from '../../images/no_image.png';
+import { IMAGE_BASE_URL, POSTER_SIZE } from '../../utils/config';
 
-const MovieThumb = ({ image, movieId, clickable }) => {
+const MovieThumb = ({ posterPath, movieId, clickable }) => {
   const MovieImage = () => (
     <Image
-      src={image}
+      src={
+        posterPath ? `${IMAGE_BASE_URL}${POSTER_SIZE}${posterPath}` : NoImage
+      }
       width="100%"
       objectFit="contain"
       height="100%"
@@ -30,13 +34,14 @@ const MovieThumb = ({ image, movieId, clickable }) => {
 };
 
 MovieThumb.propTypes = {
-  image: PropTypes.string.isRequired,
+  posterPath: PropTypes.string,
   movieId: PropTypes.number.isRequired,
   clickable: PropTypes.bool,
 };
 
 MovieThumb.defaultProps = {
   clickable: false,
+  posterPath: NoImage,
 };
 
 export default MovieThumb;

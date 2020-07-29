@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 import { Stack, Heading, Spinner, Text, Button, Flex } from '@chakra-ui/core';
-import {
-  IMAGE_BASE_URL,
-  POSTER_SIZE,
-  SEARCH_BASE_URL,
-  TRENDING_BASE_URL,
-} from '../utils/config';
+import { SEARCH_BASE_URL, TRENDING_BASE_URL } from '../utils/config';
 
 import useHomeFetch from '../hooks/useHomeFetch';
-
 import SearchPanel from '../components/SearchPanel';
-import NoImage from '../images/no_image.png';
 import MovieCard from '../components/MovieCard';
 
 /* 
@@ -52,19 +45,10 @@ const Home = () => {
       )}
       <SearchPanel callback={searchMovies} />
       <Heading>{searchTerm ? 'Search Result' : 'Trending Movies'}</Heading>
-      <Stack>
+      <Stack align="center">
         {loading && <Spinner />}
         {state.movies.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            movieId={movie.id}
-            movie={movie}
-            image={
-              movie.poster_path
-                ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
-                : NoImage
-            }
-          />
+          <MovieCard key={movie.id} movie={movie} />
         ))}
       </Stack>
       <Flex align="center" justify="center">

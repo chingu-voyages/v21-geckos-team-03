@@ -7,13 +7,17 @@ import useFetchLists from '../../hooks/useFetchLists';
 import SimpleBox from '../SimpleBox';
 import MovieThumb from '../MovieThumb';
 
-function MovieCard({ image, movieId, movie }) {
+function MovieCard({ movie }) {
   const userLists = useFetchLists();
 
   return (
     <SimpleBox>
       <Flex align="center" justify="flex-start">
-        <MovieThumb image={image} movieId={movieId} clickable />
+        <MovieThumb
+          posterPath={movie.poster_path}
+          movieId={movie.id}
+          clickable
+        />
         <Box>
           <Flex align="center" justify="space-between">
             <Heading as="h3">{movie.title}</Heading>
@@ -35,9 +39,7 @@ function MovieCard({ image, movieId, movie }) {
 }
 
 MovieCard.propTypes = {
-  image: PropTypes.string.isRequired,
   movie: PropTypes.object.isRequired,
-  movieId: PropTypes.number.isRequired,
 };
 
 export default MovieCard;
