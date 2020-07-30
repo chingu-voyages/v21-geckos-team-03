@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { Box } from '@chakra-ui/core';
 import Navbar from '../NavBar';
 
 /* 
@@ -8,16 +8,12 @@ import Navbar from '../NavBar';
   that wraps all other JSX components as children in App.js
 */
 
-export const StyledMainContainer = styled.main`
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px;
-`;
-
 const Layout = ({ children }) => (
   <>
     <Navbar />
-    <StyledMainContainer>{children}</StyledMainContainer>
+    <Box maxWidth="1100px" p={6} mx="auto" my={0}>
+      {children}
+    </Box>
   </>
 );
 

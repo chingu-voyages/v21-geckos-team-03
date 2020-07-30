@@ -61,7 +61,6 @@ const AuthForm = () => {
         : await firebase.register(name, email, password);
       history.push('/');
     } catch (error) {
-      console.error('Authentication Error', error);
       setFirebaseError(error.message);
     }
   }

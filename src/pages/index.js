@@ -2,7 +2,7 @@ import Forgot from './Forgot';
 import Home from './Home';
 import Login from './Login';
 import Movie from './Movie';
-import UserList from './UserList';
-import UserLists from './UserLists';
+import WatchList from './WatchList';
+import WatchLists from './WatchLists';
 
-export { Forgot, Home, Login, Movie, UserList, UserLists };
+export { Home, Forgot, Login, Movie, WatchList, WatchLists };

@@ -19,7 +19,9 @@ import { FirebaseContext } from '../../firebase';
 
 function ListDropDown(props) {
   const { user, firebase } = useContext(FirebaseContext);
-  const { movie, userLists } = props;
+  const { movie, watchLists } = props;
+
+  console.log(watchLists);
 
   const saveMovie = (list) => {
     firebase.db
@@ -33,11 +35,11 @@ function ListDropDown(props) {
 
   const generateLists = () => {
     // generates list names for the dropdown
-    if (!userLists) {
+    if (!watchLists) {
       return [];
     }
     let i = 0;
-    const options = userLists.map((list) => {
+    const options = watchLists.map((list) => {
       i += 1;
       return (
         <MenuItem key={`${i}-${list.title}`} onClick={() => saveMovie(list)}>
