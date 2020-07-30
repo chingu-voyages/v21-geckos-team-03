@@ -20,7 +20,7 @@ const WatchLists = (props) => {
 
   const newList = {
     createdAt: new Date(),
-    title: 'My Sixth list',
+    title: 'My 10th list',
     description: 'this is a new test list created from front end',
     movies: [10293, 10290, 1090],
   };
@@ -28,7 +28,7 @@ const WatchLists = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user) {
-      history.push('login');
+      history.push('/login');
     } else {
       firebase.createNewWatchList(newList, user.uid);
     }

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Heading, Text } from '@chakra-ui/core';
+import { Box, Heading, Text, Spinner } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import Movies from '../components/Movies';
 import useWatchLists from '../hooks/useWatchLists';
@@ -11,13 +11,13 @@ import useWatchLists from '../hooks/useWatchLists';
 */
 
 function WatchList() {
-  const { listId } = useParams();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const { user, firebase } = useContext(FirebaseContext);
+  const { watchLists } = useWatchLists();
+  const { listId } = useParams();
   const [listMovies, setListMovies] = useState([]);
   const [listDetails, setListDetails] = useState({});
-  const { watchLists } = useWatchLists();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const currentListId = watchLists.find((list) => list.id === listId);
@@ -42,7 +42,7 @@ function WatchList() {
     }
   }, [listId, watchLists, user, firebase]);
 
-  if (loading) return <Text>Loading List</Text>;
+  if (loading) return <Spinner />;
   if (error) return <Text>Error Loading List</Text>;
 
   return (
