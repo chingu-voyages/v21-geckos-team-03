@@ -18,9 +18,8 @@ import { FirebaseContext } from '../../firebase';
   Renders a single movie passed in as a prop
 */
 
-function ListDropDown(props) {
+function ListDropDown({ movie, watchLists }) {
   const { user, firebase } = useContext(FirebaseContext);
-  const { movie, watchLists } = props;
   const [savedMovies, setSavedMovies] = useState({}); // format is an object with movie ids as keys, and arrays of lists they are on as values ie {movieA: [listA, listC]}
 
   const saveMovie = (list) => {
