@@ -29,8 +29,15 @@ function ListDropDown(props) {
       .collection('lists')
       .doc(list.id)
       .collection('movies')
-      .add(movie);
-    setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
+      .doc(`${movie.id}`)
+      .set(movie)
+      .then(function () {
+        console.log('Document successfully written!');
+      })
+      .catch(function (error) {
+        console.error('Error writing document: ', error);
+        setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
+      });
   };
 
   const generateLists = () => {
