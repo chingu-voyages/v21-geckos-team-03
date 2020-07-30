@@ -10,8 +10,6 @@ import MovieThumb from '../MovieThumb';
 function MovieCard({ movie }) {
   const { watchLists } = useWatchLists();
 
-  console.log(watchLists);
-
   return (
     <SimpleBox>
       <Flex align="center" justify="flex-start">
