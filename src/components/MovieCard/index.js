@@ -5,7 +5,7 @@ import { Flex, Heading, Text, Box } from '@chakra-ui/core';
 import ListDropDown from '../ListDropDown';
 import useWatchLists from '../../hooks/useWatchLists';
 import SimpleBox from '../SimpleBox';
-import MovieThumb from '../MovieThumb';
+import MovieModal from '../../pages/MovieModal';
 
 function MovieCard({ movie }) {
   const { watchLists } = useWatchLists();
@@ -13,11 +13,7 @@ function MovieCard({ movie }) {
   return (
     <SimpleBox>
       <Flex align="center" justify="flex-start">
-        <MovieThumb
-          posterPath={movie.poster_path}
-          movieId={movie.id}
-          clickable
-        />
+        <MovieModal movie={movie} watchLists={watchLists} />
         <Box>
           <Flex align="center" justify="space-between">
             <Heading as="h3">{movie.title}</Heading>
