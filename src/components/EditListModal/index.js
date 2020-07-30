@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  MenuItem,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -12,6 +11,7 @@ import {
   Button,
   useDisclosure,
 } from '@chakra-ui/core';
+import SimpleBox from '../SimpleBox';
 
 function EditListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -22,7 +22,8 @@ function EditListModal({ list }) {
 
   return (
     <>
-      <MenuItem onClick={onOpen}>Edit List</MenuItem>
+      <SimpleBox onClick={onOpen}>Edit List</SimpleBox>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -31,10 +32,10 @@ function EditListModal({ list }) {
           <ModalBody>form goes here</ModalBody>
 
           <ModalFooter>
-            <Button variantColor="red" mr={3} onClick={onClose}>
+            <Button color="red" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button variantColor="green" onClick={saveChanges}>
+            <Button color="green" onClick={saveChanges}>
               Save Changes
             </Button>
           </ModalFooter>

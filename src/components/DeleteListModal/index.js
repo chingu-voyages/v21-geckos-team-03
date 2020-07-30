@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  MenuItem,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -10,7 +9,9 @@ import {
   ModalBody,
   Button,
   useDisclosure,
+  ModalFooter,
 } from '@chakra-ui/core';
+import SimpleBox from '../SimpleBox';
 
 function DeleteListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -21,16 +22,17 @@ function DeleteListModal({ list }) {
 
   return (
     <>
-      <MenuItem onClick={onOpen}>Delete List</MenuItem>
+      <SimpleBox onClick={onOpen}>Delete List</SimpleBox>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            `Are you sure you want to delete ${list.title}?`
+            Are you sure you want to delete {list.title}?
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            form goes here
+          <ModalBody>form goes here</ModalBody>
+          <ModalFooter>
             <Button
               variantColor="red"
               mr={3}
@@ -42,7 +44,7 @@ function DeleteListModal({ list }) {
             <Button variant="ghost" onClick={deleteList}>
               Cancel
             </Button>
-          </ModalBody>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
