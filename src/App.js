@@ -1,25 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';
+import { customTheme } from './theme';
+import firebase, { FirebaseContext } from './firebase';
+import { Home, Forgot, Login, Movie, WatchLists, WatchList } from './pages';
+
+import Layout from './components/Layout';
+import useAuth from './hooks/useAuth';
 
 function App() {
+  const user = useAuth();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <FirebaseContext.Provider value={{ user, firebase }}>
+        <ThemeProvider theme={customTheme}>
+          <ColorModeProvider>
+            <Layout>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/login" component={Login} />
+                <Route path="/lists" component={WatchLists} />
+                <Route path="/list/:listId" component={WatchList} />
+                <Route path="/movie/:movieId" component={Movie} />
+                <Route path="/forgot" component={Forgot} />
+                <Route render={() => <h1>404</h1>} />
+              </Switch>
+            </Layout>
+            <CSSReset />
+          </ColorModeProvider>
+        </ThemeProvider>
+      </FirebaseContext.Provider>
+    </Router>
   );
 }
 
