@@ -3,14 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';
 import { customTheme } from './theme';
 import firebase, { FirebaseContext } from './firebase';
-import {
-  Forgot,
-  SearchPage,
-  Login,
-  Movie,
-  WatchLists,
-  WatchList,
-} from './pages';
+import { Home, Forgot, Login, Movie, WatchLists, WatchList } from './pages';
+
 import Layout from './components/Layout';
 import useAuth from './hooks/useAuth';
 
@@ -23,8 +17,8 @@ function App() {
           <ColorModeProvider>
             <Layout>
               <Switch>
-                <Route exact path="/" component={SearchPage} />
-                <Route path="/movie/:movieid" component={Movie} />
+                <Route exact path="/" component={Home} />
+                <Route path="/movie/:movieId" component={Movie} />
                 <Route path="/login" component={Login} />
                 <Route path="/lists" component={WatchLists} />
                 <Route path="/list/:listId" component={WatchList} />
