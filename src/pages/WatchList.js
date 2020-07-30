@@ -4,6 +4,7 @@ import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import MovieCard from '../components/MovieCard';
 import useWatchLists from '../hooks/useWatchLists';
+import EditListDropDown from '../components/EditListDropDown';
 
 /* 
   Route: "/lists/:TBA"
@@ -50,7 +51,7 @@ function WatchList() {
       <Heading as="h2" size="lg">
         {listDetails.title}
       </Heading>
-      {/* <Movies movies={listMovies} /> */}
+      <EditListDropDown list={listDetails} />
       <Stack>
         {listMovies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
