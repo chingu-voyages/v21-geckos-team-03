@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Image, PseudoBox, Flex } from '@chakra-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import { Image, PseudoBox, Flex, Link } from '@chakra-ui/core';
 import NoImage from '../../images/no_image.png';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../utils/config';
 
@@ -22,7 +22,7 @@ const MovieThumb = ({ posterPath, movieId, clickable }) => {
     <Flex>
       <PseudoBox _hover={{ opacity: 0.8 }} width="200px" height="150px">
         {clickable ? (
-          <Link to={`/movie/${movieId}`} cursor="pointer">
+          <Link as={RouterLink} to={`/movie/${movieId}`} cursor="pointer">
             <MovieImage />
           </Link>
         ) : (

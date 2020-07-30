@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
 import {
   Flex,
-  Box,
+  Text,
   Heading,
   Tabs,
   TabList,
@@ -11,10 +11,11 @@ import {
   TabPanels,
   Input,
   Button,
-  useColorMode,
   FormErrorMessage,
   FormControl,
+  Link,
 } from '@chakra-ui/core';
+import SimpleBox from '../SimpleBox';
 import useFormValidation from '../../hooks/useFormValidation';
 import validateLogin from '../../utils';
 import firebase from '../../firebase';
@@ -45,7 +46,6 @@ const AuthForm = () => {
     isSubmitting,
     values,
   } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
-  const { colorMode } = useColorMode();
 
   /* 
     Passed into form validation hook above
@@ -67,12 +67,7 @@ const AuthForm = () => {
 
   return (
     <Flex align="center" justify="center" height="auto" mx={0}>
-      <Box
-        py={10}
-        px={6}
-        bg={colorMode === 'light' ? 'gray.600' : '#313641'}
-        rounded="20px"
-      >
+      <SimpleBox>
         <Flex align="center" p={4} justify="center" direction="column">
           <Heading fontSize="lg" color="white" mb={4}>
             {login ? 'Login' : 'Create account'}
@@ -183,8 +178,13 @@ const AuthForm = () => {
               </TabPanel>
             </TabPanels>
           </Tabs>
+          <Link as={RouterLink} to="/forgot">
+            <Text mt={4} fontSize="xs">
+              Forgot your password?
+            </Text>
+          </Link>
         </Flex>
-      </Box>
+      </SimpleBox>
     </Flex>
   );
 };
