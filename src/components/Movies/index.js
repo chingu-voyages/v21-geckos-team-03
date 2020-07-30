@@ -12,7 +12,7 @@ function Movies({ movies }) {
   const generateResultCards = () => {
     return movies
       .filter((movie) => movie.poster_path)
-      .map((movie) => (
+      .map((movie, i) => (
         <MovieCard movie={movie} key={movie.id} userLists={watchLists} />
       ));
   };

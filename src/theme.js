@@ -35,6 +35,7 @@ export const customTheme = {
       300: 'hsl(180, 8%, 52%)',
       400: 'hsl(180, 14%, 20%)',
     },
+    green: '#33cc33',
   },
   shadows: {
     ...theme.shadows,

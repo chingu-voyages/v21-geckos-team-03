@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Menu,
   Button,
@@ -9,6 +9,7 @@ import {
   MenuItem,
   MenuDivider,
   Link,
+  Icon,
 } from '@chakra-ui/core';
 import { NavLink } from 'react-router-dom';
 import { FirebaseContext } from '../../firebase';
@@ -20,8 +21,7 @@ import { FirebaseContext } from '../../firebase';
 function ListDropDown(props) {
   const { user, firebase } = useContext(FirebaseContext);
   const { movie, watchLists } = props;
-
-  console.log(watchLists);
+  const [savedMovies, setSavedMovies] = useState({}); // format is an object with movie ids as keys, and arrays of lists they are on as values ie {movieA: [listA, listC]}
 
   const saveMovie = (list) => {
     firebase.db
@@ -30,7 +30,7 @@ function ListDropDown(props) {
       .doc(list.id)
       .collection('movies')
       .add(movie);
-    console.log('saving movie to list', movie, list);
+    setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
   };
 
   const generateLists = () => {
@@ -41,9 +41,13 @@ function ListDropDown(props) {
     let i = 0;
     const options = watchLists.map((list) => {
       i += 1;
+      const onList = savedMovies[movie.id]
+        ? savedMovies[movie.id].includes(list.id)
+        : false;
       return (
         <MenuItem key={`${i}-${list.title}`} onClick={() => saveMovie(list)}>
           {list.title}
+          {onList ? <Icon name="check-circle" color="green" ml="5px" /> : null}
         </MenuItem>
       );
     });
