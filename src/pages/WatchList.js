@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
-import MovieCard from '../components/MovieCard';
+import ListItem from '../components/ListItem';
 import useWatchLists from '../hooks/useWatchLists';
 import EditListDropDown from '../components/EditListDropDown';
 
@@ -54,7 +54,7 @@ function WatchList() {
       <EditListDropDown list={listDetails} />
       <Stack>
         {listMovies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+          <ListItem key={movie.id} movie={movie} />
         ))}
       </Stack>
     </Box>
