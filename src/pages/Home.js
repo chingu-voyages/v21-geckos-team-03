@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Stack, Heading, Spinner, Text, Button, Flex } from '@chakra-ui/core';
 import { SEARCH_BASE_URL, TRENDING_BASE_URL } from '../utils/config';
-
 import useHomeFetch from '../hooks/useHomeFetch';
 import { SearchPanel, MovieCard } from '../components';
-// import MovieCard from '../components/MovieCard';
 
 /* 
   Route: "/"
