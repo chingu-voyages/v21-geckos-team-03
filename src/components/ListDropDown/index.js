@@ -56,7 +56,7 @@ function ListDropDown(props) {
 
   return (
     <div>
-      <Menu>
+      <Menu closeOnSelect={false}>
         <MenuButton as={Button}>Save to List</MenuButton>
         <MenuList>
           {user ? (
