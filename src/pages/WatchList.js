@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Heading, Text, Spinner } from '@chakra-ui/core';
+import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
-import Movies from '../components/Movies';
+import MovieCard from '../components/MovieCard';
 import useWatchLists from '../hooks/useWatchLists';
+import EditListDropDown from '../components/EditListDropDown';
 
 /* 
   Route: "/lists/:TBA"
@@ -50,7 +51,12 @@ function WatchList() {
       <Heading as="h2" size="lg">
         {listDetails.title}
       </Heading>
-      <Movies movies={listMovies} />
+      <EditListDropDown list={listDetails} />
+      <Stack>
+        {listMovies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </Stack>
     </Box>
   );
 }
