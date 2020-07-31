@@ -1,38 +1,51 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Flex, Heading, Text, Box } from '@chakra-ui/core';
-import SaveMovieDropDown from '../SaveMovieDropDown';
-import useWatchLists from '../../hooks/useWatchLists';
+import { Flex, Text, Box, Icon, Tag, Checkbox } from '@chakra-ui/core';
+// import useWatchLists from '../../hooks/useWatchLists';
 import SimpleBox from '../SimpleBox';
-import MovieThumb from '../MovieThumb';
+// import MovieThumb from '../MovieThumb';
+import { formatDateYear } from '../../utils';
 
 function ListItem({ movie }) {
-  const { watchLists } = useWatchLists();
+  // const { watchLists } = useWatchLists();
 
   return (
     <SimpleBox>
-      <Flex align="center" justify="flex-start">
-        <MovieThumb
-          posterPath={movie.poster_path}
-          movieId={movie.id}
-          clickable
-        />
-        <Box>
-          <Flex align="center" justify="space-between">
-            <Heading as="h3">{movie.title}</Heading>
-            <SaveMovieDropDown movie={movie} watchLists={watchLists} />
-          </Flex>
-          <Text fontSize="xs">
-            RELEASE DATE:
-            {movie.release_date}
+      <Flex align="center" justify="space-between">
+        <Flex align="center" justify="space-between">
+          <Box
+            background="black"
+            mr={6}
+            size="80px"
+            objectFit="contain"
+            rounded="full"
+          />
+          <Box>
+            <Flex align="center">
+              <Text fontSize="2xl" mr={2}>
+                {movie.title}
+              </Text>
+              <Text fontSize="xs">{formatDateYear(movie.release_date)}</Text>
+            </Flex>
+            <Text fontSize="xs">
+              <Icon name="star" />
+              {movie.vote_average}
+            </Text>
+          </Box>
+        </Flex>
+
+        <Flex align="center">
+          <Tag size="md" mr={8}>
+            Genre
+          </Tag>
+          <Icon name="time" mr={1} />
+          <Text fontSize="xs" mr={10}>
+            July 30th, 2020
           </Text>
-          <Text fontSize="xs">
-            RATING:
-            {movie.vote_average}
-          </Text>
-          <Text fontSize="sm">{movie.overview}</Text>
-        </Box>
+          <Checkbox size="lg" />
+        </Flex>
+        <Icon alignSelf="end" name="delete" />
       </Flex>
     </SimpleBox>
   );

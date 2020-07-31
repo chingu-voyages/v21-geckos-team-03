@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
+import { Heading, Text, Spinner, Stack } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import ListItem from '../components/ListItem';
 import useWatchLists from '../hooks/useWatchLists';
 import EditListDropDown from '../components/EditListDropDown';
+import SimpleBox from '../components/SimpleBox';
 
 /* 
   Route: "/lists/:TBA"
@@ -47,7 +48,7 @@ function WatchList() {
   if (error) return <Text>Error Loading List</Text>;
 
   return (
-    <Box>
+    <SimpleBox>
       <Heading as="h2" size="lg">
         {listDetails.title}
       </Heading>
@@ -57,7 +58,7 @@ function WatchList() {
           <ListItem key={movie.id} movie={movie} />
         ))}
       </Stack>
-    </Box>
+    </SimpleBox>
   );
 }
 

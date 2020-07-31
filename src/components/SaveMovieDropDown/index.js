@@ -43,7 +43,9 @@ function SaveMovieDropDown(props) {
       return (
         <MenuItem key={`${i}-${list.title}`} onClick={() => saveMovie(list)}>
           {list.title}
-          {onList ? <Icon name="check-circle" color="green" ml="5px" /> : null}
+          {onList ? (
+            <Icon name="check-circle" color="green.300" ml="5px" />
+          ) : null}
         </MenuItem>
       );
     });
