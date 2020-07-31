@@ -36,12 +36,12 @@ function DeleteListModal({ list }) {
             <Button
               variantColor="red"
               mr={3}
-              onClick={onClose}
               leftIcon="delete"
+              onClick={deleteList}
             >
               Delete
             </Button>
-            <Button variant="ghost" onClick={deleteList}>
+            <Button variant="ghost" onClick={onClose}>
               Cancel
             </Button>
           </ModalFooter>
