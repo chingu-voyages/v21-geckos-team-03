@@ -3,9 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Text, Box, Icon, Tag, Checkbox } from '@chakra-ui/core';
 // import useWatchLists from '../../hooks/useWatchLists';
-import SimpleBox from '../SimpleBox';
+import SimpleBox from './SimpleBox';
 // import MovieThumb from '../MovieThumb';
-import { formatDateYear } from '../../utils';
+import { formatDateYear } from '../utils';
 
 function ListItem({ movie }) {
   // const { watchLists } = useWatchLists();
