@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Divider, Heading, Link, Text, Flex, Button } from '@chakra-ui/core';
 import useWatchLists from '../hooks/useWatchLists';
-import SimpleBox from '../components/SimpleBox';
+import { SimpleBox } from '../components';
 import { FirebaseContext } from '../firebase';
 
 /* 

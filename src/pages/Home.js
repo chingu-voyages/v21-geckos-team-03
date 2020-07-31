@@ -3,8 +3,8 @@ import { Stack, Heading, Spinner, Text, Button, Flex } from '@chakra-ui/core';
 import { SEARCH_BASE_URL, TRENDING_BASE_URL } from '../utils/config';
 
 import useHomeFetch from '../hooks/useHomeFetch';
-import SearchPanel from '../components/SearchPanel';
-import MovieCard from '../components/MovieCard';
+import { SearchPanel, MovieCard } from '../components';
+// import MovieCard from '../components/MovieCard';
 
 /* 
   Route: "/"

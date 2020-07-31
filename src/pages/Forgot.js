@@ -8,7 +8,7 @@ import {
   Button,
   Icon,
 } from '@chakra-ui/core';
-import SimpleBox from '../components/SimpleBox';
+import { SimpleBox } from '../components';
 import { FirebaseContext } from '../firebase';
 
 const Forgot = () => {

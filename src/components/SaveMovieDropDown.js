@@ -12,7 +12,7 @@ import {
   IconButton,
 } from '@chakra-ui/core';
 import { NavLink } from 'react-router-dom';
-import { FirebaseContext } from '../../firebase';
+import { FirebaseContext } from '../firebase';
 
 function SaveMovieDropDown(props) {
   const { user, firebase } = useContext(FirebaseContext);

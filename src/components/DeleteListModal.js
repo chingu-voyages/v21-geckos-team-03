@@ -11,7 +11,7 @@ import {
   useDisclosure,
   ModalFooter,
 } from '@chakra-ui/core';
-import SimpleBox from '../SimpleBox';
+import SimpleBox from './SimpleBox';
 
 function DeleteListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();

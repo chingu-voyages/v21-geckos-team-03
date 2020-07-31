@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Heading, Text, Box } from '@chakra-ui/core';
-import SaveMovieDropDown from '../SaveMovieDropDown';
-import useWatchLists from '../../hooks/useWatchLists';
-import SimpleBox from '../SimpleBox';
-import MovieThumb from '../MovieThumb';
-import DeleteMovieButton from '../DeleteMovieButton';
+import SaveMovieDropDown from './SaveMovieDropDown';
+import useWatchLists from '../hooks/useWatchLists';
+import SimpleBox from './SimpleBox';
+import MovieThumb from './MovieThumb';
+import DeleteMovieButton from './DeleteMovieButton';
 
 function MovieCard({ movie, list }) {
   const { watchLists } = useWatchLists();
