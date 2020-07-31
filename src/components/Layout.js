@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@chakra-ui/core';
-import Navbar from '../NavBar';
+import Navbar from './NavBar';
 
 /* 
   Renders primary navigation and main html element as parent elements

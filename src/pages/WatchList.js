@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
-import MovieCard from '../components/MovieCard';
+import { MovieCard, EditListDropDown } from '../components';
 import useWatchLists from '../hooks/useWatchLists';
-import EditListDropDown from '../components/EditListDropDown';
 
 /* 
   Route: "/lists/:TBA"

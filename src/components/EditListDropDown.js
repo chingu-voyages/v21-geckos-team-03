@@ -10,9 +10,9 @@ import {
 } from '@chakra-ui/core';
 
 import { Link, NavLink } from 'react-router-dom';
-import EditListModal from '../EditListModal';
-import DeleteListModal from '../DeleteListModal';
-import SimpleBox from '../SimpleBox';
+import EditListModal from './EditListModal';
+import DeleteListModal from './DeleteListModal';
+import SimpleBox from './SimpleBox';
 
 function EditListDropDown({ list }) {
   return (
