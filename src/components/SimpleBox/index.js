@@ -22,5 +22,9 @@ export default SimpleBox;
 
 SimpleBox.propTypes = {
   children: PropTypes.node.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+};
+
+SimpleBox.defaultProps = {
+  onClick: null,
 };

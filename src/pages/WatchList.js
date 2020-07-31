@@ -54,7 +54,12 @@ function WatchList() {
       <EditListDropDown list={listDetails} />
       <Stack>
         {listMovies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            list={listDetails}
+            setListMovies={setListMovies}
+          />
         ))}
       </Stack>
     </Box>
