@@ -53,7 +53,7 @@ function WatchList() {
       {/* <Movies movies={listMovies} /> */}
       <Stack>
         {listMovies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+          <MovieCard key={movie.id} movie={movie} list={listDetails} />
         ))}
       </Stack>
     </Box>

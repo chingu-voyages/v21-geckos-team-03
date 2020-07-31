@@ -6,8 +6,9 @@ import ListDropDown from '../ListDropDown';
 import useWatchLists from '../../hooks/useWatchLists';
 import SimpleBox from '../SimpleBox';
 import MovieThumb from '../MovieThumb';
+import DeleteMovieButton from '../DeleteMovieButton';
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, list }) {
   const { watchLists } = useWatchLists();
 
   return (
@@ -22,6 +23,7 @@ function MovieCard({ movie }) {
           <Flex align="center" justify="space-between">
             <Heading as="h3">{movie.title}</Heading>
             <ListDropDown movie={movie} watchLists={watchLists} />
+            {list ? <DeleteMovieButton list={list} movie={movie} /> : null}
           </Flex>
           <Text fontSize="xs">
             RELEASE DATE:
@@ -40,6 +42,7 @@ function MovieCard({ movie }) {
 
 MovieCard.propTypes = {
   movie: PropTypes.object.isRequired,
+  list: PropTypes.object.isRequired,
 };
 
 export default MovieCard;

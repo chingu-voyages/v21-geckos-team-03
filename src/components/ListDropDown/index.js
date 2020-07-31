@@ -2,7 +2,6 @@
 import React, { useContext, useState } from 'react';
 import {
   Menu,
-  Button,
   MenuButton,
   MenuList,
   MenuGroup,
@@ -10,6 +9,7 @@ import {
   MenuDivider,
   Link,
   Icon,
+  IconButton,
 } from '@chakra-ui/core';
 import { NavLink } from 'react-router-dom';
 import { FirebaseContext } from '../../firebase';
@@ -57,7 +57,9 @@ function ListDropDown(props) {
   return (
     <div>
       <Menu>
-        <MenuButton as={Button}>Save to List</MenuButton>
+        <MenuButton>
+          <IconButton icon="add" />
+        </MenuButton>
         <MenuList>
           {user ? (
             <MenuGroup>
