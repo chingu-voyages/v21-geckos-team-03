@@ -57,7 +57,9 @@ function ListDropDown(props) {
   return (
     <div>
       <Menu>
-        <MenuButton as={Button}>Save to List</MenuButton>
+        <MenuButton as={Button}>
+          <Icon name="add" />
+        </MenuButton>
         <MenuList>
           {user ? (
             <MenuGroup>
