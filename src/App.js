@@ -5,7 +5,7 @@ import { customTheme } from './theme';
 import firebase, { FirebaseContext } from './firebase';
 import { Home, Forgot, Login, WatchLists, WatchList } from './pages';
 
-import Layout from './components/Layout';
+import { Layout } from './components';
 import useAuth from './hooks/useAuth';
 
 function App() {
