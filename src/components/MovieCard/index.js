@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Heading, Text, Box } from '@chakra-ui/core';
-import ListDropDown from '../ListDropDown';
+import SaveMovieDropDown from '../SaveMovieDropDown';
 import useWatchLists from '../../hooks/useWatchLists';
 import SimpleBox from '../SimpleBox';
 import MovieThumb from '../MovieThumb';
@@ -22,8 +22,8 @@ function MovieCard({ movie, list }) {
         <Box>
           <Flex align="center" justify="space-between">
             <Heading as="h3">{movie.title}</Heading>
-            <ListDropDown movie={movie} watchLists={watchLists} />
-            {list ? <DeleteMovieButton list={list} movie={movie} /> : null}
+            <SaveMovieDropDown movie={movie} watchLists={watchLists} />
+            <DeleteMovieButton movie={movie} list={list} />
           </Flex>
           <Text fontSize="xs">
             RELEASE DATE:
