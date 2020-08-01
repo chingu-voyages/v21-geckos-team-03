@@ -11,22 +11,22 @@ function ListItem({ movie }) {
 
   return (
     <Flex
-      p={[2, 4, 4, 6]}
+      p={[4, 4, 4, 6]}
       my={4}
       borderBottom="1px"
       borderStyle="solid"
       // borderRadius="lg"
       borderColor="gray.200"
       position="relative"
-      justify={{ base: 'space-around', lg: 'space-between' }}
+      // justify={{ base: 'space-around', lg: 'space-between' }}
       align="center"
-      // justify="space-between"
+      justify="space-between"
     >
-      <Icon name="drag-handle" mr={2} />
       <Icon position="absolute" top="2" right="2" size="6px" name="close" />
+      <Icon name="drag-handle" mr={4} />
 
-      <Flex direction={['column', 'row', 'row']}>
-        <Text fontSize="md" mr={4} mb={1}>
+      <Flex direction={['column', 'row', 'row', 'row']}>
+        <Text fontSize="md" mr={4} mb={1} width="100%">
           {movie.title}
         </Text>
         <Flex align="center">
