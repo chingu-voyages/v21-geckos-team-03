@@ -1,7 +1,7 @@
 /* eslint-disable prefer-destructuring */
 import { theme } from '@chakra-ui/core';
 
-const breakpoints = ['360px', '768px', '1024px', '1440px'];
+const breakpoints = ['375px', '768px', '1024px', '1440px'];
 breakpoints.sm = breakpoints[0];
 breakpoints.md = breakpoints[1];
 breakpoints.lg = breakpoints[2];
@@ -15,16 +15,18 @@ export const customTheme = {
     body: "'Spartan', sans-serif",
   },
   fontSizes: {
-    xs: '12px',
-    sm: '14px',
-    md: '15px',
-    lg: '18px',
-    xl: '20px',
-    '2xl': '24px',
-    '3xl': '28px',
-    '4xl': '36px',
-    '5xl': '48px',
-    '6xl': '64px',
+    '3xs': '0.25rem',
+    '2xs': '0.50rem',
+    xs: '0.75rem',
+    sm: '0.875rem',
+    md: '1rem',
+    lg: '1.125rem',
+    xl: '1.25rem',
+    '2xl': '1.5rem',
+    '3xl': '1.875rem',
+    '4xl': '2.25rem',
+    '5xl': '3rem',
+    '6xl': '4rem',
   },
   colors: {
     ...theme.colors,

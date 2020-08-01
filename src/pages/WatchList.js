@@ -1,11 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Heading, Text, Spinner, Stack } from '@chakra-ui/core';
+import {
+  Heading,
+  Text,
+  Box,
+  Spinner,
+  Flex,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Icon,
+} from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import ListItem from '../components/ListItem';
 import useWatchLists from '../hooks/useWatchLists';
-import EditListDropDown from '../components/EditListDropDown';
-import SimpleBox from '../components/SimpleBox';
+// import EditListDropDown from '../components/EditListDropDown';
 
 /* 
   Route: "/lists/:TBA"
@@ -48,17 +59,57 @@ function WatchList() {
   if (error) return <Text>Error Loading List</Text>;
 
   return (
-    <SimpleBox>
-      <Heading as="h2" size="lg">
-        {listDetails.title}
-      </Heading>
-      <EditListDropDown list={listDetails} />
-      <Stack>
-        {listMovies.map((movie) => (
-          <ListItem key={movie.id} movie={movie} />
-        ))}
-      </Stack>
-    </SimpleBox>
+    <Flex pt={8} direction="column" mx="auto" my="0" maxWidth="800px">
+      <Flex
+        direction="column"
+        borderBottom="1px"
+        borderBottomStyle="dashed"
+        mb={8}
+      >
+        <Flex justify="space-between">
+          <Heading as="h1" size="xl" mb={4}>
+            {listDetails.title}
+          </Heading>
+          {/* <EditListDropDown list={listDetails} /> */}
+          <Menu>
+            <MenuButton as={Button} rightIcon="chevron-down">
+              Actions
+            </MenuButton>
+            <MenuList>
+              <MenuItem>Download</MenuItem>
+              <MenuItem>Create a Copy</MenuItem>
+              <MenuItem>Mark as Draft</MenuItem>
+              <MenuItem>Delete</MenuItem>
+              <MenuItem as="a" href="#">
+                Attend a Workshop
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+
+        <Flex align="center" mb={6}>
+          <Icon name="time" mr={2} />
+          <Text fontSize="xs" mr={8}>
+            Created:
+          </Text>
+          <Text fontSize="xs">July 31st,2020</Text>
+        </Flex>
+        <Box py={6}>
+          <Text fontSize="xs" mb={4}>
+            Description:
+          </Text>
+          <Text fontSize="sm">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+            repudiandae consequuntur magni odit modi nobis corporis sunt
+            repellat nostrum beatae.
+          </Text>
+        </Box>
+      </Flex>
+
+      {listMovies.map((movie) => (
+        <ListItem key={movie.id} movie={movie} />
+      ))}
+    </Flex>
   );
 }
 
