@@ -11,7 +11,13 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
   Icon,
+  MenuDivider,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import ListItem from '../components/ListItem';
@@ -60,55 +66,68 @@ function WatchList() {
 
   return (
     <Flex pt={8} direction="column" mx="auto" my="0" maxWidth="800px">
+      {/*  List Details  */}
       <Flex
         direction="column"
         borderBottom="1px"
         borderBottomStyle="dashed"
-        mb={8}
+        mb={12}
       >
         <Flex justify="space-between">
           <Heading as="h1" size="xl" mb={4}>
             {listDetails.title}
           </Heading>
-          {/* <EditListDropDown list={listDetails} /> */}
           <Menu>
-            <MenuButton as={Button} rightIcon="chevron-down">
+            <MenuButton as={Button} size="sm" rightIcon="chevron-down">
               Actions
             </MenuButton>
-            <MenuList>
-              <MenuItem>Download</MenuItem>
-              <MenuItem>Create a Copy</MenuItem>
-              <MenuItem>Mark as Draft</MenuItem>
+            <MenuList placement="auto-end">
+              <MenuItem>Edit</MenuItem>
               <MenuItem>Delete</MenuItem>
-              <MenuItem as="a" href="#">
-                Attend a Workshop
-              </MenuItem>
+              <MenuDivider />
+              <MenuItem>Create New</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
 
         <Flex align="center" mb={6}>
           <Icon name="time" mr={2} />
-          <Text fontSize="xs" mr={8}>
+          <Text fontSize="xs" mr={6}>
             Created:
           </Text>
           <Text fontSize="xs">July 31st,2020</Text>
         </Flex>
-        <Box py={6}>
+
+        <Box py={5}>
           <Text fontSize="xs" mb={4}>
             Description:
           </Text>
-          <Text fontSize="sm">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-            repudiandae consequuntur magni odit modi nobis corporis sunt
-            repellat nostrum beatae.
+          <Text fontSize="sm" mb={4}>
+            Air plant raw denim iPhone, kinfolk coloring book vaporware keffiyeh
+            thundercats. Chambray locavore retro organic bicycle rights shaman
+            synth.
           </Text>
         </Box>
       </Flex>
+      {/* List Items */}
 
-      {listMovies.map((movie) => (
-        <ListItem key={movie.id} movie={movie} />
-      ))}
+      <Tabs isFitted variant="enclosed">
+        <TabList mb="1em">
+          <Tab>All</Tab>
+          <Tab>Unwatched</Tab>
+          <Tab>Watched</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            {listMovies.map((movie) => (
+              <ListItem key={movie.id} movie={movie} />
+            ))}
+          </TabPanel>
+          <TabPanel>
+            <p>two!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Flex>
   );
 }
