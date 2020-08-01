@@ -1,4 +1,6 @@
+/* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prefer-destructuring */
+
 import { theme } from '@chakra-ui/core';
 
 const breakpoints = ['375px', '768px', '1024px', '1440px'];
@@ -37,8 +39,8 @@ export const customTheme = {
       300: 'hsl(180, 8%, 52%)',
       400: 'hsl(180, 14%, 20%)',
     },
-    green: '#33cc33',
-    red: '#cc0000',
+    // green: '#33cc33',
+    // red: '#cc0000',
   },
   shadows: {
     ...theme.shadows,
