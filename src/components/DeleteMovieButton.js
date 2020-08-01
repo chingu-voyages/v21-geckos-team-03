@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { IconButton } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 
-function DeleteMovieButton({ movie, list, setDeleted }) {
+function DeleteMovieButton({ movie, list }) {
   const { user, firebase } = useContext(FirebaseContext);
   const deleteMovie = () => {
     firebase.db
@@ -16,7 +16,6 @@ function DeleteMovieButton({ movie, list, setDeleted }) {
       .delete()
       .then(function () {
         console.log('Document successfully deleted!');
-        setDeleted(true);
       })
       .catch(function (error) {
         console.error('Error removing document: ', error);
@@ -29,7 +28,6 @@ function DeleteMovieButton({ movie, list, setDeleted }) {
 DeleteMovieButton.propTypes = {
   movie: PropTypes.object.isRequired,
   list: PropTypes.object.isRequired,
-  setDeleted: PropTypes.func.isRequired,
 };
 
 export default DeleteMovieButton;

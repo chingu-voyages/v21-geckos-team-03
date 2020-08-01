@@ -25,7 +25,8 @@ function SaveMovieDropDown(props) {
       .collection('lists')
       .doc(list.id)
       .collection('movies')
-      .add(movie);
+      .doc(`${movie.id}`)
+      .set(movie);
     setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
   };
 

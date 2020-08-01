@@ -26,20 +26,28 @@ function WatchList() {
 
   useEffect(() => {
     setLoading(true);
-    if (user) {
-      try {
-        firebase.getMoviesInWatchList(user.uid, listId).then((snapshot) => {
-          const fetchedMovies = snapshot.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() };
+    setError(false);
+
+    function getListMovies() {
+      if (user) {
+        return firebase.db
+          .doc(`users/${user.uid}`)
+          .collection('lists')
+          .doc(`/${listId}`)
+          .collection('movies')
+          .onSnapshot((snapshot) => {
+            const fetchedMovies = snapshot.docs.map((doc) => {
+              return { id: doc.id, ...doc.data() };
+            });
+            setListMovies(fetchedMovies);
+            setError(null);
+            setLoading(false);
           });
-          setListMovies(fetchedMovies);
-          setError(null);
-          setLoading(false);
-        });
-      } catch (err) {
-        setError(err);
       }
+      return () => {};
     }
+    const unsubscribe = getListMovies();
+    return () => unsubscribe();
   }, [listId, watchLists, user, firebase]);
 
   if (loading) return <Spinner />;
