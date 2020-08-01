@@ -20,14 +20,9 @@ import {
   MenuDivider,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
-import ListItem from '../components/ListItem';
+import { ListItem } from '../components';
 import useWatchLists from '../hooks/useWatchLists';
 // import EditListDropDown from '../components/EditListDropDown';
-
-/* 
-  Route: "/lists/:TBA"
-  Page for rendering components in a single user created watch list
-*/
 
 function WatchList() {
   const { user, firebase } = useContext(FirebaseContext);
@@ -65,69 +60,94 @@ function WatchList() {
   if (error) return <Text>Error Loading List</Text>;
 
   return (
-    <Flex pt={8} direction="column" mx="auto" my="0" maxWidth="800px">
-      {/*  List Details  */}
+    // Two column flex row
+    <Flex>
+      {/* Sidebar */}
       <Flex
-        direction="column"
-        borderBottom="1px"
-        borderBottomStyle="dashed"
-        mb={12}
+        display={{ base: 'none', md: 'flex' }}
+        // w="20%"
+        h="80vh"
+        p={8}
+        mx={8}
+        border="1px"
+        borderRadius="md"
+        borderColor="gray.200"
       >
-        <Flex justify="space-between">
-          <Heading as="h1" size="xl" mb={4}>
-            {listDetails.title}
-          </Heading>
-          <Menu>
-            <MenuButton as={Button} size="sm" rightIcon="chevron-down">
-              Actions
-            </MenuButton>
-            <MenuList placement="auto-end">
-              <MenuItem>Edit</MenuItem>
-              <MenuItem>Delete</MenuItem>
-              <MenuDivider />
-              <MenuItem>Create New</MenuItem>
-            </MenuList>
-          </Menu>
-        </Flex>
-
-        <Flex align="center" mb={6}>
-          <Icon name="time" mr={2} />
-          <Text fontSize="xs" mr={6}>
-            Created:
-          </Text>
-          <Text fontSize="xs">July 31st,2020</Text>
-        </Flex>
-
-        <Box py={5}>
-          <Text fontSize="xs" mb={4}>
-            Description:
-          </Text>
-          <Text fontSize="sm" mb={4}>
-            Air plant raw denim iPhone, kinfolk coloring book vaporware keffiyeh
-            thundercats. Chambray locavore retro organic bicycle rights shaman
-            synth.
-          </Text>
+        <Box>
+          <Text>Sidebar with watchlists?</Text>
         </Box>
       </Flex>
-      {/* List Items */}
 
-      <Tabs isFitted variant="enclosed">
-        <TabList mb="1em">
-          <Tab>All</Tab>
-          <Tab>Unwatched</Tab>
-          <Tab>Watched</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            {listMovies.map((movie) => (
-              <ListItem key={movie.id} movie={movie} />
-            ))}
-          </TabPanel>
-          <TabPanel>
-            <p>two!</p>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      {/* Watchlist Container */}
+      <Flex direction="column" mx="auto" my="0">
+        {/*  List Details  */}
+        <Flex
+          direction="column"
+          borderBottom="1px"
+          borderBottomStyle="dashed"
+          mb={12}
+        >
+          <Flex justify="space-between">
+            <Heading as="h1" size="xl" mb={4}>
+              {listDetails.title}
+            </Heading>
+            <Menu>
+              <MenuButton as={Button} size="sm" rightIcon="chevron-down">
+                Actions
+              </MenuButton>
+              <MenuList placement="auto-end">
+                <MenuItem>Edit</MenuItem>
+                <MenuItem>Delete</MenuItem>
+                <MenuDivider />
+                <MenuItem>Create New</MenuItem>
+              </MenuList>
+            </Menu>
+          </Flex>
+          <Flex align="center" mb={6}>
+            <Icon name="time" mr={2} />
+            <Text fontSize="xs" mr={6}>
+              Created:
+            </Text>
+            <Text fontSize="xs">July 31st,2020</Text>
+          </Flex>
+          <Box py={5}>
+            <Text fontSize="xs" mb={4}>
+              Description:
+            </Text>
+            <Text fontSize="sm" mb={4}>
+              Air plant raw denim iPhone, kinfolk coloring book vaporware
+              keffiyeh thundercats. Chambray locavore retro organic bicycle
+              rights shaman synth.
+            </Text>
+          </Box>
+        </Flex>
+
+        {/* List Section */}
+        {/* Tab Panels */}
+        <Tabs isFitted variant="enclosed">
+          <TabList mb="1em">
+            <Tab>All</Tab>
+            <Tab>Unwatched</Tab>
+            <Tab>Watched</Tab>
+          </TabList>
+          <TabPanels>
+            {/* All list Items */}
+            <TabPanel>
+              {listMovies.map((movie) => (
+                <ListItem key={movie.id} movie={movie} />
+              ))}
+            </TabPanel>
+            {/* Unwatched items */}
+            <TabPanel>
+              <Text>Unwatched goes here...</Text>
+            </TabPanel>
+            {/* {Watched Items} */}
+            <TabPanel>
+              <Text>Watched goes here...</Text>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Flex>
     </Flex>
   );
 }
