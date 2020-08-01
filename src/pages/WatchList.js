@@ -61,14 +61,14 @@ function WatchList() {
 
   return (
     // Two column flex row
-    <Flex>
+    <Flex justify="space-around">
       {/* Sidebar */}
       <Flex
         display={{ base: 'none', md: 'flex' }}
-        // w="20%"
+        // w="30%"
         h="80vh"
         p={8}
-        mx={8}
+        mr={10}
         border="1px"
         borderRadius="md"
         borderColor="gray.200"

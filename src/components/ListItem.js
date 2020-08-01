@@ -1,9 +1,17 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Flex, Text, Icon, Tag, Checkbox, TagLabel } from '@chakra-ui/core';
+import {
+  Flex,
+  Text,
+  Box,
+  Icon,
+  Tag,
+  Checkbox,
+  TagLabel,
+} from '@chakra-ui/core';
 // import useWatchLists from '../../hooks/useWatchLists';
-// import MovieThumb from '../MovieThumb';
+// import { MovieThumb } from '../components';
 // import { formatDateYear } from '../utils';
 
 function ListItem({ movie }) {
@@ -11,7 +19,7 @@ function ListItem({ movie }) {
 
   return (
     <Flex
-      p={[4, 4, 4, 6]}
+      p={4}
       my={4}
       borderBottom="1px"
       borderStyle="solid"
@@ -20,33 +28,33 @@ function ListItem({ movie }) {
       position="relative"
       // justify={{ base: 'space-around', lg: 'space-between' }}
       align="center"
-      justify="space-between"
+      justify="space-around"
     >
-      <Icon position="absolute" top="2" right="2" size="6px" name="close" />
       <Icon name="drag-handle" mr={4} />
-
-      <Flex direction={['column', 'row', 'row', 'row']}>
+      {/* <MovieThumb /> */}
+      <Flex width="30%">
         <Text fontSize="md" mr={4} mb={1} width="100%">
           {movie.title}
         </Text>
-        <Flex align="center">
+      </Flex>
+      <Flex align="center">
+        <Box width="33%">
           <Tag size="sm" rounded="full" mr={4}>
             <TagLabel fontSize="xs">Genre</TagLabel>
           </Tag>
-          <Flex align="center">
-            {/* <Text fontSize="3xs">{formatDateYear(movie.release_date)}</Text> */}
-            <Icon name="star" size="8px" mr={2} />
-            <Text fontSize="2xs">{movie.vote_average}</Text>
-          </Flex>
-        </Flex>
-      </Flex>
+        </Box>
 
-      <Flex
-        display={{ base: 'none', md: 'flex' }}
-        justifySelf="flex-end"
-        align="center"
-      >
-        <Text fontSize="xs" mr={10}>
+        <Flex width="33%">
+          {/* <Text fontSize="3xs">{formatDateYear(movie.release_date)}</Text> */}
+          <Icon name="star" size="8px" mr={2} />
+          <Text fontSize="2xs">{movie.vote_average}</Text>
+        </Flex>
+        <Text
+          width="33%"
+          display={{ base: 'none', sm: 'flex' }}
+          fontSize="xs"
+          // mr={10}
+        >
           July 30th, 2020
         </Text>
       </Flex>

@@ -1,6 +1,14 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Divider, Heading, Link, Text, Flex, Button } from '@chakra-ui/core';
+import {
+  Divider,
+  Heading,
+  Link,
+  Text,
+  Flex,
+  Button,
+  Spinner,
+} from '@chakra-ui/core';
 import { SimpleBox } from '../components';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
@@ -56,7 +64,7 @@ const WatchLists = (props) => {
     return options;
   };
 
-  if (loading) return <Text>Loading Lists...</Text>;
+  if (loading) return <Spinner />;
   if (error) return <Text>Error loading Lists</Text>;
 
   return (
