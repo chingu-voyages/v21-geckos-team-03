@@ -63,12 +63,12 @@ const WatchLists = (props) => {
     <>
       <SimpleBox>
         <Flex align="center" justify="space-between">
-          <Heading as="h2" size="2xl">
+          <Heading as="h2" size="xl">
             {user
               ? `${user.displayName.toUpperCase()}'s Watch Lists`
               : 'You Watchlists'}
           </Heading>
-          <Button variantColor="green" type="submit" onClick={handleSubmit}>
+          <Button bg="primary" type="submit" onClick={handleSubmit}>
             Create New List
           </Button>
         </Flex>
