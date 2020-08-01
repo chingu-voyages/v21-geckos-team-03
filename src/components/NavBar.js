@@ -48,15 +48,11 @@ function NavBar() {
       align="center"
       justify="space-between"
       wrap="wrap"
-      padding="1.5rem"
+      padding={6}
+      mx={6}
       borderBottom="1px solid #C8C8C8"
     >
       <Flex align="center" justify="center" mr={5}>
-        <Box mr={5}>
-          <Button rounded="50%" onClick={() => toggleColorMode()}>
-            <Icon name={colorMode === 'light' ? 'moon' : 'sun'} />
-          </Button>
-        </Box>
         <Link as={NavLink} to="/">
           <Heading as="h1" size="lg">
             WatchList
@@ -118,6 +114,12 @@ function NavBar() {
             </Button>
           </Link>
         )}
+      </Box>
+
+      <Box ml={6}>
+        <Button rounded="50%" onClick={() => toggleColorMode()}>
+          <Icon name={colorMode === 'light' ? 'moon' : 'sun'} />
+        </Button>
       </Box>
     </Flex>
   );
