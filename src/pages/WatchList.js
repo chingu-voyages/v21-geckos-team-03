@@ -22,7 +22,6 @@ import {
 import { FirebaseContext } from '../firebase';
 import { ListItem } from '../components';
 import useWatchLists from '../hooks/useWatchLists';
-// import EditListDropDown from '../components/EditListDropDown';
 
 function WatchList() {
   const { user, firebase } = useContext(FirebaseContext);
@@ -52,9 +51,10 @@ function WatchList() {
         });
       } catch (err) {
         setError(err);
+        setLoading(false);
       }
     }
-  }, [listId, watchLists, user, firebase]);
+  }, [listId, user, firebase]);
 
   if (loading) return <Spinner />;
   if (error) return <Text>Error Loading List</Text>;
@@ -65,7 +65,6 @@ function WatchList() {
       {/* Sidebar */}
       <Flex
         display={{ base: 'none', md: 'flex' }}
-        // w="30%"
         h="80vh"
         p={8}
         mr={10}
@@ -95,7 +94,7 @@ function WatchList() {
               <MenuButton as={Button} size="sm" rightIcon="chevron-down">
                 Actions
               </MenuButton>
-              <MenuList placement="auto-end">
+              <MenuList>
                 <MenuItem>Edit</MenuItem>
                 <MenuItem>Delete</MenuItem>
                 <MenuDivider />
