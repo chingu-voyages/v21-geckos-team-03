@@ -19,12 +19,17 @@ function SaveMovieDropDown(props) {
   const [savedMovies, setSavedMovies] = useState({}); // format is an object with movie ids as keys, and arrays of lists they are on as values ie {movieA: [listA, listC]}
 
   const saveMovie = (list) => {
+    const movieObj = {
+      ...movie,
+      added: Date.now(),
+      watched: false,
+    };
     firebase.db
       .doc(`users/${user.uid}`)
       .collection('lists')
       .doc(list.id)
       .collection('movies')
-      .add(movie);
+      .add(movieObj);
     setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
   };
 
