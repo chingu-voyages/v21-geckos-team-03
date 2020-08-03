@@ -1,65 +1,67 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Flex,
   Text,
-  Box,
   Icon,
-  Tag,
+  PseudoBox,
+  Image,
   Checkbox,
-  TagLabel,
+  IconButton,
 } from '@chakra-ui/core';
-// import useWatchLists from '../../hooks/useWatchLists';
-// import { MovieThumb } from '../components';
-// import { formatDateYear } from '../utils';
+
+import NoImage from '../images/no_image.png';
+import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
 
 function ListItem({ movie }) {
-  // const { watchLists } = useWatchLists();
-
   return (
     <Flex
       p={4}
       my={4}
+      mx={0}
       borderBottom="1px"
       borderStyle="solid"
-      // borderRadius="lg"
       borderColor="gray.200"
       position="relative"
-      // justify={{ base: 'space-around', lg: 'space-between' }}
       align="center"
-      justify="space-around"
+      justify="space-between"
     >
-      <Icon name="drag-handle" mr={4} />
-      {/* <MovieThumb /> */}
-      <Flex width="30%">
-        <Text fontSize="md" mr={4} mb={1} width="100%">
-          {movie.title}
-        </Text>
-      </Flex>
       <Flex align="center">
-        <Box width="33%">
-          <Tag size="sm" rounded="full" mr={4}>
-            <TagLabel fontSize="xs">Genre</TagLabel>
-          </Tag>
-        </Box>
-
-        <Flex width="33%">
-          {/* <Text fontSize="3xs">{formatDateYear(movie.release_date)}</Text> */}
-          <Icon name="star" size="8px" mr={2} />
-          <Text fontSize="2xs">{movie.vote_average}</Text>
+        {/* Check to mark watched */}
+        <Checkbox size="lg" mr={[4, 6, 8, 10]} />
+        {/* Image Container */}
+        <PseudoBox size={['50px', '60px', '75px', '85px']} mr={4}>
+          <Image
+            justifySelf="start"
+            rounded="md"
+            src={
+              movie.poster_path
+                ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
+                : NoImage
+            }
+            objectFit="contain"
+            height="100%"
+            alt="movieThumb"
+          />
+        </PseudoBox>
+        {/* Title & Rating */}
+        <Flex direction="column" mr={1}>
+          <Text fontSize={['md', 'md', 'lg']} mr={4} mb={1}>
+            {movie.title}
+          </Text>
+          <Flex>
+            <Icon name="star" size="8px" mr={2} />
+            <Text fontSize="2xs">{movie.vote_average}</Text>
+          </Flex>
         </Flex>
-        <Text
-          width="33%"
-          display={{ base: 'none', sm: 'flex' }}
-          fontSize="xs"
-          // mr={10}
-        >
-          July 30th, 2020
-        </Text>
       </Flex>
 
-      <Checkbox size="lg" ml={6} mr={4} />
+      <IconButton
+        justifySelf="flex-end"
+        aria-label="delete movie"
+        size={['xs', 'xs', 'sm', 'md']}
+        icon="delete"
+      />
     </Flex>
   );
 }
