@@ -20,13 +20,28 @@ function SaveMovieDropDown(props) {
   const [savedMovies, setSavedMovies] = useState({}); // format is an object with movie ids as keys, and arrays of lists they are on as values ie {movieA: [listA, listC]}
 
   const saveMovie = (list) => {
-    firebase.db
+    const moviesRef = firebase.db
       .doc(`users/${user.uid}`)
       .collection('lists')
       .doc(list.id)
-      .collection('movies')
-      .add(movie);
-    setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
+      .collection('movies');
+
+    moviesRef.onSnapshot((snapshot) => {
+      let dup = false;
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < snapshot.docs.length; i++) {
+        if (snapshot.docs[i].id === `${movie.id}`) {
+          dup = true;
+          console.log('This movie is already on that list!');
+          break;
+        }
+      }
+      if (!dup) {
+        console.log('SAVING MOVIE');
+        moviesRef.doc(`${movie.id}`).set(movie);
+        setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
+      }
+    });
   };
 
   const generateLists = () => {
