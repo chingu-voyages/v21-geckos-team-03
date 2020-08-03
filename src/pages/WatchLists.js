@@ -30,7 +30,6 @@ const WatchLists = (props) => {
     createdAt: new Date(),
     title: 'My 10th list',
     description: 'this is a new test list created from front end',
-    movies: [10293, 10290, 1090],
   };
 
   const handleSubmit = (e) => {
