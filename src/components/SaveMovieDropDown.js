@@ -2,7 +2,6 @@
 import React, { useContext, useState } from 'react';
 import {
   Menu,
-  Button,
   MenuButton,
   MenuList,
   MenuGroup,
@@ -10,9 +9,10 @@ import {
   MenuDivider,
   Link,
   Icon,
+  IconButton,
 } from '@chakra-ui/core';
 import { NavLink } from 'react-router-dom';
-import { FirebaseContext } from '../../firebase';
+import { FirebaseContext } from '../firebase';
 
 function SaveMovieDropDown(props) {
   const { user, firebase } = useContext(FirebaseContext);
@@ -52,8 +52,10 @@ function SaveMovieDropDown(props) {
 
   return (
     <div>
-      <Menu closeOnSelect={false}>
-        <MenuButton as={Button}>Save to List</MenuButton>
+      <Menu>
+        <MenuButton>
+          <IconButton icon="add" />
+        </MenuButton>
         <MenuList>
           {user ? (
             <MenuGroup>

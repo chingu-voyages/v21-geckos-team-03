@@ -11,7 +11,7 @@ import {
   Button,
   useDisclosure,
 } from '@chakra-ui/core';
-import SimpleBox from '../SimpleBox';
+import SimpleBox from './SimpleBox';
 
 function EditListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();

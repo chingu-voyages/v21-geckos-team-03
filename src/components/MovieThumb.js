@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { Image, PseudoBox, Flex, Link } from '@chakra-ui/core';
-import NoImage from '../../images/no_image.png';
-import { IMAGE_BASE_URL, POSTER_SIZE } from '../../utils/config';
+import NoImage from '../images/no_image.png';
+import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
 
 const MovieThumb = ({ posterPath, movieId, clickable }) => {
   const MovieImage = () => (
