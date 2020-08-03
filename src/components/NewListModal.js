@@ -10,6 +10,11 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
+  Input,
+  //   FormControl,
+  FormLabel,
+  //   FormErrorMessage,
+  //   FormHelperText,
 } from '@chakra-ui/core';
 
 function NewListModal({ list, saveList }) {
@@ -24,9 +29,24 @@ function NewListModal({ list, saveList }) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Edit List</ModalHeader>
+          <ModalHeader>Create New List</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>form goes here</ModalBody>
+          <ModalBody>
+            <FormLabel htmlFor="list-title">Title: </FormLabel>
+            <Input
+              id="list-title"
+              variant="outline"
+              placeholder="List Title"
+              isRequired
+            />
+            <FormLabel htmlFor="list-description">Description: </FormLabel>
+
+            <Input
+              id="list-description"
+              variant="outline"
+              placeholder="List Description"
+            />
+          </ModalBody>
 
           <ModalFooter>
             <Button color="red" mr={3} onClick={onClose}>
