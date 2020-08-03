@@ -27,7 +27,7 @@ const WatchLists = (props) => {
   const history = useHistory();
 
   const newList = {
-    createdAt: new Date(),
+    createdAt: Date.now(),
     title: 'My 10th list',
     description: 'this is a new test list created from front end',
   };
