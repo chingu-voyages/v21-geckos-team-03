@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Divider, Heading, Link, Text, Flex, Button } from '@chakra-ui/core';
+import { Divider, Heading, Link, Text, Flex } from '@chakra-ui/core';
 import { SimpleBox } from '../components';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
+import NewListModal from '../components/NewListModal';
 
 /* 
   Route: "/lists"
@@ -68,9 +69,7 @@ const WatchLists = (props) => {
               ? `${user.displayName.toUpperCase()}'s Watch Lists`
               : 'You Watchlists'}
           </Heading>
-          <Button variantColor="green" type="submit" onClick={handleSubmit}>
-            Create New List
-          </Button>
+          <NewListModal saveList={handleSubmit} />
         </Flex>
       </SimpleBox>
       <SimpleBox>{generateLists()}</SimpleBox>
