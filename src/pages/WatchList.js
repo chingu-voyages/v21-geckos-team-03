@@ -41,20 +41,22 @@ function WatchList() {
     setLoading(true);
     if (user) {
       try {
-        firebase.getMoviesInWatchList(user.uid, listId).then((snapshot) => {
-          const fetchedMovies = snapshot.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() };
-          });
-          setListMovies(fetchedMovies);
-          setError(null);
-          setLoading(false);
-        });
+        firebase.getMoviesInWatchList(user.uid, listId, handleSnapshot);
       } catch (err) {
         setError(err);
         setLoading(false);
       }
     }
   }, [listId, user, firebase]);
+
+  function handleSnapshot(snapshot) {
+    const fetchedMovies = snapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+    setListMovies(fetchedMovies);
+    setError(null);
+    setLoading(false);
+  }
 
   if (loading) return <Spinner />;
   if (error) return <Text>Error Loading List</Text>;
