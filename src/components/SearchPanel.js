@@ -28,6 +28,7 @@ const SearchPanel = ({ callback }) => {
     }, 500);
   };
 
+  //  searchbar size increases when hovering over it
   const onFocus = (e) => {
     setFocus(true);
   };

@@ -11,7 +11,7 @@ import {
   Icon,
   useColorMode,
 } from '@chakra-ui/core';
-import { FirebaseContext } from '../../firebase';
+import { FirebaseContext } from '../firebase';
 
 /* 
 Primary navigation bar for the app.
