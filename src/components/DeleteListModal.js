@@ -6,12 +6,12 @@ import {
   ModalContent,
   ModalHeader,
   ModalCloseButton,
+  IconButton,
   ModalBody,
   Button,
   useDisclosure,
   ModalFooter,
 } from '@chakra-ui/core';
-import SimpleBox from './SimpleBox';
 
 function DeleteListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -22,7 +22,7 @@ function DeleteListModal({ list }) {
 
   return (
     <>
-      <SimpleBox onClick={onOpen}>Delete List</SimpleBox>
+      <IconButton icon="delete" variant="ghost" mr={2} onClick={onOpen} />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

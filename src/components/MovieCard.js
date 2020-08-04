@@ -1,18 +1,14 @@
-/* eslint-disable react/forbid-prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Heading, Text, Box } from '@chakra-ui/core';
 import SaveMovieDropDown from './SaveMovieDropDown';
 import useWatchLists from '../hooks/useWatchLists';
 import SimpleBox from './SimpleBox';
 import MovieThumb from './MovieThumb';
-import DeleteMovieButton from './DeleteMovieButton';
 
 function MovieCard({ movie, list }) {
   const { watchLists } = useWatchLists();
-  const [deleted, setDeleted] = useState(false);
 
-  if (deleted) return <></>;
   return (
     <SimpleBox>
       <Flex
@@ -34,13 +30,6 @@ function MovieCard({ movie, list }) {
           >
             <Heading as="h3">{movie.title}</Heading>
             <SaveMovieDropDown movie={movie} watchLists={watchLists} />
-            {list ? (
-              <DeleteMovieButton
-                movie={movie}
-                list={list}
-                setDeleted={setDeleted}
-              />
-            ) : null}
           </Flex>
           <Text fontSize="xs">
             RELEASE DATE:
