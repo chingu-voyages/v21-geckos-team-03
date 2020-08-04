@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Divider, Heading, Link, Text, Flex } from '@chakra-ui/core';
 import { SimpleBox } from '../components';
 import { FirebaseContext } from '../firebase';
@@ -16,24 +15,7 @@ import NewListModal from '../components/NewListModal';
 
 const WatchLists = (props) => {
   const { watchLists, loading, error } = useWatchLists();
-  const { firebase, user } = useContext(FirebaseContext);
-  const history = useHistory();
-
-  const newList = {
-    createdAt: new Date(),
-    title: 'My 10th list',
-    description: 'this is a new test list created from front end',
-    movies: [10293, 10290, 1090],
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!user) {
-      history.push('/login');
-    } else {
-      firebase.createNewWatchList(newList, user.uid);
-    }
-  };
+  const { user } = useContext(FirebaseContext);
 
   const generateLists = () => {
     if (!watchLists) {
@@ -67,9 +49,9 @@ const WatchLists = (props) => {
           <Heading as="h2" size="2xl">
             {user
               ? `${user.displayName.toUpperCase()}'s Watch Lists`
-              : 'You Watchlists'}
+              : 'Your Watch Lists'}
           </Heading>
-          <NewListModal saveList={handleSubmit} />
+          <NewListModal />
         </Flex>
       </SimpleBox>
       <SimpleBox>{generateLists()}</SimpleBox>

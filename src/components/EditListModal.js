@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -10,32 +10,61 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
+  Input,
+  //   FormControl,
+  FormLabel,
+  //   FormErrorMessage,
+  //   FormHelperText,
 } from '@chakra-ui/core';
 import SimpleBox from './SimpleBox';
 
-function EditListModal({ list }) {
+function EditListModal({ saveList }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const saveChanges = () => {
-    // save changes to list
-  };
+  const [listDeets, setListDeets] = useState({});
 
   return (
     <>
-      <SimpleBox onClick={onOpen}>Edit List</SimpleBox>
+      <SimpleBox onClick={onOpen}>Edit List Details</SimpleBox>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Edit List</ModalHeader>
+          <ModalHeader>Edit List Details</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>form goes here</ModalBody>
+          <ModalBody>
+            <FormLabel htmlFor="list-title">Title: </FormLabel>
+            <Input
+              id="list-title"
+              variant="outline"
+              placeholder="List Title"
+              type="string"
+              isRequired
+              onChange={(e) => {
+                setListDeets({ ...listDeets, title: e.target.value });
+              }}
+            />
+            <FormLabel htmlFor="list-description">Description: </FormLabel>
+
+            <Input
+              id="list-description"
+              variant="outline"
+              placeholder="List Description"
+              type="text"
+              onChange={(e) => {
+                setListDeets({ ...listDeets, description: e.target.value });
+              }}
+            />
+          </ModalBody>
 
           <ModalFooter>
             <Button color="red" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button color="green" onClick={saveChanges}>
+            <Button
+              color="green"
+              type="submit"
+              onClick={() => saveList(listDeets)}
+            >
               Save Changes
             </Button>
           </ModalFooter>

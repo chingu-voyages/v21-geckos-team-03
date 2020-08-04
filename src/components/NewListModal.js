@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -16,9 +16,21 @@ import {
   //   FormErrorMessage,
   //   FormHelperText,
 } from '@chakra-ui/core';
+import { FirebaseContext } from '../firebase';
 
-function NewListModal({ list, saveList }) {
+function NewListModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [listDeets, setListDeets] = useState({});
+  const { firebase, user } = useContext(FirebaseContext);
+
+  const saveList = () => {
+    const newList = {
+      createdAt: new Date(),
+      title: listDeets.title,
+      description: listDeets.description,
+    };
+    firebase.createNewWatchList(newList, user.uid);
+  };
 
   return (
     <>
@@ -37,7 +49,11 @@ function NewListModal({ list, saveList }) {
               id="list-title"
               variant="outline"
               placeholder="List Title"
+              type="string"
               isRequired
+              onChange={(e) => {
+                setListDeets({ ...listDeets, title: e.target.value });
+              }}
             />
             <FormLabel htmlFor="list-description">Description: </FormLabel>
 
@@ -45,6 +61,10 @@ function NewListModal({ list, saveList }) {
               id="list-description"
               variant="outline"
               placeholder="List Description"
+              type="text"
+              onChange={(e) => {
+                setListDeets({ ...listDeets, description: e.target.value });
+              }}
             />
           </ModalBody>
 
@@ -52,7 +72,11 @@ function NewListModal({ list, saveList }) {
             <Button color="red" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button color="green" type="submit" onClick={saveList}>
+            <Button
+              color="green"
+              type="submit"
+              onClick={() => saveList(listDeets)}
+            >
               Create List
             </Button>
           </ModalFooter>
