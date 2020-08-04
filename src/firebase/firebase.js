@@ -64,6 +64,14 @@ class Firebase {
     await this.db.doc(`users/${userId}`).collection('lists').add(newList);
   }
 
+  async editWatchList(list, userId) {
+    await this.db
+      .doc(`users/${userId}`)
+      .collection('lists')
+      .doc(list.id)
+      .set(list);
+  }
+
   async getMoviesInWatchList(userId, listId) {
     return this.db
       .doc(`users/${userId}`)

@@ -72,11 +72,7 @@ function NewListModal() {
             <Button color="red" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button
-              color="green"
-              type="submit"
-              onClick={() => saveList(listDeets)}
-            >
+            <Button color="green" type="submit" onClick={saveList}>
               Create List
             </Button>
           </ModalFooter>

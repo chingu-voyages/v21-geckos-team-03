@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -17,10 +17,22 @@ import {
   //   FormHelperText,
 } from '@chakra-ui/core';
 import SimpleBox from './SimpleBox';
+import { FirebaseContext } from '../firebase';
 
-function EditListModal({ saveList }) {
+function EditListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [listDeets, setListDeets] = useState({});
+  const { firebase, user } = useContext(FirebaseContext);
+
+  const saveChanges = () => {
+    const newList = {
+      ...list,
+      title: listDeets.title,
+      description: listDeets.description,
+      modifiedAt: new Date(),
+    };
+    firebase.editWatchList(newList, user.uid);
+  };
 
   return (
     <>
@@ -39,6 +51,7 @@ function EditListModal({ saveList }) {
               placeholder="List Title"
               type="string"
               isRequired
+              defaultValu={list.title}
               onChange={(e) => {
                 setListDeets({ ...listDeets, title: e.target.value });
               }}
@@ -49,6 +62,7 @@ function EditListModal({ saveList }) {
               id="list-description"
               variant="outline"
               placeholder="List Description"
+              defaultValu={list.description}
               type="text"
               onChange={(e) => {
                 setListDeets({ ...listDeets, description: e.target.value });
@@ -60,11 +74,7 @@ function EditListModal({ saveList }) {
             <Button color="red" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button
-              color="green"
-              type="submit"
-              onClick={() => saveList(listDeets)}
-            >
+            <Button color="green" type="submit" onClick={saveChanges}>
               Save Changes
             </Button>
           </ModalFooter>
