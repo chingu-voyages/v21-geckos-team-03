@@ -19,9 +19,14 @@ import {
 import SimpleBox from './SimpleBox';
 import { FirebaseContext } from '../firebase';
 
+const INITIAL_STATE = {
+  title: '',
+  description: '',
+};
+
 function EditListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [listDeets, setListDeets] = useState({});
+  const [listDeets, setListDeets] = useState(INITIAL_STATE);
   const { firebase, user } = useContext(FirebaseContext);
 
   const saveChanges = () => {
@@ -51,7 +56,7 @@ function EditListModal({ list }) {
               placeholder="List Title"
               type="string"
               isRequired
-              defaultValu={list.title}
+              defaultValue={list.title}
               onChange={(e) => {
                 setListDeets({ ...listDeets, title: e.target.value });
               }}
@@ -62,7 +67,7 @@ function EditListModal({ list }) {
               id="list-description"
               variant="outline"
               placeholder="List Description"
-              defaultValu={list.description}
+              defaultValue={list.description}
               type="text"
               onChange={(e) => {
                 setListDeets({ ...listDeets, description: e.target.value });
