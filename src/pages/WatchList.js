@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Heading,
@@ -19,44 +19,16 @@ import {
   Icon,
   MenuDivider,
 } from '@chakra-ui/core';
-import { FirebaseContext } from '../firebase';
-import { ListItem } from '../components';
-import useWatchLists from '../hooks/useWatchLists';
+
+// eslint-disable-next-line no-unused-vars
+import { EditListDropDown, ListItem } from '../components';
+import useSingleWatchList from '../hooks/useSingleWatchList';
 
 function WatchList() {
-  const { user, firebase } = useContext(FirebaseContext);
-  const { watchLists } = useWatchLists();
   const { listId } = useParams();
-  const [listMovies, setListMovies] = useState([]);
-  const [listDetails, setListDetails] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const currentListId = watchLists.find((list) => list.id === listId);
-    setListDetails(currentListId);
-  }, [listId, watchLists]);
-
-  useEffect(() => {
-    setLoading(true);
-    if (user) {
-      try {
-        firebase.getMoviesInWatchList(user.uid, listId, handleSnapshot);
-      } catch (err) {
-        setError(err);
-        setLoading(false);
-      }
-    }
-  }, [listId, user, firebase]);
-
-  function handleSnapshot(snapshot) {
-    const fetchedMovies = snapshot.docs.map((doc) => {
-      return { id: doc.id, ...doc.data() };
-    });
-    setListMovies(fetchedMovies);
-    setError(null);
-    setLoading(false);
-  }
+  const { listMovies, listDetails, error, loading } = useSingleWatchList(
+    listId
+  );
 
   if (loading) return <Spinner />;
   if (error) return <Text>Error Loading List</Text>;
@@ -92,6 +64,7 @@ function WatchList() {
             <Heading as="h1" size="xl" mb={4}>
               {listDetails.title}
             </Heading>
+            {/* <EditListDropDown list={listDetails} /> */}
             <Menu>
               <MenuButton as={Button} size="sm" rightIcon="chevron-down">
                 Actions

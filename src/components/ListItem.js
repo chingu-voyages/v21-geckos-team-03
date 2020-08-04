@@ -13,7 +13,7 @@ import {
 import NoImage from '../images/no_image.png';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
 
-function ListItem({ movie }) {
+function ListItem({ movie, list }) {
   return (
     <Flex
       p={4}
@@ -68,6 +68,8 @@ function ListItem({ movie }) {
 
 ListItem.propTypes = {
   movie: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  list: PropTypes.object,
 };
 
 export default ListItem;
