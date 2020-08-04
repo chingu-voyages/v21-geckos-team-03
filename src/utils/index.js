@@ -1,4 +1,6 @@
-export default function validateLogin(values) {
+import moment from 'moment';
+
+export function validateLogin(values) {
   const errors = {};
 
   // Email Errors
@@ -14,4 +16,9 @@ export default function validateLogin(values) {
     errors.password = 'Password must be at least 6 characters';
   }
   return errors;
+}
+
+// Format Dates
+export function formatDate(dateStr) {
+  return moment(dateStr).format('MMM Do YYYY');
 }
