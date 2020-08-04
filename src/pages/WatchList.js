@@ -101,7 +101,11 @@ function WatchList() {
             {/* All list Items */}
             <TabPanel>
               {listMovies.map((movie) => (
-                <ListItem key={movie.id} movie={movie} />
+                <ListItem
+                  key={movie.id}
+                  data={movie}
+                  listDetails={listDetails}
+                />
               ))}
             </TabPanel>
             {/* Unwatched items */}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   Flex,
@@ -12,8 +12,51 @@ import {
 
 import NoImage from '../images/no_image.png';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
+import { FirebaseContext } from '../firebase';
 
-function ListItem({ movie, list }) {
+function ListItem({ data: movie, listDetails: list }) {
+  const { firebase, user } = useContext(FirebaseContext);
+
+  function deleteMovieFromList() {
+    if (user) {
+      try {
+        const movieRef = firebase.db
+          .doc(`users/${user.uid}`)
+          .collection('lists')
+          .doc(list.id)
+          .collection('movies')
+          .doc(`${movie.id}`);
+
+        movieRef.delete().then(() => {
+          console.log(`Movie with ID ${movie.id} deleted`);
+        });
+      } catch (error) {
+        console.log('Error deleting movie', error);
+      }
+    }
+  }
+
+  function toggleWatched() {
+    if (user) {
+      try {
+        const movieRef = firebase.db
+          .doc(`users/${user.uid}`)
+          .collection('lists')
+          .doc(list.id)
+          .collection('movies')
+          .doc(`${movie.id}`);
+
+        movieRef.get().then((doc) => {
+          if (doc.exists) {
+            const prevState = doc.data().watched;
+            movieRef.update({ watched: !prevState });
+          }
+        });
+      } catch (error) {
+        console.log('Error updating document', error);
+      }
+    }
+  }
   return (
     <Flex
       p={4}
@@ -28,7 +71,12 @@ function ListItem({ movie, list }) {
     >
       <Flex align="center">
         {/* Check to mark watched */}
-        <Checkbox size="lg" mr={[4, 6, 8, 10]} />
+        <Checkbox
+          size="lg"
+          mr={[4, 6, 8, 10]}
+          isChecked={movie.watched}
+          onClick={toggleWatched}
+        />
         {/* Image Container */}
         <PseudoBox size={['50px', '60px', '75px', '85px']} mr={4}>
           <Image
@@ -57,6 +105,7 @@ function ListItem({ movie, list }) {
       </Flex>
 
       <IconButton
+        onClick={deleteMovieFromList}
         justifySelf="flex-end"
         aria-label="delete movie"
         size={['xs', 'xs', 'sm', 'md']}
@@ -67,9 +116,9 @@ function ListItem({ movie, list }) {
 }
 
 ListItem.propTypes = {
-  movie: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
   // eslint-disable-next-line react/require-default-props
-  list: PropTypes.object,
+  listDetails: PropTypes.object,
 };
 
 export default ListItem;

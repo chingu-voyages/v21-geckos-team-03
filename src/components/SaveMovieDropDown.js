@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
 import {
@@ -16,21 +17,44 @@ import { FirebaseContext } from '../firebase';
 function SaveMovieDropDown(props) {
   const { user, firebase } = useContext(FirebaseContext);
   const { movie, watchLists } = props;
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [savedMovies, setSavedMovies] = useState({}); // format is an object with movie ids as keys, and arrays of lists they are on as values ie {movieA: [listA, listC]}
 
-  const saveMovie = (list) => {
-    const movieObj = {
+  const saveMovie = async (list) => {
+    const newMovie = {
       ...movie,
       added: Date.now(),
       watched: false,
     };
-    firebase.db
+
+    setLoading(true);
+    const movieRef = await firebase.db
       .doc(`users/${user.uid}`)
       .collection('lists')
       .doc(list.id)
       .collection('movies')
-      .add(movieObj);
-    setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
+      .doc(`${movie.id}`);
+
+    const snapshot = await movieRef.get();
+
+    if (!snapshot.exists) {
+      try {
+        await movieRef.set(newMovie);
+        setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
+        setError(null);
+        setLoading(false);
+        console.log('movie added');
+      } catch (err) {
+        setError(err);
+        setLoading(false);
+        console.log(`Error adding movie`);
+      }
+    } else if (snapshot.exists) {
+      setError(true);
+      setLoading(false);
+      console.log('movie already exists');
+    }
   };
 
   const generateLists = () => {
