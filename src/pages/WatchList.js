@@ -6,22 +6,20 @@ import {
   Box,
   Spinner,
   Flex,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   Tabs,
   TabList,
   Tab,
   TabPanels,
   TabPanel,
   Icon,
-  MenuDivider,
 } from '@chakra-ui/core';
-
-// eslint-disable-next-line no-unused-vars
-import { EditListDropDown, ListItem } from '../components';
+import {
+  ListItem,
+  EditListModal,
+  DeleteListModal,
+  NewListModal,
+} from '../components';
+import { formatDate } from '../utils';
 import useSingleWatchList from '../hooks/useSingleWatchList';
 
 function WatchList() {
@@ -61,28 +59,23 @@ function WatchList() {
           mb={12}
         >
           <Flex justify="space-between">
-            <Heading as="h1" size="xl" mb={4}>
-              {listDetails.title}
-            </Heading>
-            {/* <EditListDropDown list={listDetails} /> */}
-            <Menu>
-              <MenuButton as={Button} size="sm" rightIcon="chevron-down">
-                Actions
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Edit</MenuItem>
-                <MenuItem>Delete</MenuItem>
-                <MenuDivider />
-                <MenuItem>Create New</MenuItem>
-              </MenuList>
-            </Menu>
+            <Flex>
+              <Heading as="h1" size="xl" mb={4}>
+                {listDetails.title}
+              </Heading>
+              <EditListModal list={listDetails} />
+            </Flex>
+            <Flex>
+              <NewListModal />
+              <DeleteListModal list={listDetails} />
+            </Flex>
           </Flex>
           <Flex align="center" mb={6}>
             <Icon name="time" mr={2} />
             <Text fontSize="xs" mr={6}>
               Created:
             </Text>
-            <Text fontSize="xs">July 31st,2020</Text>
+            <Text fontSize="xs">{formatDate(listDetails.createdAt)}</Text>
           </Flex>
           <Box py={5}>
             <Text fontSize="xs" mb={4}>
@@ -90,7 +83,7 @@ function WatchList() {
             </Text>
             <Text fontSize="sm" mb={4}>
               Air plant raw denim iPhone, kinfolk coloring book vaporware
-              keffiyeh thundercats. Chambray locavore retro organic bicycle
+              keffiyeh thunder cats. Chambray locavore retro organic bicycle
               rights shaman synth.
             </Text>
           </Box>

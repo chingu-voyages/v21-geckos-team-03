@@ -7,6 +7,7 @@ import Layout from './Layout';
 import ListItem from './ListItem';
 import MovieCard from './MovieCard';
 import MovieThumb from './MovieThumb';
+import NewListModal from './NewListModal';
 import NavBar from './NavBar';
 import SaveMovieDropDown from './SaveMovieDropDown';
 import SearchPanel from './SearchPanel';
@@ -18,6 +19,7 @@ export {
   DeleteMovieButton,
   EditListDropDown,
   EditListModal,
+  NewListModal,
   Layout,
   ListItem,
   MovieCard,
