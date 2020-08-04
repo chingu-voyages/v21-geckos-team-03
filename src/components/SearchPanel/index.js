@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import './index.css';
 
 import {
   Input,
@@ -7,11 +8,12 @@ import {
   Icon,
   Flex,
   InputLeftElement,
+  // PseudoBox
 } from '@chakra-ui/core';
-import SimpleBox from '../SimpleBox';
 
 const SearchPanel = ({ callback }) => {
   const [state, setState] = useState('');
+  const [isfocus, setFocus] = useState(false);
   const timeOut = useRef(null);
 
   const handleSearch = (event) => {
@@ -26,23 +28,35 @@ const SearchPanel = ({ callback }) => {
     }, 500);
   };
 
-  return (
-    <SimpleBox>
-      <Flex align="center" justify="center">
-        <InputGroup width="50%" size="lg">
-          <InputLeftElement>
-            <Icon name="search" color="gray.300" />
-          </InputLeftElement>
+  const onFocus = (e) => {
+    setFocus(true);
+  };
 
-          <Input
-            type="text"
-            onChange={handleSearch}
-            value={state}
-            placeholder="Search for movies"
-          />
-        </InputGroup>
-      </Flex>
-    </SimpleBox>
+  const unFocus = (e) => {
+    setFocus(false);
+  };
+
+  return (
+    <Flex align="center" justify="center">
+      <InputGroup
+        width="45%"
+        size="lg"
+        className={isfocus ? `focus` : `notFocus`}
+      >
+        <InputLeftElement>
+          <Icon name="search" color="gray.300" />
+        </InputLeftElement>
+
+        <Input
+          onMouseOver={onFocus}
+          onMouseOut={unFocus}
+          type="text"
+          onChange={handleSearch}
+          value={state}
+          placeholder="Search for movies"
+        />
+      </InputGroup>
+    </Flex>
   );
 };
 
