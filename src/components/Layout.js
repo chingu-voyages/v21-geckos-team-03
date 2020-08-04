@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@chakra-ui/core';
-import Navbar from '../NavBar';
+import Navbar from './NavBar';
 
 /* 
   Renders primary navigation and main html element as parent elements
@@ -11,7 +11,7 @@ import Navbar from '../NavBar';
 const Layout = ({ children }) => (
   <>
     <Navbar />
-    <Box maxWidth="1100px" p={6} mx="auto" my={0}>
+    <Box maxWidth="1200px" p={[2, 6, 8, 16]} mx="auto" my={0}>
       {children}
     </Box>
   </>

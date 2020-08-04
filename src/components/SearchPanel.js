@@ -8,7 +8,7 @@ import {
   Flex,
   InputLeftElement,
 } from '@chakra-ui/core';
-import SimpleBox from '../SimpleBox';
+import SimpleBox from './SimpleBox';
 
 const SearchPanel = ({ callback }) => {
   const [state, setState] = useState('');

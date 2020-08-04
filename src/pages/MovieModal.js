@@ -12,7 +12,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/core';
 import MovieThumb from '../components/MovieThumb';
-import ListDropDown from '../components/ListDropDown';
+// import ListDropDown from '../components/ListDropDown';
 
 /* 
   Will contain components for rendering data about a single movie fetched from API
@@ -45,7 +45,7 @@ const MovieModal = ({ movie, watchLists }) => {
           </ModalBody>
 
           <ModalFooter>
-            <ListDropDown movie={movie} watchLists={watchLists} />
+            {/* <ListDropDown movie={movie} watchLists={watchLists} /> */}
           </ModalFooter>
         </ModalContent>
       </Modal>

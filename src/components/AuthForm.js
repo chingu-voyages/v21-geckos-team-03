@@ -15,10 +15,10 @@ import {
   FormControl,
   Link,
 } from '@chakra-ui/core';
-import SimpleBox from '../SimpleBox';
-import useFormValidation from '../../hooks/useFormValidation';
-import validateLogin from '../../utils';
-import firebase from '../../firebase';
+import SimpleBox from './SimpleBox';
+import useFormValidation from '../hooks/useFormValidation';
+import { validateLogin } from '../utils';
+import firebase from '../firebase';
 
 /* 
 JSX rendered on the login page.

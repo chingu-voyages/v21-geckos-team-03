@@ -11,7 +11,7 @@ import {
   Icon,
   useColorMode,
 } from '@chakra-ui/core';
-import { FirebaseContext } from '../../firebase';
+import { FirebaseContext } from '../firebase';
 
 /* 
 Primary navigation bar for the app.
@@ -48,15 +48,10 @@ function NavBar() {
       align="center"
       justify="space-between"
       wrap="wrap"
-      padding="1.5rem"
+      padding={6}
       borderBottom="1px solid #C8C8C8"
     >
       <Flex align="center" justify="center" mr={5}>
-        <Box mr={5}>
-          <Button rounded="50%" onClick={() => toggleColorMode()}>
-            <Icon name={colorMode === 'light' ? 'moon' : 'sun'} />
-          </Button>
-        </Box>
         <Link as={NavLink} to="/">
           <Heading as="h1" size="lg">
             WatchList
@@ -118,6 +113,12 @@ function NavBar() {
             </Button>
           </Link>
         )}
+      </Box>
+
+      <Box ml={6}>
+        <Button rounded="50%" onClick={() => toggleColorMode()}>
+          <Icon name={colorMode === 'light' ? 'moon' : 'sun'} />
+        </Button>
       </Box>
     </Flex>
   );

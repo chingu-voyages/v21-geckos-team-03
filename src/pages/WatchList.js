@@ -1,57 +1,125 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Heading, Text, Spinner } from '@chakra-ui/core';
-import { FirebaseContext } from '../firebase';
-import Movies from '../components/Movies';
-import useWatchLists from '../hooks/useWatchLists';
-
-/* 
-  Route: "/lists/:TBA"
-  Page for rendering components in a single user created watch list
-*/
+import {
+  Heading,
+  Text,
+  Box,
+  Spinner,
+  Flex,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Icon,
+} from '@chakra-ui/core';
+import {
+  ListItem,
+  EditListModal,
+  DeleteListModal,
+  NewListModal,
+} from '../components';
+import { formatDate } from '../utils';
+import useSingleWatchList from '../hooks/useSingleWatchList';
 
 function WatchList() {
-  const { user, firebase } = useContext(FirebaseContext);
-  const { watchLists } = useWatchLists();
   const { listId } = useParams();
-  const [listMovies, setListMovies] = useState([]);
-  const [listDetails, setListDetails] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const currentListId = watchLists.find((list) => list.id === listId);
-    setListDetails(currentListId);
-  }, [listId, watchLists]);
-
-  useEffect(() => {
-    setLoading(true);
-    if (user) {
-      try {
-        firebase.getMoviesInWatchList(user.uid, listId).then((snapshot) => {
-          const fetchedMovies = snapshot.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() };
-          });
-          setListMovies(fetchedMovies);
-          setError(null);
-          setLoading(false);
-        });
-      } catch (err) {
-        setError(err);
-      }
-    }
-  }, [listId, watchLists, user, firebase]);
+  const { listMovies, listDetails, error, loading } = useSingleWatchList(
+    listId
+  );
 
   if (loading) return <Spinner />;
   if (error) return <Text>Error Loading List</Text>;
 
   return (
-    <Box>
-      <Heading as="h2" size="lg">
-        {listDetails.title}
-      </Heading>
-      <Movies movies={listMovies} />
-    </Box>
+    // Two column flex row
+    <Flex justify="space-around">
+      {/* Sidebar */}
+      <Flex
+        display={{ base: 'none', md: 'flex' }}
+        h="80vh"
+        p={8}
+        mr={10}
+        border="1px"
+        borderRadius="md"
+        borderColor="gray.200"
+      >
+        <Box>
+          <Text>Sidebar with watchlists?</Text>
+        </Box>
+      </Flex>
+
+      {/* Watchlist Container */}
+      <Flex direction="column" mx="auto" my="0">
+        {/*  List Details  */}
+        <Flex
+          direction="column"
+          borderBottom="1px"
+          borderBottomStyle="dashed"
+          mb={12}
+        >
+          <Flex justify="space-between">
+            <Flex>
+              <Heading as="h1" size="xl" mb={4}>
+                {listDetails.title}
+              </Heading>
+              <EditListModal list={listDetails} />
+            </Flex>
+            <Flex>
+              <NewListModal />
+              <DeleteListModal list={listDetails} />
+            </Flex>
+          </Flex>
+          <Flex align="center" mb={6}>
+            <Icon name="time" mr={2} />
+            <Text fontSize="xs" mr={6}>
+              Created:
+            </Text>
+            <Text fontSize="xs">{formatDate(listDetails.createdAt)}</Text>
+          </Flex>
+          <Box py={5}>
+            <Text fontSize="xs" mb={4}>
+              Description:
+            </Text>
+            <Text fontSize="sm" mb={4}>
+              Air plant raw denim iPhone, kinfolk coloring book vaporware
+              keffiyeh thunder cats. Chambray locavore retro organic bicycle
+              rights shaman synth.
+            </Text>
+          </Box>
+        </Flex>
+
+        {/* List Section */}
+        {/* Tab Panels */}
+        <Tabs isFitted variant="enclosed">
+          <TabList mb="1em">
+            <Tab>All</Tab>
+            <Tab>Unwatched</Tab>
+            <Tab>Watched</Tab>
+          </TabList>
+          <TabPanels>
+            {/* All list Items */}
+            <TabPanel>
+              {listMovies.map((movie) => (
+                <ListItem
+                  key={movie.id}
+                  data={movie}
+                  listDetails={listDetails}
+                />
+              ))}
+            </TabPanel>
+            {/* Unwatched items */}
+            <TabPanel>
+              <Text>Unwatched goes here...</Text>
+            </TabPanel>
+            {/* {Watched Items} */}
+            <TabPanel>
+              <Text>Watched goes here...</Text>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Flex>
+    </Flex>
   );
 }
 
