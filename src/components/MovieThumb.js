@@ -4,13 +4,12 @@ import { Image, PseudoBox, Flex } from '@chakra-ui/core';
 import NoImage from '../images/no_image.png';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
 
-const MovieThumb = ({ posterPath, clickable, onClick }) => {
+const MovieThumb = ({ posterPath, clickable, onClick, small }) => {
   return (
     <Flex>
       <PseudoBox
         _hover={clickable ? { opacity: 0.8 } : null}
-        width="200px"
-        height="150px"
+        size={small ? ['50px', '60px', '75px', '85px'] : '200px'}
       >
         <Image
           src={
@@ -31,13 +30,16 @@ const MovieThumb = ({ posterPath, clickable, onClick }) => {
 
 MovieThumb.propTypes = {
   posterPath: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   clickable: PropTypes.bool,
+  small: PropTypes.bool,
 };
 
 MovieThumb.defaultProps = {
   clickable: false,
   posterPath: NoImage,
+  onClick: null,
+  small: false,
 };
 
 export default MovieThumb;
