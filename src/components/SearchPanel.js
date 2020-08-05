@@ -49,6 +49,7 @@ const SearchPanel = ({ callback }) => {
         </InputLeftElement>
 
         <Input
+          fontSize={['10px', '12px', '1.25rem', '1.25rem']}
           onMouseOver={onFocus}
           onMouseOut={unFocus}
           type="text"
