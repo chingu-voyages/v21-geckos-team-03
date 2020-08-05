@@ -31,9 +31,9 @@ const SearchPanel = ({ callback }) => {
   return (
     <Flex align="center" justify="center">
       <InputGroup
-        width="45%"
+        width={isHover ? '50%' : '45%'}
+        transition={isHover ? '0.5s' : '0.5s'}
         size="lg"
-        className={isHover ? `focus` : `notFocus`}
       >
         <InputLeftElement>
           <Icon name="search" color="gray.300" />
