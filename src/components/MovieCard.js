@@ -11,14 +11,23 @@ function MovieCard({ movie, list }) {
 
   return (
     <SimpleBox>
-      <Flex align="center" justify="flex-start">
+      <Flex
+        align="center"
+        justify="flex-start"
+        direction={['column', 'column', 'row', 'row']}
+        textAlign={['center', 'center', 'left', 'left']}
+      >
         <MovieThumb
           posterPath={movie.poster_path}
           movieId={movie.id}
           clickable
         />
         <Box>
-          <Flex align="center" justify="space-between">
+          <Flex
+            align="center"
+            justify="space-between"
+            padding={['18px', '18px']}
+          >
             <Heading as="h3">{movie.title}</Heading>
             <SaveMovieDropDown movie={movie} watchLists={watchLists} />
           </Flex>
