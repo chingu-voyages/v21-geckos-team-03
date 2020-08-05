@@ -14,7 +14,11 @@ function MovieCard({ movie }) {
       <Flex align="center" justify="flex-start">
         <MovieModal movie={movie} watchLists={watchLists} />
         <Box>
-          <Flex align="center" justify="space-between">
+          <Flex
+            align="center"
+            justify="space-between"
+            padding={['18px', '18px']}
+          >
             <Heading as="h3">{movie.title}</Heading>
             <SaveMovieDropDown movie={movie} watchLists={watchLists} />
           </Flex>

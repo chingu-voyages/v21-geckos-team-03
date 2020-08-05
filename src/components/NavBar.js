@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import {
   Box,
   Heading,
@@ -108,7 +109,12 @@ function NavBar() {
           </Flex>
         ) : (
           <Link as={NavLink} to="/login">
-            <Button bg="transparent" border="1px">
+            <Button
+              isOpen={show}
+              bg="transparent"
+              border="1px"
+              className="ease-in"
+            >
               Log In
             </Button>
           </Link>
