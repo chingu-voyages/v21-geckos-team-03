@@ -173,6 +173,11 @@ const AuthForm = () => {
                     >
                       Register
                     </Button>
+                    <FormControl isInvalid={firebaseError}>
+                      <FormErrorMessage maxWidth="220px">
+                        {firebaseError}
+                      </FormErrorMessage>
+                    </FormControl>
                   </Flex>
                 </form>
               </TabPanel>
