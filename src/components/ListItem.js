@@ -9,7 +9,7 @@ import {
   IconButton,
 } from '@chakra-ui/core';
 import MovieModal from './MovieModal';
-
+import { formatDate } from '../utils';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
 
@@ -94,6 +94,7 @@ function ListItem({ data: movie, listDetails: list }) {
         </Flex>
       </Flex>
 
+      <Text fontSize="xs">{formatDate(movie.added)}</Text>
       <IconButton
         onClick={deleteMovieFromList}
         justifySelf="flex-end"

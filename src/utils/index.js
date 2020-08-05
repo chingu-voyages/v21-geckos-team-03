@@ -20,5 +20,5 @@ export function validateLogin(values) {
 
 // Format Dates
 export function formatDate(dateStr) {
-  return moment(dateStr).format('MMM Do YYYY');
+  return moment(dateStr).format('MMM Do');
 }
