@@ -7,11 +7,12 @@ import {
   Icon,
   Flex,
   InputLeftElement,
+  // PseudoBox
 } from '@chakra-ui/core';
-import SimpleBox from './SimpleBox';
 
 const SearchPanel = ({ callback }) => {
   const [state, setState] = useState('');
+  const [isHover, setIsHover] = useState(false);
   const timeOut = useRef(null);
 
   const handleSearch = (event) => {
@@ -27,22 +28,27 @@ const SearchPanel = ({ callback }) => {
   };
 
   return (
-    <SimpleBox>
-      <Flex align="center" justify="center">
-        <InputGroup width="50%" size="lg">
-          <InputLeftElement>
-            <Icon name="search" color="gray.300" />
-          </InputLeftElement>
+    <Flex align="center" justify="center">
+      <InputGroup
+        width={isHover ? '50%' : '45%'}
+        transition={isHover ? '0.5s' : '0.5s'}
+        size="lg"
+      >
+        <InputLeftElement>
+          <Icon name="search" color="gray.300" />
+        </InputLeftElement>
 
-          <Input
-            type="text"
-            onChange={handleSearch}
-            value={state}
-            placeholder="Search for movies"
-          />
-        </InputGroup>
-      </Flex>
-    </SimpleBox>
+        <Input
+          fontSize={['10px', '12px', '1.25rem', '1.25rem']}
+          onMouseOver={() => setIsHover(true)}
+          onMouseOut={() => setIsHover(false)}
+          type="text"
+          onChange={handleSearch}
+          value={state}
+          placeholder="Search for movies"
+        />
+      </InputGroup>
+    </Flex>
   );
 };
 

@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/core';
 import SimpleBox from './SimpleBox';
 import useFormValidation from '../hooks/useFormValidation';
-import validateLogin from '../utils';
+import { validateLogin } from '../utils';
 import firebase from '../firebase';
 
 /* 

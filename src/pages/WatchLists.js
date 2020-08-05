@@ -1,6 +1,14 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Divider, Heading, Link, Text, Flex, Button } from '@chakra-ui/core';
+import {
+  Divider,
+  Heading,
+  Link,
+  Text,
+  Flex,
+  Button,
+  Spinner,
+} from '@chakra-ui/core';
 import { SimpleBox } from '../components';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
@@ -19,10 +27,9 @@ const WatchLists = (props) => {
   const history = useHistory();
 
   const newList = {
-    createdAt: new Date(),
+    createdAt: Date.now(),
     title: 'My 10th list',
     description: 'this is a new test list created from front end',
-    movies: [10293, 10290, 1090],
   };
 
   const handleSubmit = (e) => {
@@ -56,19 +63,19 @@ const WatchLists = (props) => {
     return options;
   };
 
-  if (loading) return <Text>Loading Lists...</Text>;
+  if (loading) return <Spinner />;
   if (error) return <Text>Error loading Lists</Text>;
 
   return (
     <>
       <SimpleBox>
         <Flex align="center" justify="space-between">
-          <Heading as="h2" size="2xl">
+          <Heading as="h2" size="xl">
             {user
               ? `${user.displayName.toUpperCase()}'s Watch Lists`
               : 'You Watchlists'}
           </Heading>
-          <Button variantColor="green" type="submit" onClick={handleSubmit}>
+          <Button bg="primary" type="submit" onClick={handleSubmit}>
             Create New List
           </Button>
         </Flex>

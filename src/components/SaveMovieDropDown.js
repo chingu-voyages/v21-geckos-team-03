@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
 import {
@@ -9,7 +10,6 @@ import {
   MenuDivider,
   Link,
   Icon,
-  IconButton,
 } from '@chakra-ui/core';
 import { NavLink } from 'react-router-dom';
 import { FirebaseContext } from '../firebase';
@@ -17,31 +17,44 @@ import { FirebaseContext } from '../firebase';
 function SaveMovieDropDown(props) {
   const { user, firebase } = useContext(FirebaseContext);
   const { movie, watchLists } = props;
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [savedMovies, setSavedMovies] = useState({}); // format is an object with movie ids as keys, and arrays of lists they are on as values ie {movieA: [listA, listC]}
 
-  const saveMovie = (list) => {
-    const moviesRef = firebase.db
+  const saveMovie = async (list) => {
+    const newMovie = {
+      ...movie,
+      added: Date.now(),
+      watched: false,
+    };
+
+    setLoading(true);
+    const movieRef = await firebase.db
       .doc(`users/${user.uid}`)
       .collection('lists')
       .doc(list.id)
-      .collection('movies');
+      .collection('movies')
+      .doc(`${movie.id}`);
 
-    moviesRef.onSnapshot((snapshot) => {
-      let dup = false;
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < snapshot.docs.length; i++) {
-        if (snapshot.docs[i].id === `${movie.id}`) {
-          dup = true;
-          console.log('This movie is already on that list!');
-          break;
-        }
-      }
-      if (!dup) {
-        console.log('SAVING MOVIE');
-        moviesRef.doc(`${movie.id}`).set(movie);
+    const snapshot = await movieRef.get();
+
+    if (!snapshot.exists) {
+      try {
+        await movieRef.set(newMovie);
         setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
+        setError(null);
+        setLoading(false);
+        console.log('movie added');
+      } catch (err) {
+        setError(err);
+        setLoading(false);
+        console.log(`Error adding movie`);
       }
-    });
+    } else if (snapshot.exists) {
+      setError(true);
+      setLoading(false);
+      console.log('movie already exists');
+    }
   };
 
   const generateLists = () => {
@@ -58,7 +71,9 @@ function SaveMovieDropDown(props) {
       return (
         <MenuItem key={`${i}-${list.title}`} onClick={() => saveMovie(list)}>
           {list.title}
-          {onList ? <Icon name="check-circle" color="green" ml="5px" /> : null}
+          {onList ? (
+            <Icon name="check-circle" color="green.300" ml="5px" />
+          ) : null}
         </MenuItem>
       );
     });
@@ -69,9 +84,9 @@ function SaveMovieDropDown(props) {
     <div>
       <Menu>
         <MenuButton>
-          <IconButton icon="add" />
+          <Icon name="add" />
         </MenuButton>
-        <MenuList>
+        <MenuList placement="right-bottom">
           {user ? (
             <MenuGroup>
               {generateLists()}

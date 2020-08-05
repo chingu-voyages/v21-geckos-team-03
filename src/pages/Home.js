@@ -39,10 +39,14 @@ const Home = () => {
   return (
     <>
       {!searchTerm && (
-        <Heading>Search for movies and add them to a watch list!</Heading>
+        <Heading textAlign="center" mb={3}>
+          Search for movies and add them to a watch list!
+        </Heading>
       )}
       <SearchPanel callback={searchMovies} />
-      <Heading>{searchTerm ? 'Search Result' : 'Trending Movies'}</Heading>
+      <Heading mt={10}>
+        {searchTerm ? 'Search Result' : 'Trending Movies'}
+      </Heading>
       <Stack align="center">
         {loading && <Spinner />}
         {state.movies.map((movie) => (

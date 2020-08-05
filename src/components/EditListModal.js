@@ -10,8 +10,8 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
+  IconButton,
 } from '@chakra-ui/core';
-import SimpleBox from './SimpleBox';
 
 function EditListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -22,7 +22,7 @@ function EditListModal({ list }) {
 
   return (
     <>
-      <SimpleBox onClick={onOpen}>Edit List</SimpleBox>
+      <IconButton icon="edit" variant="ghost" mr={2} onClick={onOpen} />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
