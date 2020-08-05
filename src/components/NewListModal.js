@@ -11,27 +11,48 @@ import {
   Button,
   useDisclosure,
   Input,
-  //   FormControl,
   FormLabel,
-  //   FormErrorMessage,
-  //   FormHelperText,
   IconButton,
+  FormControl,
+  FormErrorMessage,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
+import useFormValidation from '../hooks/useFormValidation';
+import { validateListForm } from '../utils';
 
-function NewListModal() {
+const INITIAL_STATE = {
+  title: '',
+  description: '',
+};
+
+function NewListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [listDeets, setListDeets] = useState({});
   const { firebase, user } = useContext(FirebaseContext);
+  const [firebaseError, setFirebaseError] = useState(null);
 
-  const saveList = () => {
+  const saveList = async () => {
     const newList = {
-      createdAt: new Date(),
-      title: listDeets.title,
-      description: listDeets.description,
+      ...list,
+      title: values.title,
+      description: values.description,
+      modifiedAt: new Date(),
     };
-    firebase.createNewWatchList(newList, user.uid);
+    try {
+      await firebase.editWatchList(newList, user.uid);
+      await onClose();
+    } catch (error) {
+      setFirebaseError(error.message);
+    }
   };
+
+  const {
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    isSubmitting,
+    values,
+  } = useFormValidation(INITIAL_STATE, validateListForm, saveList);
 
   return (
     <>
@@ -40,41 +61,58 @@ function NewListModal() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create New List</ModalHeader>
+          <ModalHeader>New List</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <FormLabel htmlFor="list-title">Title: </FormLabel>
-            <Input
-              id="list-title"
-              variant="outline"
-              placeholder="List Title"
-              type="string"
-              isRequired
-              onChange={(e) => {
-                setListDeets({ ...listDeets, title: e.target.value });
-              }}
-            />
-            <FormLabel htmlFor="list-description">Description: </FormLabel>
+          <form>
+            <ModalBody>
+              <FormControl isInvalid={errors.title}>
+                <FormLabel htmlFor="title">Title: </FormLabel>
+                <Input
+                  name="title"
+                  variant="outline"
+                  placeholder="List Title"
+                  type="string"
+                  isRequired
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <FormErrorMessage maxWidth="200px">
+                  {errors.title}
+                </FormErrorMessage>
+              </FormControl>
 
-            <Input
-              id="list-description"
-              variant="outline"
-              placeholder="List Description"
-              type="text"
-              onChange={(e) => {
-                setListDeets({ ...listDeets, description: e.target.value });
-              }}
-            />
-          </ModalBody>
+              <FormLabel htmlFor="description">Description: </FormLabel>
 
-          <ModalFooter>
-            <Button color="red" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button color="green" type="submit" onClick={saveList}>
-              Create List
-            </Button>
-          </ModalFooter>
+              <Input
+                id="description"
+                name="description"
+                variant="outline"
+                placeholder="List Description"
+                type="text"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </ModalBody>
+
+            <ModalFooter>
+              <Button color="red" mr={3} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button
+                color="green"
+                type="submit"
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+              >
+                Create List
+              </Button>
+              <FormControl isInvalid={firebaseError}>
+                <FormErrorMessage maxWidth="220px">
+                  {firebaseError}
+                </FormErrorMessage>
+              </FormControl>
+            </ModalFooter>
+          </form>
         </ModalContent>
       </Modal>
     </>

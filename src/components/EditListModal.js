@@ -11,10 +11,7 @@ import {
   Button,
   useDisclosure,
   Input,
-  //   FormControl,
   FormLabel,
-  //   FormErrorMessage,
-  //   FormHelperText,
   IconButton,
   FormControl,
   FormErrorMessage,
@@ -34,7 +31,6 @@ function EditListModal({ list }) {
   const [firebaseError, setFirebaseError] = useState(null);
 
   const saveList = async () => {
-    console.log('values: ', values);
     const newList = {
       ...list,
       title: values.title,
