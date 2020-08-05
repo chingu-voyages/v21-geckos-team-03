@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Heading, Text, Box } from '@chakra-ui/core';
-import MovieModal from '../pages/MovieModal';
+import MovieModal from './MovieModal';
 import SaveMovieDropDown from './SaveMovieDropDown';
 import useWatchLists from '../hooks/useWatchLists';
 import SimpleBox from './SimpleBox';
 
-function MovieCard({ movie, list }) {
+function MovieCard({ movie }) {
   const { watchLists } = useWatchLists();
 
   return (
@@ -35,7 +35,6 @@ function MovieCard({ movie, list }) {
 
 MovieCard.propTypes = {
   movie: PropTypes.object.isRequired,
-  list: PropTypes.object.isRequired,
 };
 
 export default MovieCard;
