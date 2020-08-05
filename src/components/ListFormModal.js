@@ -28,13 +28,12 @@ const INITIAL_STATE = {
   description: '',
 };
 
-function EditListModal({ list }) {
+function ListFormModal({ list, type }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
 
   const saveList = async () => {
-    console.log('values: ', values);
     const newList = {
       ...list,
       title: values.title,
@@ -77,7 +76,7 @@ function EditListModal({ list }) {
                   placeholder="List Title"
                   type="string"
                   isRequired
-                  defaultValue={list.title}
+                  defaultValue={type === 'edit' ? list.title : null}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
@@ -86,14 +85,13 @@ function EditListModal({ list }) {
                 </FormErrorMessage>
               </FormControl>
 
-              <FormLabel htmlFor="description">Description: </FormLabel>
+              <FormLabel htmlFor="list-description">Description: </FormLabel>
 
               <Input
-                id="description"
-                name="description"
+                id="list-description"
                 variant="outline"
                 placeholder="List Description"
-                defaultValue={list.description}
+                defaultValue={type === 'edit' ? list.description : null}
                 type="text"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -125,4 +123,4 @@ function EditListModal({ list }) {
   );
 }
 
-export default EditListModal;
+export default ListFormModal;
