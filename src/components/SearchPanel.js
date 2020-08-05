@@ -13,7 +13,7 @@ import {
 
 const SearchPanel = ({ callback }) => {
   const [state, setState] = useState('');
-  const [isfocus, setFocus] = useState(false);
+  const [isHover, setIsHover] = useState(false);
   const timeOut = useRef(null);
 
   const handleSearch = (event) => {
@@ -28,21 +28,12 @@ const SearchPanel = ({ callback }) => {
     }, 500);
   };
 
-  //  searchbar size increases when hovering over it
-  const onFocus = (e) => {
-    setFocus(true);
-  };
-
-  const unFocus = (e) => {
-    setFocus(false);
-  };
-
   return (
     <Flex align="center" justify="center">
       <InputGroup
         width="45%"
         size="lg"
-        className={isfocus ? `focus` : `notFocus`}
+        className={isHover ? `focus` : `notFocus`}
       >
         <InputLeftElement>
           <Icon name="search" color="gray.300" />
@@ -50,8 +41,8 @@ const SearchPanel = ({ callback }) => {
 
         <Input
           fontSize={['10px', '12px', '1.25rem', '1.25rem']}
-          onMouseOver={onFocus}
-          onMouseOut={unFocus}
+          onMouseOver={() => setIsHover(true)}
+          onMouseOut={() => setIsHover(false)}
           type="text"
           onChange={handleSearch}
           value={state}
