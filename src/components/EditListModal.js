@@ -29,22 +29,7 @@ function EditListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
-
-  const saveList = async () => {
-    const newList = {
-      ...list,
-      title: values.title,
-      description: values.description,
-      modifiedAt: new Date(),
-    };
-    try {
-      await firebase.editWatchList(newList, user.uid);
-      await onClose();
-    } catch (error) {
-      setFirebaseError(error.message);
-    }
-  };
-
+  // Hooks must be at the top of the function ( one of the rules of hooks)
   const {
     errors,
     handleChange,
@@ -52,7 +37,28 @@ function EditListModal({ list }) {
     handleSubmit,
     isSubmitting,
     values,
-  } = useFormValidation(INITIAL_STATE, validateListForm, saveList);
+  } = useFormValidation(INITIAL_STATE, validateListForm, editList);
+
+  // made this regular function declaration so it can be declared after the hook.
+  // changed name to editList
+  async function editList() {
+    // changed name to editedList
+    const editedList = {
+      // weird that the list ID is being spread in in firebase
+      // can't figure out how to make it stop
+      ...list,
+      title: values.title,
+      description: values.description,
+      // changed to match the date formatting.
+      modifiedAt: Date.now(),
+    };
+    try {
+      await firebase.editWatchList(editedList, user.uid);
+      onClose();
+    } catch (error) {
+      setFirebaseError(error.message);
+    }
+  }
 
   return (
     <>
