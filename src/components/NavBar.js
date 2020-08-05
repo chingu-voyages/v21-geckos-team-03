@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './index.css';
+
 import {
   Box,
   Heading,
