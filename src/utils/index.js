@@ -21,7 +21,8 @@ export function validateLogin(values) {
 export function validateListForm(values) {
   const errors = {};
 
-  if (!values.title || values.title == '') {
+  // changed this to strictly equals
+  if (!values.title || values.title === '') {
     errors.title = 'Title Required';
   }
   return errors;
