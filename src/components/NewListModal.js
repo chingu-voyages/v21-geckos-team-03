@@ -15,6 +15,7 @@ import {
   FormLabel,
   //   FormErrorMessage,
   //   FormHelperText,
+  IconButton,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 
@@ -34,9 +35,7 @@ function NewListModal() {
 
   return (
     <>
-      <Button onClick={onOpen} color="green">
-        New List
-      </Button>
+      <IconButton icon="add" variant="ghost" onClick={onOpen} />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

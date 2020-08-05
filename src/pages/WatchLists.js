@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Divider, Heading, Link, Text, Flex } from '@chakra-ui/core';
+import { Divider, Heading, Link, Text, Flex, Spinner } from '@chakra-ui/core';
 import { SimpleBox } from '../components';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
@@ -39,14 +39,14 @@ const WatchLists = (props) => {
     return options;
   };
 
-  if (loading) return <Text>Loading Lists...</Text>;
+  if (loading) return <Spinner />;
   if (error) return <Text>Error loading Lists</Text>;
 
   return (
     <>
       <SimpleBox>
         <Flex align="center" justify="space-between">
-          <Heading as="h2" size="2xl">
+          <Heading as="h2" size="xl">
             {user
               ? `${user.displayName.toUpperCase()}'s Watch Lists`
               : 'Your Watch Lists'}

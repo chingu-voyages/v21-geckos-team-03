@@ -72,13 +72,13 @@ class Firebase {
       .set(list);
   }
 
-  async getMoviesInWatchList(userId, listId) {
+  async getMoviesInWatchList(userId, listId, snapshot) {
     return this.db
       .doc(`users/${userId}`)
       .collection('lists')
       .doc(`/${listId}`)
       .collection('movies')
-      .get();
+      .onSnapshot(snapshot);
   }
 }
 
