@@ -1,6 +1,15 @@
 import React, { useContext } from 'react';
-import { Divider, Heading, Link, Text, Flex, Spinner } from '@chakra-ui/core';
-import { SimpleBox } from '../components';
+import { useHistory } from 'react-router-dom';
+import {
+  Divider,
+  Heading,
+  Link,
+  Text,
+  Flex,
+  Button,
+  Spinner,
+} from '@chakra-ui/core';
+import { SimpleBox, DeleteListModal } from '../components';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
 import NewListModal from '../components/NewListModal';
@@ -26,11 +35,18 @@ const WatchLists = (props) => {
       i += 1;
       return (
         <SimpleBox key={`${i}-${list.title}`}>
-          <Link href={`/list/${list.id}`}>
-            <Heading as="h4" size="md">
-              {list.title}
-            </Heading>
-          </Link>
+          <Flex justify="space-between">
+            <Flex>
+              <Link href={`/list/${list.id}`}>
+                <Heading as="h4" size="md">
+                  {list.title}
+                </Heading>
+              </Link>
+            </Flex>
+            <Flex>
+              <DeleteListModal list={list} />
+            </Flex>
+          </Flex>
           <Divider />
           {list.description}
         </SimpleBox>

@@ -10,6 +10,7 @@ import {
   MenuDivider,
   Link,
   Icon,
+  Tooltip,
 } from '@chakra-ui/core';
 import { NavLink } from 'react-router-dom';
 import { FirebaseContext } from '../firebase';
@@ -84,7 +85,9 @@ function SaveMovieDropDown(props) {
     <div>
       <Menu>
         <MenuButton>
-          <Icon name="add" />
+          <Tooltip hasArrow label="Add to List">
+            <Icon name="add" />
+          </Tooltip>
         </MenuButton>
         <MenuList placement="right-bottom">
           {user ? (

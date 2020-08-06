@@ -13,6 +13,7 @@ import {
   Input,
   FormLabel,
   IconButton,
+  Tooltip,
   FormControl,
   FormErrorMessage,
 } from '@chakra-ui/core';
@@ -63,7 +64,9 @@ function NewListModal({ list }) {
 
   return (
     <>
-      <IconButton icon="add" variant="ghost" onClick={onOpen} />
+      <Tooltip hasArrow label="New List" placement="bottom">
+        <IconButton icon="add" variant="ghost" onClick={onOpen} />
+      </Tooltip>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
