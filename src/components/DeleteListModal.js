@@ -11,6 +11,7 @@ import {
   Button,
   useDisclosure,
   ModalFooter,
+  Tooltip,
 } from '@chakra-ui/core';
 import { useHistory } from 'react-router-dom';
 import { FirebaseContext } from '../firebase';
@@ -38,7 +39,9 @@ function DeleteListModal({ list }) {
 
   return (
     <>
-      <IconButton icon="delete" variant="ghost" mr={2} onClick={onOpen} />
+      <Tooltip hasArrow label="Delete List" placement="bottom">
+        <IconButton icon="delete" variant="ghost" mr={2} onClick={onOpen} />
+      </Tooltip>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

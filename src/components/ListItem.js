@@ -8,6 +8,7 @@ import {
   Image,
   Checkbox,
   IconButton,
+  Tooltip,
 } from '@chakra-ui/core';
 
 import NoImage from '../images/no_image.png';
@@ -104,13 +105,15 @@ function ListItem({ data: movie, listDetails: list }) {
         </Flex>
       </Flex>
 
-      <IconButton
-        onClick={deleteMovieFromList}
-        justifySelf="flex-end"
-        aria-label="delete movie"
-        size={['xs', 'xs', 'sm', 'md']}
-        icon="delete"
-      />
+      <Tooltip hasArrow label="Delete Movie" placement="left">
+        <IconButton
+          onClick={deleteMovieFromList}
+          justifySelf="flex-end"
+          aria-label="delete movie"
+          size={['xs', 'xs', 'sm', 'md']}
+          icon="delete"
+        />
+      </Tooltip>
     </Flex>
   );
 }
