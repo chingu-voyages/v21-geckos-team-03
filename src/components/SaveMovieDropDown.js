@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Menu,
   MenuButton,
@@ -8,25 +8,30 @@ import {
   MenuGroup,
   MenuItem,
   MenuDivider,
+  Text,
   Link,
   Icon,
+  useToast,
+  Spinner,
 } from '@chakra-ui/core';
-import { NavLink } from 'react-router-dom';
 import { FirebaseContext } from '../firebase';
+import useWatchLists from '../hooks/useWatchLists';
 
-function SaveMovieDropDown(props) {
+function SaveMovieDropDown({ movie }) {
   const { user, firebase } = useContext(FirebaseContext);
-  const { movie, watchLists } = props;
+  const { watchLists } = useWatchLists();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [savedMovies, setSavedMovies] = useState({});
-  const saveMovie = async (list) => {
-    const newMovie = {
-      ...movie,
-      added: Date.now(),
-      watched: false,
-    };
+  const [added, setAdded] = useState(false);
+  const toast = useToast();
 
+  const newMovie = {
+    ...movie,
+    added: Date.now(),
+    watched: false,
+  };
+
+  const saveMovie = async (list) => {
     setLoading(true);
     const movieRef = await firebase.db
       .doc(`users/${user.uid}`)
@@ -40,43 +45,49 @@ function SaveMovieDropDown(props) {
     if (!snapshot.exists) {
       try {
         await movieRef.set(newMovie);
-        setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
+        setAdded(true);
         setError(null);
         setLoading(false);
-        console.log('movie added');
+        toast({
+          title: 'Movie added.',
+          description: "We've added this to your list",
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
       } catch (err) {
+        setAdded(false);
         setError(err);
         setLoading(false);
-        console.log(`Error adding movie`);
+        toast({
+          title: 'Error adding movie.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
       }
     } else if (snapshot.exists) {
+      setAdded(false);
       setError(true);
       setLoading(false);
-      console.log('movie already exists');
+      toast({
+        title: 'Movie is already on that list.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
-  const generateLists = () => {
-    // generates list names for the dropdown
-    if (!watchLists) {
-      return [];
-    }
-    let i = 0;
-    const options = watchLists.map((list) => {
-      i += 1;
-      const onList = savedMovies[movie.id]
-        ? savedMovies[movie.id].includes(list.id)
-        : false;
-      return (
-        <MenuItem key={`${i}-${list.title}`} onClick={() => saveMovie(list)}>
-          {list.title}
-          {onList ? (
-            <Icon name="check-circle" color="green.300" ml="5px" />
-          ) : null}
-        </MenuItem>
-      );
-    });
-    return options;
+  const Options = () => {
+    return watchLists.map((list) => (
+      <MenuItem key={list.id} onClick={() => saveMovie(list)}>
+        <Text mr={2}>{list.title}</Text>
+        {loading && <Spinner />}
+        {added && <Icon name="check-circle" color="green.300" ml="5px" />}
+        {error && <Icon name="warning" color="red.300" ml="5px" />}
+      </MenuItem>
+    ));
   };
 
   return (
@@ -88,13 +99,13 @@ function SaveMovieDropDown(props) {
         <MenuList placement="right-bottom">
           {user ? (
             <MenuGroup>
-              {generateLists()}
+              {watchLists && <Options />}
               <MenuDivider />
               <MenuItem> + New List</MenuItem>
             </MenuGroup>
           ) : (
             <MenuGroup>
-              <Link as={NavLink} to="/login">
+              <Link as={RouterLink} to="/login">
                 <MenuItem>Log In/Sign Up</MenuItem>
               </Link>
             </MenuGroup>
@@ -104,5 +115,9 @@ function SaveMovieDropDown(props) {
     </div>
   );
 }
+
+SaveMovieDropDown.propTypes = {
+  movie: PropTypes.object.isRequired,
+};
 
 export default SaveMovieDropDown;

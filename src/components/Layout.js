@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 import { Box } from '@chakra-ui/core';
 import Navbar from './NavBar';
 
-/* 
-  Renders primary navigation and main html element as parent elements
-  that wraps all other JSX components as children in App.js
-*/
-
 const Layout = ({ children }) => (
   <>
     <Navbar />

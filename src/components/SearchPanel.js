@@ -24,7 +24,7 @@ const SearchPanel = ({ callback }) => {
     // which will trigger a search.  otherwise the search happens on first keypress which was weird UX
     timeOut.current = setTimeout(() => {
       callback(value);
-    }, 500);
+    }, 300);
   };
 
   return (
