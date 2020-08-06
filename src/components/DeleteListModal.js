@@ -11,6 +11,7 @@ import {
   Button,
   useDisclosure,
   ModalFooter,
+  Tooltip,
 } from '@chakra-ui/core';
 
 function DeleteListModal({ list }) {
@@ -22,7 +23,9 @@ function DeleteListModal({ list }) {
 
   return (
     <>
-      <IconButton icon="delete" variant="ghost" mr={2} onClick={onOpen} />
+      <Tooltip hasArrow label="Delete List">
+        <IconButton icon="delete" variant="ghost" mr={2} onClick={onOpen} />
+      </Tooltip>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
