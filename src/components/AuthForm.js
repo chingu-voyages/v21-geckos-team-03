@@ -59,7 +59,7 @@ const AuthForm = () => {
       login
         ? await firebase.login(email, password)
         : await firebase.register(name, email, password);
-      history.push('/');
+      history.push('/lists');
     } catch (error) {
       setFirebaseError(error.message);
     }

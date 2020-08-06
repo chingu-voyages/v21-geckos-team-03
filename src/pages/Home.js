@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Stack, Heading, Spinner, Text, Button, Flex } from '@chakra-ui/core';
+import {
+  Stack,
+  Heading,
+  Spinner,
+  Text,
+  Button,
+  Flex,
+  Box,
+} from '@chakra-ui/core';
 import { SEARCH_BASE_URL, TRENDING_BASE_URL } from '../utils/config';
 import useHomeFetch from '../hooks/useHomeFetch';
 import { SearchPanel, MovieCard } from '../components';
@@ -43,23 +51,27 @@ const Home = () => {
           Search for movies and add them to a watch list!
         </Heading>
       )}
-      <SearchPanel callback={searchMovies} />
-      <Heading fontSize="2xl" mt={10} mb={5}>
-        {searchTerm ? 'Search Result' : 'Trending Movies'}
-      </Heading>
-      <Stack align="center">
-        {loading && <Spinner />}
-        {state.movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-      </Stack>
-      <Flex align="center" justify="center">
-        {state.currentPage < state.totalPages && !loading && (
-          <Button type="submit" onClick={loadMoreMovies}>
-            Load More
-          </Button>
-        )}
-      </Flex>
+      <Box mb={16}>
+        <SearchPanel callback={searchMovies} />
+      </Box>
+      <Box maxWidth="800px" mx="auto" my={0}>
+        <Heading fontSize="2xl" mb={5}>
+          {searchTerm ? 'Search Result' : 'Trending Movies'}
+        </Heading>
+        <Stack align="center">
+          {loading && <Spinner />}
+          {state.movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </Stack>
+        <Flex align="center" justify="center">
+          {state.currentPage < state.totalPages && !loading && (
+            <Button type="submit" onClick={loadMoreMovies}>
+              Load More
+            </Button>
+          )}
+        </Flex>
+      </Box>
     </>
   );
 };

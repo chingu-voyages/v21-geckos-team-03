@@ -81,7 +81,7 @@ function SaveMovieDropDown(props) {
 
   return (
     <div>
-      <Menu>
+      <Menu closeOnSelect={false}>
         <MenuButton>
           <Icon height="100%" name="add" />
         </MenuButton>
