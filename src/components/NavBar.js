@@ -3,7 +3,6 @@ import { NavLink, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
-  Box,
   Heading,
   Flex,
   Text,
@@ -76,7 +75,7 @@ function NavBar() {
       </Flex>
 
       {/* Mobile dropdown,shown until md breakpoint (768px) */}
-      <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
+      <Flex display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
         <svg
           fill="#63b3ed"
           width="12px"
@@ -86,13 +85,13 @@ function NavBar() {
           <title>Menu</title>
           <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
         </svg>
-      </Box>
+      </Flex>
 
       {/* Container for navlinks */}
-      <Box
+      <Flex
         display={{ sm: show ? 'block' : 'none', md: 'flex' }}
         width={{ sm: 'full', md: 'auto' }}
-        alignItems="center"
+        align="center"
         flexGrow={1}
       >
         {user && (
@@ -102,9 +101,9 @@ function NavBar() {
             </Link>
           </MenuItems>
         )}
-      </Box>
+      </Flex>
       {/* Container for auth button and user name */}
-      <Box
+      <Flex
         display={{ sm: show ? 'block' : 'none', md: 'block' }}
         mt={{ base: 4, md: 0 }}
       >
@@ -134,13 +133,13 @@ function NavBar() {
             </Button>
           </Link>
         )}
-      </Box>
+      </Flex>
 
-      <Box ml={6}>
+      <Flex ml={6}>
         <Button rounded="50%" onClick={() => toggleColorMode()}>
           <Icon name={colorMode === 'light' ? 'moon' : 'sun'} />
         </Button>
-      </Box>
+      </Flex>
     </Flex>
   );
 }
