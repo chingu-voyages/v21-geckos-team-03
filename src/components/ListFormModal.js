@@ -11,7 +11,10 @@ import {
   Button,
   useDisclosure,
   Input,
+  //   FormControl,
   FormLabel,
+  //   FormErrorMessage,
+  //   FormHelperText,
   IconButton,
   FormControl,
   FormErrorMessage,
@@ -25,12 +28,26 @@ const INITIAL_STATE = {
   description: '',
 };
 
-function NewListModal({ list }) {
+function ListFormModal({ list, type }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
-  // Hooks must be at the top of the function, a rule of hooks
-  // surprised this got past the linter
+
+  const saveList = async () => {
+    const newList = {
+      ...list,
+      title: values.title,
+      description: values.description,
+      modifiedAt: new Date(),
+    };
+    try {
+      await firebase.editWatchList(newList, user.uid);
+      await onClose();
+    } catch (error) {
+      setFirebaseError(error.message);
+    }
+  };
+
   const {
     errors,
     handleChange,
@@ -40,35 +57,14 @@ function NewListModal({ list }) {
     values,
   } = useFormValidation(INITIAL_STATE, validateListForm, saveList);
 
-  // changed to regular function declaration so it can be declared after its use
-  async function saveList() {
-    const newList = {
-      // nothing to spread in since its a new list, right? think we can remove
-      // ...list,
-      title: values.title,
-      description: values.description,
-      // changed this from modifiedAt to createdAt, changed the date format
-      // so it's consistent with the  date formatting function
-      createdAt: Date.now(),
-    };
-    try {
-      // changed this from editWatchList to create
-      await firebase.createNewWatchList(newList, user.uid);
-      // dont need to await this
-      onClose();
-    } catch (error) {
-      setFirebaseError(error.message);
-    }
-  }
-
   return (
     <>
-      <IconButton icon="add" variant="ghost" onClick={onOpen} />
+      <IconButton icon="edit" variant="ghost" mr={2} onClick={onOpen} />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>New List</ModalHeader>
+          <ModalHeader>Edit List Details</ModalHeader>
           <ModalCloseButton />
           <form>
             <ModalBody>
@@ -80,6 +76,7 @@ function NewListModal({ list }) {
                   placeholder="List Title"
                   type="string"
                   isRequired
+                  defaultValue={type === 'edit' ? list.title : null}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
@@ -88,13 +85,13 @@ function NewListModal({ list }) {
                 </FormErrorMessage>
               </FormControl>
 
-              <FormLabel htmlFor="description">Description: </FormLabel>
+              <FormLabel htmlFor="list-description">Description: </FormLabel>
 
               <Input
-                id="description"
-                name="description"
+                id="list-description"
                 variant="outline"
                 placeholder="List Description"
+                defaultValue={type === 'edit' ? list.description : null}
                 type="text"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -111,7 +108,7 @@ function NewListModal({ list }) {
                 onClick={handleSubmit}
                 disabled={isSubmitting}
               >
-                Create List
+                Save Changes
               </Button>
               <FormControl isInvalid={firebaseError}>
                 <FormErrorMessage maxWidth="220px">
@@ -126,4 +123,4 @@ function NewListModal({ list }) {
   );
 }
 
-export default NewListModal;
+export default ListFormModal;

@@ -18,6 +18,16 @@ export function validateLogin(values) {
   return errors;
 }
 
+export function validateListForm(values) {
+  const errors = {};
+
+  // changed this to strictly equals
+  if (!values.title || values.title === '') {
+    errors.title = 'Title Required';
+  }
+  return errors;
+}
+
 // Format Dates
 export function formatDate(dateStr) {
   return moment(dateStr).format('MMM Do YYYY');
