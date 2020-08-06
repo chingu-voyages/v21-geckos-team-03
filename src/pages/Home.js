@@ -39,12 +39,12 @@ const Home = () => {
   return (
     <>
       {!searchTerm && (
-        <Heading textAlign="center" mb={3}>
+        <Heading textAlign="center" mx="auto" my={12} maxWidth="600px">
           Search for movies and add them to a watch list!
         </Heading>
       )}
       <SearchPanel callback={searchMovies} />
-      <Heading mt={10}>
+      <Heading fontSize="2xl" mt={10} mb={5}>
         {searchTerm ? 'Search Result' : 'Trending Movies'}
       </Heading>
       <Stack align="center">

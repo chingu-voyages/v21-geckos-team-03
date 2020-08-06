@@ -5,32 +5,32 @@ import MovieModal from './MovieModal';
 import SaveMovieDropDown from './SaveMovieDropDown';
 import useWatchLists from '../hooks/useWatchLists';
 import SimpleBox from './SimpleBox';
+import { truncateDescription } from '../utils';
 
 function MovieCard({ movie }) {
   const { watchLists } = useWatchLists();
 
   return (
     <SimpleBox>
-      <Flex align="center" justify="flex-start">
+      <Flex
+        direction={['column', 'row', 'row', 'row']}
+        align={['center', 'flex-start']}
+        justify="flex-start"
+      >
         <MovieModal movie={movie} watchLists={watchLists} />
-        <Box>
-          <Flex
-            align="center"
-            justify="space-between"
-            padding={['18px', '18px']}
-          >
-            <Heading as="h3">{movie.title}</Heading>
+        <Box px={[2, 4]}>
+          <Flex align="center" justify="space-between">
+            <Heading as="h3" fontSize={['md', 'xl', '2xl']} mb={2}>
+              {movie.title}
+            </Heading>
             <SaveMovieDropDown movie={movie} watchLists={watchLists} />
           </Flex>
-          <Text fontSize="xs">
-            RELEASE DATE:
-            {movie.release_date}
-          </Text>
+          <Text fontSize="xs">{movie.release_date}</Text>
           <Text fontSize="xs">
             RATING:
             {movie.vote_average}
           </Text>
-          <Text fontSize="sm">{movie.overview}</Text>
+          <Text fontSize="sm">{truncateDescription(movie.overview, 200)}</Text>
         </Box>
       </Flex>
     </SimpleBox>

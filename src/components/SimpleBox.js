@@ -7,7 +7,7 @@ const SimpleBox = ({ children, onClick }) => {
     <Box
       w="100%"
       p={4}
-      mb={2}
+      mb={5}
       border="1px"
       borderRadius="md"
       borderColor="gray.200"

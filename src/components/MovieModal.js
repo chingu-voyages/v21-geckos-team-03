@@ -8,6 +8,8 @@ import {
   ModalCloseButton,
   ModalBody,
   useDisclosure,
+  Heading,
+  Flex,
 } from '@chakra-ui/core';
 import MovieThumb from './MovieThumb';
 import SaveMovieDropDown from './SaveMovieDropDown';
@@ -28,19 +30,22 @@ const MovieModal = ({ movie, watchLists, isListItem }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{movie.title}</ModalHeader>
+          <ModalHeader>
+            <Flex align="center">
+              <Heading mr={2} fontSize="2xl">
+                {movie.title}
+              </Heading>
+              {!isListItem && (
+                <SaveMovieDropDown movie={movie} watchLists={watchLists} />
+              )}
+            </Flex>
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {!isListItem && (
-              <SaveMovieDropDown movie={movie} watchLists={watchLists} />
-            )}
-            <MovieThumb
-              posterPath={movie.poster_path}
-              movieId={movie.id}
-              clickable={false}
-              onClick={null}
-            />
-            {movie.overview}
+            <Flex>
+              <MovieThumb posterPath={movie.poster_path} movieId={movie.id} />
+              {movie.overview}
+            </Flex>
           </ModalBody>
 
           {/* <ModalFooter></ModalFooter> */}

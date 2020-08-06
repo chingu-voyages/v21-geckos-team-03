@@ -19,8 +19,7 @@ function SaveMovieDropDown(props) {
   const { movie, watchLists } = props;
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [savedMovies, setSavedMovies] = useState({}); // format is an object with movie ids as keys, and arrays of lists they are on as values ie {movieA: [listA, listC]}
-
+  const [savedMovies, setSavedMovies] = useState({});
   const saveMovie = async (list) => {
     const newMovie = {
       ...movie,
@@ -84,7 +83,7 @@ function SaveMovieDropDown(props) {
     <div>
       <Menu>
         <MenuButton>
-          <Icon name="add" />
+          <Icon height="100%" name="add" />
         </MenuButton>
         <MenuList placement="right-bottom">
           {user ? (

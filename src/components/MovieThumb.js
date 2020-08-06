@@ -7,17 +7,16 @@ import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
 const MovieThumb = ({ posterPath, clickable, onClick, small }) => {
   return (
     <Flex>
-      <PseudoBox
-        _hover={clickable ? { opacity: 0.8 } : null}
-        size={small ? ['50px', '60px', '75px', '85px'] : '200px'}
-      >
+      <PseudoBox _hover={clickable ? { opacity: 0.8 } : null}>
         <Image
           src={
             posterPath
               ? `${IMAGE_BASE_URL}${POSTER_SIZE}${posterPath}`
               : NoImage
           }
-          width="100%"
+          size={small ? ['50px', '60px', '75px', '85px'] : '150px'}
+          // width="100%"
+          minWidth={!small ? '100px' : null}
           objectFit="contain"
           height="100%"
           alt="movieThumb"
