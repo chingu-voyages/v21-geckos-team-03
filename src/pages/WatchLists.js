@@ -1,17 +1,9 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import {
-  Divider,
-  Heading,
-  Link,
-  Text,
-  Flex,
-  Button,
-  Spinner,
-} from '@chakra-ui/core';
-import { SimpleBox } from '../components';
+import { Divider, Heading, Link, Text, Flex, Spinner } from '@chakra-ui/core';
+import { SimpleBox, DeleteListModal } from '../components';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
+import NewListModal from '../components/NewListModal';
 
 /* 
   Route: "/lists"
@@ -23,23 +15,7 @@ import useWatchLists from '../hooks/useWatchLists';
 
 const WatchLists = (props) => {
   const { watchLists, loading, error } = useWatchLists();
-  const { firebase, user } = useContext(FirebaseContext);
-  const history = useHistory();
-
-  const newList = {
-    createdAt: Date.now(),
-    title: 'My 10th list',
-    description: 'this is a new test list created from front end',
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!user) {
-      history.push('/login');
-    } else {
-      firebase.createNewWatchList(newList, user.uid);
-    }
-  };
+  const { user } = useContext(FirebaseContext);
 
   const generateLists = () => {
     if (!watchLists) {
@@ -50,11 +26,18 @@ const WatchLists = (props) => {
       i += 1;
       return (
         <SimpleBox key={`${i}-${list.title}`}>
-          <Link href={`/list/${list.id}`}>
-            <Heading as="h4" size="md">
-              {list.title}
-            </Heading>
-          </Link>
+          <Flex justify="space-between">
+            <Flex>
+              <Link href={`/list/${list.id}`}>
+                <Heading as="h4" size="md">
+                  {list.title}
+                </Heading>
+              </Link>
+            </Flex>
+            <Flex>
+              <DeleteListModal list={list} />
+            </Flex>
+          </Flex>
           <Divider />
           {list.description}
         </SimpleBox>
@@ -73,11 +56,9 @@ const WatchLists = (props) => {
           <Heading as="h2" size="xl">
             {user
               ? `${user.displayName.toUpperCase()}'s Watch Lists`
-              : 'You Watchlists'}
+              : 'Your Watch Lists'}
           </Heading>
-          <Button bg="primary" type="submit" onClick={handleSubmit}>
-            Create New List
-          </Button>
+          <NewListModal />
         </Flex>
       </SimpleBox>
       <SimpleBox>{generateLists()}</SimpleBox>

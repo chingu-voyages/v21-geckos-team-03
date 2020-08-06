@@ -7,15 +7,18 @@ import {
   PseudoBox,
   Checkbox,
   IconButton,
+  Tooltip,
+  useToast,
 } from '@chakra-ui/core';
 import MovieModal from './MovieModal';
-import { formatDate } from '../utils';
+// import { formatDate } from '../utils';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
 
 function ListItem({ data: movie, listDetails: list }) {
   const { firebase, user } = useContext(FirebaseContext);
   const { watchLists } = useWatchLists();
+  const toast = useToast();
 
   function deleteMovieFromList() {
     if (user) {
@@ -29,9 +32,22 @@ function ListItem({ data: movie, listDetails: list }) {
 
         movieRef.delete().then(() => {
           console.log(`Movie with ID ${movie.id} deleted`);
+          toast({
+            title: 'Movie deleted',
+            status: 'success',
+            duration: 1000,
+            isClosable: false,
+          });
         });
       } catch (error) {
         console.log('Error deleting movie', error);
+        toast({
+          title: 'Something went wrong',
+          description: error,
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        });
       }
     }
   }
@@ -93,15 +109,17 @@ function ListItem({ data: movie, listDetails: list }) {
           </Flex>
         </Flex>
       </Flex>
+      {/* <Text fontSize="xs">{formatDate(movie.added)}</Text> */}
 
-      <Text fontSize="xs">{formatDate(movie.added)}</Text>
-      <IconButton
-        onClick={deleteMovieFromList}
-        justifySelf="flex-end"
-        aria-label="delete movie"
-        size={['xs', 'xs', 'sm', 'md']}
-        icon="delete"
-      />
+      <Tooltip hasArrow label="Delete Movie" placement="left">
+        <IconButton
+          onClick={deleteMovieFromList}
+          justifySelf="flex-end"
+          aria-label="delete movie"
+          size={['xs', 'xs', 'sm', 'md']}
+          icon="delete"
+        />
+      </Tooltip>
     </Flex>
   );
 }

@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
 
-function useFormValidation(initialState, validate, authenticate) {
+/* 
+  Hook for both login and register auth handling.
+  Handles front end error validation
+  Takes in state object, a function for validating email and passwords,
+  and a function that calls register or login to 
+  firebase auth depending on user selected form 
+ */
+
+function useFormValidation(initialState, validate, firebaseCall) {
   const [values, setValues] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setSubmitting] = useState(false);
@@ -9,13 +17,14 @@ function useFormValidation(initialState, validate, authenticate) {
     if (isSubmitting) {
       const noErrors = Object.keys(errors).length === 0;
       if (noErrors) {
-        authenticate();
+        firebaseCall();
+        // console.log('communicating with firebase', values);
         setSubmitting(false);
       } else {
         setSubmitting(false);
       }
     }
-  }, [errors, isSubmitting, authenticate]);
+  }, [errors, isSubmitting, firebaseCall]);
 
   function handleChange(event) {
     event.persist();

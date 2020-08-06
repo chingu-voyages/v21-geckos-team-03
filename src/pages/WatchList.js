@@ -82,9 +82,7 @@ function WatchList() {
               Description:
             </Text>
             <Text fontSize="sm" mb={4}>
-              Air plant raw denim iPhone, kinfolk coloring book vaporware
-              keffiyeh thunder cats. Chambray locavore retro organic bicycle
-              rights shaman synth.
+              {listDetails.description}
             </Text>
           </Box>
         </Flex>
