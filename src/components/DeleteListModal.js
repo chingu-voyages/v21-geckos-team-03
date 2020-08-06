@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -12,12 +12,28 @@ import {
   useDisclosure,
   ModalFooter,
 } from '@chakra-ui/core';
+import { useHistory } from 'react-router-dom';
+import { FirebaseContext } from '../firebase';
 
 function DeleteListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { firebase, user } = useContext(FirebaseContext);
+  const history = useHistory();
 
-  const deleteList = () => {
-    // delete list
+  const deleteWatchList = (listId, userId) => {
+    try {
+      const listRef = firebase.db
+        .doc(`users/${user.uid}`)
+        .collection('lists')
+        .doc(list.id);
+
+      history.push('/lists');
+      listRef.delete().then(() => {
+        console.log(`List with ID ${list.id} deleted`);
+      });
+    } catch (error) {
+      console.log('Error deleting list', error);
+    }
   };
 
   return (
@@ -36,12 +52,12 @@ function DeleteListModal({ list }) {
             <Button
               variantColor="red"
               mr={3}
-              onClick={onClose}
               leftIcon="delete"
+              onClick={deleteWatchList}
             >
               Delete
             </Button>
-            <Button variant="ghost" onClick={deleteList}>
+            <Button variant="ghost" onClick={onClose}>
               Cancel
             </Button>
           </ModalFooter>
