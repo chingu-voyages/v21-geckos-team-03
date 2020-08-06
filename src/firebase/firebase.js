@@ -64,6 +64,24 @@ class Firebase {
     await this.db.doc(`users/${userId}`).collection('lists').add(newList);
   }
 
+  // modified this a bit to follow the firebase flow of first getting a ref
+  // not 100% but i believe this is best practice for updating data.
+  // the idea is that its a realtime app so multiple people can be updating
+  // at the same time. updating a ref instead of the data directly prevents
+  // real time errors.
+  async editWatchList(list, userId) {
+    const listRef = this.db
+      .doc(`users/${userId}`)
+      .collection('lists')
+      .doc(list.id);
+    // .set(list);
+    listRef.get().then((doc) => {
+      if (doc.exists) {
+        listRef.update(list);
+      }
+    });
+  }
+
   async getMoviesInWatchList(userId, listId, snapshot) {
     return this.db
       .doc(`users/${userId}`)
