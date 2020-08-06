@@ -49,22 +49,19 @@ function NavBar() {
     <Flex
       as="nav"
       align="center"
-      justify="space-between"
+      justifyContent="space-between"
       wrap="wrap"
       padding={6}
       borderBottom="1px solid #C8C8C8"
     >
-      <Flex align="center" justify="center" mr={5}>
+      <Flex align="center" justify="left" mr={5}>
         <Link as={NavLink} to="/">
           <Image
             src={Film}
             alt="A length of film reel in a spiral with distorted perspective. Image by Gordon Johnson from Pixabay"
-            width={[
-              '100%', // base
-              '50%', // 480px upwards
-              '25%', // 768px upwards
-              '15%', // 992px upwards
-            ]}
+            h={10}
+            mr={3}
+            align="center"
           />
         </Link>
         <Link as={NavLink} to="/">
@@ -96,9 +93,17 @@ function NavBar() {
       >
         {user && (
           <MenuItems>
-            <Link as={NavLink} to="/lists">
-              My Lists
-            </Link>
+            <Button
+              as={NavLink}
+              to="/lists"
+              isOpen={show}
+              bg="transparent"
+              border="1px"
+              className="ease-in"
+              size="xs"
+            >
+              Lists
+            </Button>
           </MenuItems>
         )}
       </Flex>
