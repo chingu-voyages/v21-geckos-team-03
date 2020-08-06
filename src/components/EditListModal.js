@@ -11,6 +11,7 @@ import {
   Button,
   useDisclosure,
   IconButton,
+  Tooltip,
 } from '@chakra-ui/core';
 
 function EditListModal({ list }) {
@@ -22,7 +23,15 @@ function EditListModal({ list }) {
 
   return (
     <>
-      <IconButton icon="edit" variant="ghost" mr={2} onClick={onOpen} />
+      <Tooltip hasArrow label="Edit List Details" placement="right">
+        <IconButton
+          icon="edit"
+          variant="ghost"
+          mr={2}
+          onClick={onOpen}
+          ml={5}
+        />
+      </Tooltip>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

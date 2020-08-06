@@ -23,7 +23,7 @@ function DeleteListModal({ list }) {
 
   return (
     <>
-      <Tooltip hasArrow label="Delete List">
+      <Tooltip hasArrow label="Delete List" placement="bottom">
         <IconButton icon="delete" variant="ghost" mr={2} onClick={onOpen} />
       </Tooltip>
 

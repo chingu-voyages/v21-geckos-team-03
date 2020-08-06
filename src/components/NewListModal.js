@@ -12,6 +12,7 @@ import {
   Button,
   useDisclosure,
   IconButton,
+  Tooltip,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 
@@ -37,7 +38,9 @@ function NewListModal() {
 
   return (
     <>
-      <IconButton icon="add" variant="ghost" onClick={onOpen} />
+      <Tooltip hasArrow label="New List" placement="bottom">
+        <IconButton icon="add" variant="ghost" onClick={onOpen} />
+      </Tooltip>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
