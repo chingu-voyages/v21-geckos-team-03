@@ -11,6 +11,7 @@ import {
   Link,
   Icon,
   useColorMode,
+  Image,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 
@@ -54,8 +55,14 @@ function NavBar() {
     >
       <Flex align="center" justify="center" mr={5}>
         <Link as={NavLink} to="/">
+          <Image
+            src="../../public/film.png"
+            alt="A length of film reel in a spiral with distorted perspective. Image by Gordon Johnson from Pixabay"
+          />
+        </Link>
+        <Link as={NavLink} to="/">
           <Heading as="h1" size="lg">
-            WatchList
+            UnReel
           </Heading>
         </Link>
       </Flex>
@@ -83,7 +90,7 @@ function NavBar() {
         {user && (
           <MenuItems>
             <Link as={NavLink} to="/lists">
-              WatchLists
+              My Lists
             </Link>
           </MenuItems>
         )}
