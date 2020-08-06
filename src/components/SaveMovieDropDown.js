@@ -13,6 +13,7 @@ import {
   Icon,
   useToast,
   Spinner,
+  Tooltip,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
@@ -52,7 +53,7 @@ function SaveMovieDropDown({ movie }) {
           title: 'Movie added.',
           description: "We've added this to your list",
           status: 'success',
-          duration: 5000,
+          duration: 4000,
           isClosable: true,
         });
       } catch (err) {
@@ -62,7 +63,7 @@ function SaveMovieDropDown({ movie }) {
         toast({
           title: 'Error adding movie.',
           status: 'error',
-          duration: 5000,
+          duration: 4000,
           isClosable: true,
         });
       }
@@ -73,7 +74,7 @@ function SaveMovieDropDown({ movie }) {
       toast({
         title: 'Movie is already on that list.',
         status: 'error',
-        duration: 5000,
+        duration: 4000,
         isClosable: true,
       });
     }
@@ -94,7 +95,9 @@ function SaveMovieDropDown({ movie }) {
     <div>
       <Menu closeOnSelect={false}>
         <MenuButton>
-          <Icon height="100%" name="add" />
+          <Tooltip hasArrow label="Add to List">
+            <Icon name="add" />
+          </Tooltip>
         </MenuButton>
         <MenuList placement="right-bottom">
           {user ? (
