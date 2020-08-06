@@ -37,7 +37,7 @@ function MovieCard({ movie }) {
             {movie.release_date}
           </Text>
           <Text fontSize={['3xs', 'xs', 'sm', 'md']} mb={4}>
-            {truncateDescription(movie.overview, 120)}
+            {truncateDescription(movie.overview, 170)}
           </Text>
           <Text fontSize="xs">
             RATING:
