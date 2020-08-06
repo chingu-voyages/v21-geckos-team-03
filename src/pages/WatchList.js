@@ -33,7 +33,7 @@ function WatchList() {
 
   return (
     // Two column flex row
-    <Flex justify="space-around">
+    <Flex>
       {/* Sidebar */}
       <Flex
         display={{ base: 'none', md: 'flex' }}
@@ -50,7 +50,7 @@ function WatchList() {
       </Flex>
 
       {/* Watchlist Container */}
-      <Flex direction="column" mx="auto" my="0">
+      <Flex direction="column" mx="auto" width="100%" my="0">
         {/*  List Details  */}
         <Flex
           direction="column"

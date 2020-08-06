@@ -14,11 +14,8 @@ const MovieThumb = ({ posterPath, clickable, onClick, small }) => {
               ? `${IMAGE_BASE_URL}${POSTER_SIZE}${posterPath}`
               : NoImage
           }
-          size={small ? ['50px', '60px', '75px', '85px'] : '150px'}
-          // width="100%"
-          minWidth={!small ? '100px' : null}
+          maxWidth={small ? ['50px', '60px', '75px', '85px'] : '100%'}
           objectFit="contain"
-          height="100%"
           alt="movieThumb"
           onClick={clickable ? onClick : null}
         />

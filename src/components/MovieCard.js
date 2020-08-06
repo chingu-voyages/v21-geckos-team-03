@@ -4,23 +4,35 @@ import { Flex, Heading, Text, Box } from '@chakra-ui/core';
 import MovieModal from './MovieModal';
 import SaveMovieDropDown from './SaveMovieDropDown';
 import useWatchLists from '../hooks/useWatchLists';
-import SimpleBox from './SimpleBox';
 import { truncateDescription } from '../utils';
 
 function MovieCard({ movie }) {
   const { watchLists } = useWatchLists();
 
   return (
-    <SimpleBox>
+    <Box
+      w="100%"
+      // p={4}
+      mb={6}
+      border="1px"
+      borderRadius="md"
+      borderColor="gray.200"
+      bg="gray.800"
+      // onClick={onClick}
+      shadow="md"
+    >
       <Flex
-        direction={['column', 'row', 'row', 'row']}
+        direction={['column', 'column', 'row', 'row']}
         align={['center', 'flex-start']}
-        justify="flex-start"
+        justify="center"
       >
-        <MovieModal movie={movie} watchLists={watchLists} />
+        <Box pb={[10, 8, 0]}>
+          <MovieModal movie={movie} watchLists={watchLists} />
+        </Box>
+
         <Box px={[2, 4]}>
           <Flex align="center" justify="space-between">
-            <Heading as="h3" fontSize={['md', 'xl', '2xl']} mb={2}>
+            <Heading as="h2" fontSize={['lg', 'xl', '2xl']} mb={2}>
               {movie.title}
             </Heading>
             <SaveMovieDropDown movie={movie} watchLists={watchLists} />
@@ -30,10 +42,12 @@ function MovieCard({ movie }) {
             RATING:
             {movie.vote_average}
           </Text>
-          <Text fontSize="sm">{truncateDescription(movie.overview, 200)}</Text>
+          <Text fontSize={['3xs', 'sm', 'md']}>
+            {truncateDescription(movie.overview, 200)}
+          </Text>
         </Box>
       </Flex>
-    </SimpleBox>
+    </Box>
   );
 }
 
