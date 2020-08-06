@@ -1,14 +1,5 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import {
-  Divider,
-  Heading,
-  Link,
-  Text,
-  Flex,
-  Button,
-  Spinner,
-} from '@chakra-ui/core';
+import { Divider, Heading, Link, Text, Flex, Spinner } from '@chakra-ui/core';
 import { SimpleBox, DeleteListModal } from '../components';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';

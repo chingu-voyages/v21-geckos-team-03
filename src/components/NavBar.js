@@ -13,6 +13,8 @@ import {
   useColorMode,
   Image,
 } from '@chakra-ui/core';
+import Film from '../images/film.png';
+
 import { FirebaseContext } from '../firebase';
 
 /* 
@@ -56,8 +58,14 @@ function NavBar() {
       <Flex align="center" justify="center" mr={5}>
         <Link as={NavLink} to="/">
           <Image
-            src="../../public/film.png"
+            src={Film}
             alt="A length of film reel in a spiral with distorted perspective. Image by Gordon Johnson from Pixabay"
+            width={[
+              '100%', // base
+              '50%', // 480px upwards
+              '25%', // 768px upwards
+              '15%', // 992px upwards
+            ]}
           />
         </Link>
         <Link as={NavLink} to="/">
