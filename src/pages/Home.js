@@ -59,7 +59,11 @@ const Home = () => {
           {searchTerm ? 'Search Result' : 'Trending Movies'}
         </Heading>
         <Stack align="center">
-          {loading && <Spinner />}
+          {loading && (
+            <Box>
+              <Spinner size="xl" />
+            </Box>
+          )}
           {state.movies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
