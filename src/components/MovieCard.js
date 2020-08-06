@@ -11,39 +11,37 @@ function MovieCard({ movie }) {
 
   return (
     <Box
-      w="100%"
-      // p={4}
       mb={6}
       border="1px"
-      borderRadius="md"
+      borderRadius="lg"
       borderColor="gray.200"
-      bg="gray.800"
-      // onClick={onClick}
       shadow="md"
     >
       <Flex
-        direction={['column', 'column', 'row', 'row']}
+        direction={['column-reverse', 'column-reverse', 'row', 'row']}
         align={['center', 'flex-start']}
         justify="center"
       >
-        <Box pb={[10, 8, 0]}>
+        <Box pb={[10, 0, 0]}>
           <MovieModal movie={movie} watchLists={watchLists} />
         </Box>
 
-        <Box px={[2, 4]}>
-          <Flex align="center" justify="space-between">
-            <Heading as="h2" fontSize={['lg', 'xl', '2xl']} mb={2}>
+        <Box p={[4, 6]} mx={0}>
+          <Flex align="center" justify="space-between" mb={3}>
+            <Heading as="h2" fontSize={['lg', 'xl', '2xl']}>
               {movie.title}
             </Heading>
             <SaveMovieDropDown movie={movie} watchLists={watchLists} />
           </Flex>
-          <Text fontSize="xs">{movie.release_date}</Text>
+          <Text fontSize="2xs" mb={3}>
+            {movie.release_date}
+          </Text>
+          <Text fontSize={['3xs', 'xs', 'sm', 'md']} mb={4}>
+            {truncateDescription(movie.overview, 120)}
+          </Text>
           <Text fontSize="xs">
             RATING:
             {movie.vote_average}
-          </Text>
-          <Text fontSize={['3xs', 'sm', 'md']}>
-            {truncateDescription(movie.overview, 200)}
           </Text>
         </Box>
       </Flex>

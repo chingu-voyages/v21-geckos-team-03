@@ -1,26 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image, PseudoBox, Flex } from '@chakra-ui/core';
+import { Image, PseudoBox } from '@chakra-ui/core';
 import NoImage from '../images/no_image.png';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
 
 const MovieThumb = ({ posterPath, clickable, onClick, small }) => {
   return (
-    <Flex>
-      <PseudoBox _hover={clickable ? { opacity: 0.8 } : null}>
+    <>
+      <PseudoBox height="100%" _hover={clickable ? { opacity: 0.8 } : null}>
         <Image
+          borderRadius="lg"
           src={
             posterPath
               ? `${IMAGE_BASE_URL}${POSTER_SIZE}${posterPath}`
               : NoImage
           }
-          maxWidth={small ? ['50px', '60px', '75px', '85px'] : '100%'}
+          maxWidth={
+            small
+              ? ['50px', '60px', '70px', '80px']
+              : ['100%', '100%', '140px', '175px']
+          }
+          maxHeight={!small ? '100%' : null}
           objectFit="contain"
           alt="movieThumb"
           onClick={clickable ? onClick : null}
         />
       </PseudoBox>
-    </Flex>
+    </>
   );
 };
 

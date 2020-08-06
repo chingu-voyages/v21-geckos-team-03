@@ -94,9 +94,9 @@ function SaveMovieDropDown({ movie }) {
   return (
     <div>
       <Menu closeOnSelect={false}>
-        <MenuButton>
+        <MenuButton m={0} p={0}>
           <Tooltip hasArrow label="Add to List">
-            <Icon name="add" />
+            <Icon name="add" size="16px" m={0} p={0} />
           </Tooltip>
         </MenuButton>
         <MenuList placement="right-bottom">

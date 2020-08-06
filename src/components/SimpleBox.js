@@ -12,7 +12,6 @@ const SimpleBox = ({ children, onClick }) => {
       borderRadius="md"
       borderColor="gray.200"
       onClick={onClick}
-      shadow="md"
     >
       {children}
     </Box>

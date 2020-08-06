@@ -30,7 +30,9 @@ const SearchPanel = ({ callback }) => {
   return (
     <Flex align="center" justify="center">
       <InputGroup
-        width={isHover ? '50%' : '45%'}
+        width={
+          isHover ? ['95%', '95%', '95%', '65%'] : ['90%', '90%', '90%', '60%']
+        }
         transition={isHover ? '0.5s' : '0.5s'}
         size="lg"
       >
