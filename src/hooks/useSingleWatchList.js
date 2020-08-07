@@ -10,8 +10,6 @@ function useSingleWatchList(listId) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // console.log(listDetails);
-
   useEffect(() => {
     setLoading(true);
     setError(false);

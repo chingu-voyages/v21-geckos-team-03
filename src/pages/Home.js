@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { Stack, Heading, Spinner, Text, Button, Flex } from '@chakra-ui/core';
+import {
+  Stack,
+  Heading,
+  Spinner,
+  Text,
+  Button,
+  Flex,
+  Box,
+  Divider,
+} from '@chakra-ui/core';
 import { SEARCH_BASE_URL, TRENDING_BASE_URL } from '../utils/config';
 import useHomeFetch from '../hooks/useHomeFetch';
 import { SearchPanel, MovieCard } from '../components';
@@ -39,27 +48,36 @@ const Home = () => {
   return (
     <>
       {!searchTerm && (
-        <Heading textAlign="center" mb={3}>
+        <Heading textAlign="center" mx="auto" my={12} maxWidth="600px">
           Search for movies and add them to a watch list!
         </Heading>
       )}
-      <SearchPanel callback={searchMovies} />
-      <Heading mt={10}>
-        {searchTerm ? 'Search Result' : 'Trending Movies'}
-      </Heading>
-      <Stack align="center">
-        {loading && <Spinner />}
-        {state.movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-      </Stack>
-      <Flex align="center" justify="center">
-        {state.currentPage < state.totalPages && !loading && (
-          <Button type="submit" onClick={loadMoreMovies}>
-            Load More
-          </Button>
-        )}
-      </Flex>
+      <Box mb={12}>
+        <SearchPanel callback={searchMovies} />
+      </Box>
+      <Box maxWidth="800px" mx="auto" my={0}>
+        <Heading fontSize="2xl">
+          {searchTerm ? 'Search Result' : 'Trending Movies'}
+        </Heading>
+        <Divider mb={8} />
+        <Stack align="center">
+          {loading && (
+            <Box>
+              <Spinner size="xl" />
+            </Box>
+          )}
+          {state.movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </Stack>
+        <Flex align="center" justify="center">
+          {state.currentPage < state.totalPages && !loading && (
+            <Button type="submit" onClick={loadMoreMovies}>
+              Load More
+            </Button>
+          )}
+        </Flex>
+      </Box>
     </>
   );
 };

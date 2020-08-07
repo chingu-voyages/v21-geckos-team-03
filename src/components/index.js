@@ -4,6 +4,7 @@ import EditListModal from './EditListModal';
 import Layout from './Layout';
 import ListItem from './ListItem';
 import MovieCard from './MovieCard';
+import MovieModal from './MovieModal';
 import MovieThumb from './MovieThumb';
 import NewListModal from './NewListModal';
 import NavBar from './NavBar';
@@ -19,6 +20,7 @@ export {
   Layout,
   ListItem,
   MovieCard,
+  MovieModal,
   MovieThumb,
   NavBar,
   SaveMovieDropDown,

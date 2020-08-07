@@ -30,5 +30,10 @@ export function validateListForm(values) {
 
 // Format Dates
 export function formatDate(dateStr) {
-  return moment(dateStr).format('MMM Do YYYY');
+  return moment(dateStr).format('MMM Do');
+}
+
+// shorten movie description
+export function truncateDescription(string, length) {
+  return string.length > length ? `${string.substring(0, length)}...` : string;
 }
