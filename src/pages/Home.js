@@ -7,6 +7,7 @@ import {
   Button,
   Flex,
   Box,
+  Divider,
 } from '@chakra-ui/core';
 import { SEARCH_BASE_URL, TRENDING_BASE_URL } from '../utils/config';
 import useHomeFetch from '../hooks/useHomeFetch';
@@ -51,13 +52,14 @@ const Home = () => {
           Search for movies and add them to a watch list!
         </Heading>
       )}
-      <Box mb={16}>
+      <Box mb={12}>
         <SearchPanel callback={searchMovies} />
       </Box>
       <Box maxWidth="800px" mx="auto" my={0}>
-        <Heading fontSize="2xl" mb={5}>
+        <Heading fontSize="2xl">
           {searchTerm ? 'Search Result' : 'Trending Movies'}
         </Heading>
+        <Divider mb={8} />
         <Stack align="center">
           {loading && (
             <Box>

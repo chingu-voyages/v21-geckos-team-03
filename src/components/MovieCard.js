@@ -16,19 +16,21 @@ function MovieCard({ movie }) {
       borderRadius="lg"
       borderColor="gray.200"
       shadow="md"
+      p={0}
     >
       <Flex
-        direction={['column-reverse', 'column-reverse', 'row', 'row']}
-        align={['center', 'flex-start']}
+        direction={['row', 'row', 'row']}
+        align="center"
         justify="center"
+        p={0}
       >
-        <Box pb={[10, 0, 0]}>
+        <Box>
           <MovieModal movie={movie} watchLists={watchLists} />
         </Box>
 
-        <Box p={[4, 6]} mx={0}>
+        <Box p={[0, 0, 6, 6]} mx={4}>
           <Flex align="center" justify="space-between" mb={3}>
-            <Heading as="h2" fontSize={['lg', 'xl', '2xl']}>
+            <Heading as="h2" fontSize={['xl', '2xl', '3xl']}>
               {movie.title}
             </Heading>
             <SaveMovieDropDown movie={movie} watchLists={watchLists} />
@@ -37,7 +39,7 @@ function MovieCard({ movie }) {
             {movie.release_date}
           </Text>
           <Text fontSize={['3xs', 'xs', 'sm', 'md']} mb={4}>
-            {truncateDescription(movie.overview, 170)}
+            {truncateDescription(movie.overview, 150)}
           </Text>
           <Text fontSize="xs">
             RATING:

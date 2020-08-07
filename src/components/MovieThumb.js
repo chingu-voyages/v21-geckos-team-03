@@ -18,7 +18,7 @@ const MovieThumb = ({ posterPath, clickable, onClick, small }) => {
           maxWidth={
             small
               ? ['50px', '60px', '70px', '80px']
-              : ['100%', '100%', '140px', '175px']
+              : ['100%', '100%', '150px', '175px']
           }
           maxHeight={!small ? '100%' : null}
           objectFit="contain"
