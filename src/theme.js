@@ -13,8 +13,10 @@ export const customTheme = {
   ...theme,
   breakpoints,
   fonts: {
-    heading: "'Spartan', sans-serif",
-    body: "'Spartan', sans-serif",
+    heading: "'PT Sans', sans-serif",
+    body: "'PT Sans', sans-serif",
+    // heading: "'Spartan', sans-serif",
+    // body: "'Spartan', sans-serif",
   },
   fontSizes: {
     '3xs': '0.25rem',
