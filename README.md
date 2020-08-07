@@ -4,7 +4,6 @@
 
 - [✅ Project Information](#-project-information)
   - [About](#about)
-  - [MVP Definition](#mvp-definition)
   - [User Stories](#user-stories)
     - [MVP](#mvp)
     - [Mid-tier](#mid-tier)
@@ -27,27 +26,21 @@
 
 ### About
 
-An app that allows the user to browse through a list of movies and create custom watch lists.
-
-### MVP Definition
-
-Users will be able to search through a library of movies and save movies to a private watch list.
+An app that helps keep track of what movies to watch. Users can browse popular movies as well as search for movie titles. The results can then be added to user created "watch lists" used for organizing personal collections of films. After a movie has been watched, mark it "watched" in it's list so the list is always current!
 
 ### User Stories
 
 #### MVP
 
-- [ ] As **User**, I want to **be able to search for movies and get back the results**.
+- [x] As **User**, I want to **be able to search for movies and get back the results**.
 
-- [ ] As a **User**, I want to **be able to filter movie results by genre and year** so that **I can find movies that fit my criteria**.
+- [x] As a **User**, I want to **be able to save my liked movies to a watch list** so that **I can view them whenever I want**.
 
-- [ ] As a **User**, I want to **be able to save my liked movies to a watch list** so that **I can view them whenever I want**.
+- [x] As a **User**, I want to **store my watch list** so that **I can look at my watch list whenever I want**.
 
-- [ ] As a **User**, I want to **store my watch list** so that **I can look at my watch list whenever I want**.
+- [x] As a **User**, I want to **remove movies from my watch list** so that **I can keep my watch list relevant**.
 
-- [ ] As a **User**, I want to **remove movies from my watch list** so that **I can keep my watch list relevant**.
-
-- [ ] As a **User**, I want to **be able to add movies to my list while searching** so that **I don't have to leave the page/stop scrolling through options**.
+- [x] As a **User**, I want to **be able to add movies to my list while searching** so that **I don't have to leave the page/stop scrolling through options**.
 
 #### Mid-tier
 
@@ -55,9 +48,11 @@ Users will be able to search through a library of movies and save movies to a pr
 
 - [ ] As a **User**, I want to **rate the movies I save** so that **I can filter movies by my own ratings**.
 
-- [ ] As a **User**, I want to **be able to see reviews on a movie** so that **I can get a better understanding of the movie before watching it my self**.
+- [ ] As a **User**, I want to **be able to filter movie results by genre and year** so that **I can find movies that fit my criteria**.
 
-- [ ] As a **User**, I want to **be able to create my own lists with their own names** so that **I can customize my movie organization. (Eg, 'to watch' and 'sci-fi movie night' and 'sad foreign films for when i'm feeling ennui')**
+- [ ] As a **User**, I want to **be able to see reviews on a movie** so that **I can get a better understanding of the movie before watching it myself**.
+
+- [x] As a **User**, I want to **be able to create my own lists with their own names** so that **I can customize my movie organization. (Eg, 'to watch' and 'sci-fi movie night' and 'sad foreign films for when i'm feeling ennui')**
 
 #### Stretch
 
@@ -65,17 +60,17 @@ Users will be able to search through a library of movies and save movies to a pr
 
 - [ ] As a **User**, I want to **be able to choose 'stay logged in'** so that **I can access my account easily on my own computer or be logged out on someone elses**.
 
-- [ ] As a **User**, I want to **be able to switch between light and dark themes** so that **I can comfortably see my movies under most lighting conditions**.
+- [x] As a **User**, I want to **be able to switch between light and dark themes** so that **I can comfortably see my movies under most lighting conditions**.
 
 ### Tech Stack
 
 - React
 - Firebase (auth, database, hosting)
-- Styled Components
+- [Chakra UI](https://chakra-ui.com/) (component library)
 
 ### Design Mockup
 
-Wireframes for the project can be viewed on [Sketch Cloud](https://www.sketch.com/s/7a10fe15-79a3-4bad-ac7c-a94f32a47494).
+Wireframes for the project can be viewed on [Balsamic Cloud](https://balsamiq.cloud/shreafc/pk2pktl).
 
 ## 🔀 Git Strategy
 
@@ -200,7 +195,7 @@ type: subject
 
 ## 💅 Code Style Guide
 
-This project uses a Prettier configuration file for code style and follows the [Airbnb Style Guide](https://github.com/airbnb/javascript) for Javascript formatting.
+This project uses a Prettier configuration file for formatting and follows the [Airbnb Style Guide](https://github.com/airbnb/javascript) for Javascript style rules.
 
 ### Formatting related scripts
 
