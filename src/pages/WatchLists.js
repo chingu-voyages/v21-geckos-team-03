@@ -63,7 +63,25 @@ const WatchLists = (props) => {
         </Heading>
         <NewListModal />
       </Flex>
-      {generateLists()}
+      {!watchLists || watchLists.length === 0 ? (
+        <Flex
+          w="100%"
+          p={4}
+          mb={2}
+          border="1px"
+          borderRadius="md"
+          borderColor="gray.200"
+          textAlign="center"
+          flexDir="column"
+        >
+          <Text>You don&apos;t have any lists yet!</Text>
+          <Flex justify="center">
+            <NewListModal noLists />
+          </Flex>
+        </Flex>
+      ) : (
+        generateLists()
+      )}
     </>
   );
 };
