@@ -18,6 +18,7 @@ import {
   FormErrorMessage,
   Textarea,
   Flex,
+  MenuItem,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import useFormValidation from '../hooks/useFormValidation';
@@ -28,7 +29,7 @@ const INITIAL_STATE = {
   description: '',
 };
 
-function NewListModal() {
+function NewListModal({ noLists, movieDropDown }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
@@ -56,16 +57,35 @@ function NewListModal() {
     }
   }
 
-  return (
-    <>
+  const prompt = () => {
+    if (noLists) {
+      return (
+        <Button size="sm" bg="transparent" border="1px" mt={5} onClick={onOpen}>
+          Create a List
+        </Button>
+      );
+    }
+    if (movieDropDown) {
+      return (
+        <MenuItem as="Button" onClick={onOpen}>
+          + New List
+        </MenuItem>
+      );
+    }
+    return (
       <Tooltip hasArrow label="New List" placement="bottom">
         <IconButton icon="add" variant="ghost" onClick={onOpen} />
       </Tooltip>
+    );
+  };
 
+  return (
+    <>
+      {prompt()}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>New List</ModalHeader>
+          <ModalHeader textAlign="center">New List</ModalHeader>
           <ModalCloseButton />
           <form>
             <ModalBody>

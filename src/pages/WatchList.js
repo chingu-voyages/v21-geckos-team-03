@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import {
   Heading,
   Text,
@@ -14,6 +14,7 @@ import {
   Icon,
   Collapse,
   IconButton,
+  Button,
 } from '@chakra-ui/core';
 import {
   ListItem,
@@ -30,8 +31,41 @@ function WatchList() {
   const { listMovies, listDetails, error, loading } = useSingleWatchList(
     listId
   );
+  const history = useHistory();
 
   const handleToggle = () => setShow(!show);
+
+  const findPrompt = () => {
+    return (
+      <TabPanel>
+        <Flex
+          w="100%"
+          p={4}
+          mb={2}
+          border="1px"
+          borderRadius="md"
+          borderColor="gray.200"
+          textAlign="center"
+          flexDir="column"
+        >
+          <Text>This list doesn&apos;t have any movies yet!</Text>
+          <Flex justify="center">
+            <Button
+              size="sm"
+              bg="transparent"
+              border="1px"
+              mt={5}
+              onClick={() => {
+                history.push('/');
+              }}
+            >
+              Find Movies
+            </Button>
+          </Flex>
+        </Flex>
+      </TabPanel>
+    );
+  };
 
   if (loading) return <Spinner />;
   if (error) return <Text>Error Loading List</Text>;
@@ -143,14 +177,27 @@ function WatchList() {
                 ))}
             </TabPanel>
             {/* All list Items */}
+            {!listMovies || listMovies.length === 0 ? (
+              findPrompt()
+            ) : (
+              <TabPanel>
+                {listMovies.map((movie) => (
+                  <ListItem
+                    key={movie.id}
+                    data={movie}
+                    listDetails={listDetails}
+                  />
+                ))}
+              </TabPanel>
+            )}
+
+            {/* Unwatched items */}
             <TabPanel>
-              {listMovies.map((movie) => (
-                <ListItem
-                  key={movie.id}
-                  data={movie}
-                  listDetails={listDetails}
-                />
-              ))}
+              <Text>Unwatched goes here...</Text>
+            </TabPanel>
+            {/* {Watched Items} */}
+            <TabPanel>
+              <Text>Watched goes here...</Text>
             </TabPanel>
           </TabPanels>
         </Tabs>

@@ -110,7 +110,9 @@ function SaveMovieDropDown({ movie }) {
             <MenuGroup>
               {watchLists && <Options />}
               <MenuDivider />
-              <MenuItem> + New List</MenuItem>
+              <MenuItem as={RouterLink} to="/lists">
+                + New List
+              </MenuItem>
             </MenuGroup>
           ) : (
             <MenuGroup>
