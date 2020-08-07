@@ -25,7 +25,7 @@ function MovieCard({ movie }) {
         p={0}
       >
         <Box>
-          <MovieModal movie={movie} watchLists={watchLists} />
+          <MovieModal movieId={movie.id} watchLists={watchLists} />
         </Box>
 
         <Box p={[0, 0, 6, 6]} mx={4}>
