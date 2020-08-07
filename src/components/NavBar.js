@@ -51,7 +51,7 @@ function NavBar() {
       align="center"
       justifyContent="space-between"
       wrap="wrap"
-      padding={6}
+      p={6}
       borderBottom="1px solid #C8C8C8"
     >
       <Flex align="center" justify="left" mr={5}>
