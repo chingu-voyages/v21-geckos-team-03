@@ -99,7 +99,7 @@ function SaveMovieDropDown({ movie }) {
 
   return (
     <div>
-      <Menu>
+      <Menu closeOnSelect={false}>
         <MenuButton>
           <Tooltip hasArrow label="Add to List">
             <Icon name="add" />
