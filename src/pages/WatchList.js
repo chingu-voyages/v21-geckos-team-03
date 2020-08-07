@@ -35,7 +35,6 @@ function WatchList() {
 
   if (loading) return <Spinner />;
   if (error) return <Text>Error Loading List</Text>;
-  console.log('list details: ', listDetails);
   return (
     // Two column flex row
     <Flex justify="space-around">
