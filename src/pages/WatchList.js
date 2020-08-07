@@ -12,6 +12,8 @@ import {
   TabPanels,
   TabPanel,
   Icon,
+  Collapse,
+  IconButton,
 } from '@chakra-ui/core';
 import {
   ListItem,
@@ -23,14 +25,17 @@ import { formatDate } from '../utils';
 import useSingleWatchList from '../hooks/useSingleWatchList';
 
 function WatchList() {
+  const [show, setShow] = React.useState(false);
   const { listId } = useParams();
   const { listMovies, listDetails, error, loading } = useSingleWatchList(
     listId
   );
 
+  const handleToggle = () => setShow(!show);
+
   if (loading) return <Spinner />;
   if (error) return <Text>Error Loading List</Text>;
-
+  console.log('list details: ', listDetails);
   return (
     // Two column flex row
     <Flex justify="space-around">
@@ -77,14 +82,33 @@ function WatchList() {
             </Text>
             <Text fontSize="xs">{formatDate(listDetails.createdAt)}</Text>
           </Flex>
-          <Box py={5}>
-            <Text fontSize="xs" mb={4}>
-              Description:
-            </Text>
-            <Text fontSize="sm" mb={4}>
-              {listDetails.description}
-            </Text>
-          </Box>
+          {!listDetails.description ? null : (
+            <Box py={5}>
+              <Text fontSize="xs" mb={4}>
+                Description:
+              </Text>
+
+              {listDetails.description.length < 240 ? (
+                <Text fontSize="sm" mb={4}>
+                  {listDetails.description}
+                </Text>
+              ) : (
+                <Flex>
+                  <Collapse startingHeight={40} isOpen={show}>
+                    <Text fontSize="sm" mb={4}>
+                      {listDetails.description}
+                    </Text>
+                  </Collapse>
+                  <IconButton
+                    icon="chevron-down"
+                    variant="ghost"
+                    onClick={handleToggle}
+                    justify="right"
+                  />
+                </Flex>
+              )}
+            </Box>
+          )}
         </Flex>
 
         {/* List Section */}
