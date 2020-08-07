@@ -1,54 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Heading, Text, Box } from '@chakra-ui/core';
+import MovieModal from './MovieModal';
 import SaveMovieDropDown from './SaveMovieDropDown';
 import useWatchLists from '../hooks/useWatchLists';
-import SimpleBox from './SimpleBox';
-import MovieThumb from './MovieThumb';
+import { truncateDescription } from '../utils';
 
-function MovieCard({ movie, list }) {
+function MovieCard({ movie }) {
   const { watchLists } = useWatchLists();
 
   return (
-    <SimpleBox>
+    <Box
+      mb={6}
+      border="1px"
+      borderRadius="lg"
+      borderColor="gray.200"
+      shadow="md"
+      p={0}
+    >
       <Flex
+        direction={['row', 'row', 'row']}
         align="center"
-        justify="flex-start"
-        direction={['column', 'column', 'row', 'row']}
-        textAlign={['center', 'center', 'left', 'left']}
+        justify="center"
+        p={0}
       >
-        <MovieThumb
-          posterPath={movie.poster_path}
-          movieId={movie.id}
-          clickable
-        />
         <Box>
-          <Flex
-            align="center"
-            justify="space-between"
-            padding={['18px', '18px']}
-          >
-            <Heading as="h3">{movie.title}</Heading>
+          <MovieModal movie={movie} watchLists={watchLists} />
+        </Box>
+
+        <Box p={[0, 0, 6, 6]} mx={4}>
+          <Flex align="center" justify="space-between" mb={3}>
+            <Heading as="h2" fontSize={['xl', '2xl', '3xl']}>
+              {movie.title}
+            </Heading>
             <SaveMovieDropDown movie={movie} watchLists={watchLists} />
           </Flex>
-          <Text fontSize="xs">
-            RELEASE DATE:
+          <Text fontSize="2xs" mb={3}>
             {movie.release_date}
+          </Text>
+          <Text fontSize={['3xs', 'xs', 'sm', 'md']} mb={4}>
+            {truncateDescription(movie.overview, 150)}
           </Text>
           <Text fontSize="xs">
             RATING:
             {movie.vote_average}
           </Text>
-          <Text fontSize="sm">{movie.overview}</Text>
         </Box>
       </Flex>
-    </SimpleBox>
+    </Box>
   );
 }
 
 MovieCard.propTypes = {
   movie: PropTypes.object.isRequired,
-  list: PropTypes.object.isRequired,
 };
 
 export default MovieCard;

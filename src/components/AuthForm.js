@@ -20,14 +20,6 @@ import useFormValidation from '../hooks/useFormValidation';
 import { validateLogin } from '../utils';
 import firebase from '../firebase';
 
-/* 
-JSX rendered on the login page.
-Takes in user text input for both login and register Firebase functions.
-A single button toggles login state as true or false.  
-When true, onSubmit calls login to firebase auth
-When false register is called
-*/
-
 const INITIAL_STATE = {
   name: '',
   email: '',
@@ -47,19 +39,13 @@ const AuthForm = () => {
     values,
   } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
 
-  /* 
-    Passed into form validation hook above
-    Called with in the hook with handleSubmit if no errors in hook state
-    On submission, an auth state change is "heard"  in firebase's auth service.
-    New state is reported, set, and made available in the useAuth hook
-  */
   async function authenticateUser() {
     const { name, email, password } = values;
     try {
       login
         ? await firebase.login(email, password)
         : await firebase.register(name, email, password);
-      history.push('/');
+      history.push('/lists');
     } catch (error) {
       setFirebaseError(error.message);
     }
@@ -173,6 +159,11 @@ const AuthForm = () => {
                     >
                       Register
                     </Button>
+                    <FormControl isInvalid={firebaseError}>
+                      <FormErrorMessage maxWidth="220px">
+                        {firebaseError}
+                      </FormErrorMessage>
+                    </FormControl>
                   </Flex>
                 </form>
               </TabPanel>
