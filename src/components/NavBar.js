@@ -11,6 +11,11 @@ import {
   Icon,
   useColorMode,
   Image,
+  IconButton,
+  Menu,
+  MenuItem,
+  MenuList,
+  MenuButton,
 } from '@chakra-ui/core';
 import Film from '../images/film.png';
 
@@ -36,9 +41,9 @@ MenuItems.propTypes = {
 function NavBar() {
   const { user, firebase } = useContext(FirebaseContext);
   const [show, setShow] = useState(false);
-  const handleToggle = () => setShow(!show);
   const { colorMode, toggleColorMode } = useColorMode();
   const history = useHistory();
+  const handleToggle = () => setShow(!show);
 
   function handleLogout() {
     firebase.logout();
@@ -49,44 +54,70 @@ function NavBar() {
     <Flex
       as="nav"
       align="center"
-      justifyContent="space-between"
+      justify={['center', 'space-between', 'space-between', 'space-between']}
       wrap="wrap"
       p={6}
       borderBottom="1px solid #C8C8C8"
+      flexDir={['column', 'row', 'row', 'row']}
     >
-      <Flex align="center" justify="left" mr={5}>
+      <Flex
+        align="center"
+        justify="left"
+        mr={5}
+        flexDir={['column', 'row', 'row', 'row']}
+        justifyItems={{ sm: 'center' }}
+        m={{ sm: 'auto' }}
+      >
         <Link as={NavLink} to="/">
           <Image
             src={Film}
             alt="A length of film reel in a spiral with distorted perspective. Image by Gordon Johnson from Pixabay"
             h={10}
-            mr={3}
+            mr={[0, 3, 3, 3]}
             align="center"
           />
         </Link>
         <Link as={NavLink} to="/">
-          <Heading as="h1" size="lg">
+          <Heading as="h1" size="lg" mt={[3, 0, 0, 0]}>
             UnReel
           </Heading>
         </Link>
       </Flex>
 
       {/* Mobile dropdown,shown until md breakpoint (768px) */}
-      <Flex display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
-        <svg
-          fill="#63b3ed"
-          width="12px"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title>Menu</title>
-          <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-        </svg>
+      <Flex display={['flex', 'flex', 'none', 'none']} onClick={handleToggle}>
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            icon="chevron-down"
+            variant="ghost"
+            onClick={handleToggle}
+            justify="right"
+          />
+          <MenuList mr={10} maxWidth="100%">
+            <MenuItem as={NavLink} to="/lists">
+              Lists
+            </MenuItem>
+
+            {user ? (
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            ) : (
+              <MenuItem as={NavLink} to="/login">
+                Log In
+              </MenuItem>
+            )}
+
+            <MenuItem onClick={() => toggleColorMode()}>
+              {colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}
+              <Icon name={colorMode === 'light' ? 'moon' : 'sun'} ml={2} />{' '}
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </Flex>
 
-      {/* Container for navlinks */}
+      {/* Container for navlinks, show from md breakpoint on */}
       <Flex
-        display={{ sm: show ? 'block' : 'none', md: 'flex' }}
+        display={['none', 'none', 'flex', 'flex']}
         width={{ sm: 'full', md: 'auto' }}
         align="center"
         flexGrow={1}
@@ -107,11 +138,9 @@ function NavBar() {
           </MenuItems>
         )}
       </Flex>
-      {/* Container for auth button and user name */}
-      <Flex
-        display={{ sm: show ? 'block' : 'none', md: 'block' }}
-        mt={{ base: 4, md: 0 }}
-      >
+
+      {/* Container for auth button and user name, show from md breakpoint on */}
+      <Flex display={['none', 'none', 'flex', 'flex']} mt={{ base: 4, md: 0 }}>
         {user ? (
           <Flex align="center">
             <Text mr={6} fontSize="sm" display={{ base: 'none', md: 'block' }}>
@@ -140,7 +169,7 @@ function NavBar() {
         )}
       </Flex>
 
-      <Flex ml={6}>
+      <Flex ml={6} display={['none', 'none', 'flex', 'flex']}>
         <Button rounded="50%" onClick={() => toggleColorMode()}>
           <Icon name={colorMode === 'light' ? 'moon' : 'sun'} />
         </Button>
