@@ -57,7 +57,7 @@ const Home = () => {
       </Box>
       <Box maxWidth="800px" mx="auto" my={0}>
         <Heading fontSize="2xl">
-          {searchTerm ? 'Search Result' : 'Trending Movies'}
+          {searchTerm ? 'Search Results' : 'Trending Movies'}
         </Heading>
         <Divider mb={8} />
         <Stack align="center">

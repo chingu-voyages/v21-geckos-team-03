@@ -78,7 +78,7 @@ function NavBar() {
           />
         </Link>
         <Link as={NavLink} to="/">
-          <Heading as="h1" size="lg" mt={[3, 0, 0, 0]}>
+          <Heading as="h1" size="lg" mt={[3, 0, 0, 0]} mr={[0, 3, 3, 3]}>
             UnReel
           </Heading>
         </Link>
