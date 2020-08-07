@@ -44,7 +44,7 @@ const Home = () => {
         </Heading>
       )}
       <SearchPanel callback={searchMovies} />
-      <Heading mt={10}>
+      <Heading mt={10} mb={5} textAlign="center">
         {searchTerm ? 'Search Result' : 'Trending Movies'}
       </Heading>
       <Stack align="center">

@@ -16,6 +16,7 @@ import {
   Tooltip,
   FormControl,
   FormErrorMessage,
+  Textarea,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import useFormValidation from '../hooks/useFormValidation';
@@ -99,7 +100,7 @@ function EditListModal({ list }) {
 
               <FormLabel htmlFor="description">Description: </FormLabel>
 
-              <Input
+              <Textarea
                 id="description"
                 name="description"
                 variant="outline"
