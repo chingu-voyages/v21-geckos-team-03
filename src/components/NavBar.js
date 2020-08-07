@@ -3,7 +3,6 @@ import { NavLink, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
-  Box,
   Heading,
   Flex,
   Text,
@@ -11,7 +10,10 @@ import {
   Link,
   Icon,
   useColorMode,
+  Image,
 } from '@chakra-ui/core';
+import Film from '../images/film.png';
+
 import { FirebaseContext } from '../firebase';
 
 /* 
@@ -47,21 +49,30 @@ function NavBar() {
     <Flex
       as="nav"
       align="center"
-      justify="space-between"
+      justifyContent="space-between"
       wrap="wrap"
-      padding={6}
+      p={6}
       borderBottom="1px solid #C8C8C8"
     >
-      <Flex align="center" justify="center" mr={5}>
+      <Flex align="center" justify="left" mr={5}>
+        <Link as={NavLink} to="/">
+          <Image
+            src={Film}
+            alt="A length of film reel in a spiral with distorted perspective. Image by Gordon Johnson from Pixabay"
+            h={10}
+            mr={3}
+            align="center"
+          />
+        </Link>
         <Link as={NavLink} to="/">
           <Heading as="h1" size="lg">
-            WatchList
+            UnReel
           </Heading>
         </Link>
       </Flex>
 
       {/* Mobile dropdown,shown until md breakpoint (768px) */}
-      <Box display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
+      <Flex display={{ base: 'block', md: 'none' }} onClick={handleToggle}>
         <svg
           fill="#63b3ed"
           width="12px"
@@ -71,25 +82,33 @@ function NavBar() {
           <title>Menu</title>
           <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
         </svg>
-      </Box>
+      </Flex>
 
       {/* Container for navlinks */}
-      <Box
+      <Flex
         display={{ sm: show ? 'block' : 'none', md: 'flex' }}
         width={{ sm: 'full', md: 'auto' }}
-        alignItems="center"
+        align="center"
         flexGrow={1}
       >
         {user && (
           <MenuItems>
-            <Link as={NavLink} to="/lists">
-              WatchLists
-            </Link>
+            <Button
+              as={NavLink}
+              to="/lists"
+              isOpen={show}
+              bg="transparent"
+              border="1px"
+              className="ease-in"
+              size="xs"
+            >
+              Lists
+            </Button>
           </MenuItems>
         )}
-      </Box>
+      </Flex>
       {/* Container for auth button and user name */}
-      <Box
+      <Flex
         display={{ sm: show ? 'block' : 'none', md: 'block' }}
         mt={{ base: 4, md: 0 }}
       >
@@ -119,13 +138,13 @@ function NavBar() {
             </Button>
           </Link>
         )}
-      </Box>
+      </Flex>
 
-      <Box ml={6}>
+      <Flex ml={6}>
         <Button rounded="50%" onClick={() => toggleColorMode()}>
           <Icon name={colorMode === 'light' ? 'moon' : 'sun'} />
         </Button>
-      </Box>
+      </Flex>
     </Flex>
   );
 }

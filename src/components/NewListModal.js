@@ -16,6 +16,8 @@ import {
   Tooltip,
   FormControl,
   FormErrorMessage,
+  Textarea,
+  Flex,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import useFormValidation from '../hooks/useFormValidation';
@@ -26,12 +28,11 @@ const INITIAL_STATE = {
   description: '',
 };
 
-function NewListModal({ list }) {
+function NewListModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
-  // Hooks must be at the top of the function, a rule of hooks
-  // surprised this got past the linter
+
   const {
     errors,
     handleChange,
@@ -41,21 +42,14 @@ function NewListModal({ list }) {
     values,
   } = useFormValidation(INITIAL_STATE, validateListForm, saveList);
 
-  // changed to regular function declaration so it can be declared after its use
   async function saveList() {
     const newList = {
-      // nothing to spread in since its a new list, right? think we can remove
-      // ...list,
       title: values.title,
       description: values.description,
-      // changed this from modifiedAt to createdAt, changed the date format
-      // so it's consistent with the  date formatting function
       createdAt: Date.now(),
     };
     try {
-      // changed this from editWatchList to create
       await firebase.createNewWatchList(newList, user.uid);
-      // dont need to await this
       onClose();
     } catch (error) {
       setFirebaseError(error.message);
@@ -75,33 +69,36 @@ function NewListModal({ list }) {
           <ModalCloseButton />
           <form>
             <ModalBody>
-              <FormControl isInvalid={errors.title}>
-                <FormLabel htmlFor="title">Title: </FormLabel>
-                <Input
-                  name="title"
+              <Flex>
+                <FormControl isInvalid={errors.title}>
+                  <FormLabel htmlFor="title">Title: </FormLabel>
+                  <Input
+                    name="title"
+                    variant="outline"
+                    placeholder="List Title"
+                    type="string"
+                    isRequired
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <FormErrorMessage maxWidth="200px">
+                    {errors.title}
+                  </FormErrorMessage>
+                </FormControl>
+              </Flex>
+              <Flex mt={2} flexDir="column">
+                <FormLabel htmlFor="description">Description: </FormLabel>
+
+                <Textarea
+                  id="description"
+                  name="description"
                   variant="outline"
-                  placeholder="List Title"
-                  type="string"
-                  isRequired
+                  placeholder="List Description"
+                  type="text"
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
-                <FormErrorMessage maxWidth="200px">
-                  {errors.title}
-                </FormErrorMessage>
-              </FormControl>
-
-              <FormLabel htmlFor="description">Description: </FormLabel>
-
-              <Input
-                id="description"
-                name="description"
-                variant="outline"
-                placeholder="List Description"
-                type="text"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+              </Flex>
             </ModalBody>
 
             <ModalFooter>

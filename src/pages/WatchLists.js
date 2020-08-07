@@ -27,7 +27,7 @@ const WatchLists = (props) => {
       return (
         <SimpleBox key={`${i}-${list.title}`}>
           <Flex justify="space-between">
-            <Flex>
+            <Flex align="center">
               <Link href={`/list/${list.id}`}>
                 <Heading as="h4" size="md">
                   {list.title}
@@ -39,7 +39,11 @@ const WatchLists = (props) => {
             </Flex>
           </Flex>
           <Divider />
-          {list.description}
+          <Flex align="center" pl={5}>
+            {list.description.length > 120
+              ? `${list.description.slice(0, 120)} ...`
+              : list.description}
+          </Flex>
         </SimpleBox>
       );
     });
@@ -51,17 +55,15 @@ const WatchLists = (props) => {
 
   return (
     <>
-      <SimpleBox>
-        <Flex align="center" justify="space-between">
-          <Heading as="h2" size="xl">
-            {user
-              ? `${user.displayName.toUpperCase()}'s Watch Lists`
-              : 'Your Watch Lists'}
-          </Heading>
-          <NewListModal />
-        </Flex>
-      </SimpleBox>
-      <SimpleBox>{generateLists()}</SimpleBox>
+      <Flex align="center" justify="space-between" p={5}>
+        <Heading as="h2" size="xl">
+          {user
+            ? `${user.displayName.toUpperCase()}'s Watch Lists`
+            : 'Watch Lists'}
+        </Heading>
+        <NewListModal />
+      </Flex>
+      {generateLists()}
     </>
   );
 };

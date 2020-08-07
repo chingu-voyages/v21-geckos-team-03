@@ -16,6 +16,8 @@ import {
   Tooltip,
   FormControl,
   FormErrorMessage,
+  Textarea,
+  Flex,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import useFormValidation from '../hooks/useFormValidation';
@@ -30,7 +32,7 @@ function EditListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
-  // Hooks must be at the top of the function ( one of the rules of hooks)
+
   const {
     errors,
     handleChange,
@@ -40,17 +42,13 @@ function EditListModal({ list }) {
     values,
   } = useFormValidation(INITIAL_STATE, validateListForm, editList);
 
-  // made this regular function declaration so it can be declared after the hook.
-  // changed name to editList
   async function editList() {
-    // changed name to editedList
     const editedList = {
       // weird that the list ID is being spread in in firebase
       // can't figure out how to make it stop
       ...list,
       title: values.title,
       description: values.description,
-      // changed to match the date formatting.
       modifiedAt: Date.now(),
     };
     try {
@@ -80,35 +78,39 @@ function EditListModal({ list }) {
           <ModalCloseButton />
           <form>
             <ModalBody>
-              <FormControl isInvalid={errors.title}>
-                <FormLabel htmlFor="title">Title: </FormLabel>
-                <Input
-                  name="title"
+              <Flex>
+                <FormControl isInvalid={errors.title}>
+                  <FormLabel htmlFor="title">Title: </FormLabel>
+                  <Input
+                    name="title"
+                    variant="outline"
+                    placeholder="List Title"
+                    type="string"
+                    isRequired
+                    defaultValue={list.title}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <FormErrorMessage maxWidth="200px">
+                    {errors.title}
+                  </FormErrorMessage>
+                </FormControl>
+              </Flex>
+
+              <Flex mt={2} flexDir="column">
+                <FormLabel htmlFor="description">Description: </FormLabel>
+
+                <Textarea
+                  id="description"
+                  name="description"
                   variant="outline"
-                  placeholder="List Title"
-                  type="string"
-                  isRequired
-                  defaultValue={list.title}
+                  placeholder="List Description"
+                  defaultValue={list.description}
+                  type="text"
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
-                <FormErrorMessage maxWidth="200px">
-                  {errors.title}
-                </FormErrorMessage>
-              </FormControl>
-
-              <FormLabel htmlFor="description">Description: </FormLabel>
-
-              <Input
-                id="description"
-                name="description"
-                variant="outline"
-                placeholder="List Description"
-                defaultValue={list.description}
-                type="text"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
+              </Flex>
             </ModalBody>
 
             <ModalFooter>
