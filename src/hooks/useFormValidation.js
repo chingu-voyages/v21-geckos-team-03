@@ -18,13 +18,13 @@ function useFormValidation(initialState, validate, firebaseCall) {
       const noErrors = Object.keys(errors).length === 0;
       if (noErrors) {
         firebaseCall();
-        console.log('communicating with firebase', values);
+        // console.log('communicating with firebase', values);
         setSubmitting(false);
       } else {
         setSubmitting(false);
       }
     }
-  }, [errors]);
+  }, [errors, isSubmitting, firebaseCall]);
 
   function handleChange(event) {
     event.persist();

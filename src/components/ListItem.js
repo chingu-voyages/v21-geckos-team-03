@@ -5,18 +5,20 @@ import {
   Text,
   Icon,
   PseudoBox,
-  Image,
   Checkbox,
   IconButton,
   Tooltip,
+  useToast,
 } from '@chakra-ui/core';
-
-import NoImage from '../images/no_image.png';
-import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
+import MovieModal from './MovieModal';
+// import { formatDate } from '../utils';
 import { FirebaseContext } from '../firebase';
+import useWatchLists from '../hooks/useWatchLists';
 
 function ListItem({ data: movie, listDetails: list }) {
   const { firebase, user } = useContext(FirebaseContext);
+  const { watchLists } = useWatchLists();
+  const toast = useToast();
 
   function deleteMovieFromList() {
     if (user) {
@@ -30,9 +32,22 @@ function ListItem({ data: movie, listDetails: list }) {
 
         movieRef.delete().then(() => {
           console.log(`Movie with ID ${movie.id} deleted`);
+          toast({
+            title: 'Movie deleted',
+            status: 'success',
+            duration: 1000,
+            isClosable: false,
+          });
         });
       } catch (error) {
         console.log('Error deleting movie', error);
+        toast({
+          title: 'Something went wrong',
+          description: error,
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        });
       }
     }
   }
@@ -51,6 +66,7 @@ function ListItem({ data: movie, listDetails: list }) {
           if (doc.exists) {
             const prevState = doc.data().watched;
             movieRef.update({ watched: !prevState });
+            console.log(`Movie with id ${movie.id} updated`);
           }
         });
       } catch (error) {
@@ -76,22 +92,11 @@ function ListItem({ data: movie, listDetails: list }) {
           size="lg"
           mr={[4, 6, 8, 10]}
           isChecked={movie.watched}
-          onClick={toggleWatched}
+          onChange={toggleWatched}
         />
-        {/* Image Container */}
-        <PseudoBox size={['50px', '60px', '75px', '85px']} mr={4}>
-          <Image
-            justifySelf="start"
-            rounded="md"
-            src={
-              movie.poster_path
-                ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
-                : NoImage
-            }
-            objectFit="contain"
-            height="100%"
-            alt="movieThumb"
-          />
+        {/* Modal is in the image Container  */}
+        <PseudoBox mr={4}>
+          <MovieModal isListItem movie={movie} watchLists={watchLists} />
         </PseudoBox>
         {/* Title & Rating */}
         <Flex direction="column" mr={1}>
@@ -104,6 +109,7 @@ function ListItem({ data: movie, listDetails: list }) {
           </Flex>
         </Flex>
       </Flex>
+      {/* <Text fontSize="xs">{formatDate(movie.added)}</Text> */}
 
       <Tooltip hasArrow label="Delete Movie" placement="left">
         <IconButton
@@ -120,8 +126,7 @@ function ListItem({ data: movie, listDetails: list }) {
 
 ListItem.propTypes = {
   data: PropTypes.object.isRequired,
-  // eslint-disable-next-line react/require-default-props
-  listDetails: PropTypes.object,
+  listDetails: PropTypes.object.isRequired,
 };
 
 export default ListItem;

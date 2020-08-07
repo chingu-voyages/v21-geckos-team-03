@@ -37,7 +37,7 @@ function WatchList() {
   if (error) return <Text>Error Loading List</Text>;
   return (
     // Two column flex row
-    <Flex justify="space-around">
+    <Flex>
       {/* Sidebar */}
       <Flex
         display={{ base: 'none', md: 'flex' }}
@@ -54,7 +54,7 @@ function WatchList() {
       </Flex>
 
       {/* Watchlist Container */}
-      <Flex direction="column" mx="auto" my="0">
+      <Flex direction="column" mx="auto" width="100%" my="0">
         {/*  List Details  */}
         <Flex
           direction="column"
@@ -110,15 +110,38 @@ function WatchList() {
           )}
         </Flex>
 
-        {/* List Section */}
         {/* Tab Panels */}
-        <Tabs isFitted variant="enclosed">
+        <Tabs defaultIndex={0} isFitted variant="enclosed">
           <TabList mb="1em">
-            <Tab>All</Tab>
             <Tab>Unwatched</Tab>
             <Tab>Watched</Tab>
+            <Tab>All</Tab>
           </TabList>
           <TabPanels>
+            <TabPanel>
+              {/* Unwatched items */}
+              {listMovies
+                .filter((movie) => !movie.watched)
+                .map((unwatchedMovie) => (
+                  <ListItem
+                    key={unwatchedMovie.id}
+                    data={unwatchedMovie}
+                    listDetails={listDetails}
+                  />
+                ))}
+            </TabPanel>
+            {/* {Watched Items} */}
+            <TabPanel>
+              {listMovies
+                .filter((movie) => movie.watched)
+                .map((watchedMovie) => (
+                  <ListItem
+                    key={watchedMovie.id}
+                    data={watchedMovie}
+                    listDetails={listDetails}
+                  />
+                ))}
+            </TabPanel>
             {/* All list Items */}
             <TabPanel>
               {listMovies.map((movie) => (
@@ -128,14 +151,6 @@ function WatchList() {
                   listDetails={listDetails}
                 />
               ))}
-            </TabPanel>
-            {/* Unwatched items */}
-            <TabPanel>
-              <Text>Unwatched goes here...</Text>
-            </TabPanel>
-            {/* {Watched Items} */}
-            <TabPanel>
-              <Text>Watched goes here...</Text>
             </TabPanel>
           </TabPanels>
         </Tabs>

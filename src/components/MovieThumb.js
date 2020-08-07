@@ -1,47 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
-import { Image, PseudoBox, Flex, Link } from '@chakra-ui/core';
+import { Image, PseudoBox } from '@chakra-ui/core';
 import NoImage from '../images/no_image.png';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
 
-const MovieThumb = ({ posterPath, movieId, clickable }) => {
-  const MovieImage = () => (
-    <Image
-      src={
-        posterPath ? `${IMAGE_BASE_URL}${POSTER_SIZE}${posterPath}` : NoImage
-      }
-      width="100%"
-      objectFit="contain"
-      height="100%"
-      alt="movieThumb"
-    />
-  );
-
+const MovieThumb = ({ posterPath, clickable, onClick, small }) => {
   return (
-    <Flex>
-      <PseudoBox _hover={{ opacity: 0.8 }} width="200px" height="150px">
-        {clickable ? (
-          <Link as={RouterLink} to={`/movie/${movieId}`} cursor="pointer">
-            <MovieImage />
-          </Link>
-        ) : (
-          <MovieImage />
-        )}
+    <>
+      <PseudoBox height="100%" _hover={clickable ? { opacity: 0.8 } : null}>
+        <Image
+          borderRadius="lg"
+          src={
+            posterPath
+              ? `${IMAGE_BASE_URL}${POSTER_SIZE}${posterPath}`
+              : NoImage
+          }
+          maxWidth={
+            small
+              ? ['50px', '60px', '70px', '80px']
+              : ['100%', '100%', '150px', '175px']
+          }
+          maxHeight={!small ? '100%' : null}
+          objectFit="contain"
+          alt="movieThumb"
+          onClick={clickable ? onClick : null}
+        />
       </PseudoBox>
-    </Flex>
+    </>
   );
 };
 
 MovieThumb.propTypes = {
   posterPath: PropTypes.string,
-  movieId: PropTypes.number.isRequired,
+  onClick: PropTypes.func,
   clickable: PropTypes.bool,
+  small: PropTypes.bool,
 };
 
 MovieThumb.defaultProps = {
   clickable: false,
   posterPath: NoImage,
+  onClick: null,
+  small: false,
 };
 
 export default MovieThumb;

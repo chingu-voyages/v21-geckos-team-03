@@ -7,11 +7,11 @@ import {
   ModalHeader,
   ModalCloseButton,
   IconButton,
-  ModalBody,
   Button,
   useDisclosure,
   ModalFooter,
   Tooltip,
+  useToast,
 } from '@chakra-ui/core';
 import { useHistory } from 'react-router-dom';
 import { FirebaseContext } from '../firebase';
@@ -19,6 +19,7 @@ import { FirebaseContext } from '../firebase';
 function DeleteListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
+  const toast = useToast();
   const history = useHistory();
 
   const deleteWatchList = (listId, userId) => {
@@ -31,9 +32,22 @@ function DeleteListModal({ list }) {
       history.push('/lists');
       listRef.delete().then(() => {
         console.log(`List with ID ${list.id} deleted`);
+        toast({
+          title: 'List deleted',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        });
       });
     } catch (error) {
       console.log('Error deleting list', error);
+      toast({
+        title: 'Something went wrong',
+        description: error,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
     }
   };
 
@@ -50,7 +64,7 @@ function DeleteListModal({ list }) {
             Are you sure you want to delete {list.title}?
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody>form goes here</ModalBody>
+          {/* <ModalBody>form goes here</ModalBody> */}
           <ModalFooter>
             <Button
               variantColor="red"
