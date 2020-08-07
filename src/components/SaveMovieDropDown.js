@@ -8,7 +8,6 @@ import {
   MenuGroup,
   MenuItem,
   MenuDivider,
-  Text,
   Link,
   Icon,
   useToast,
@@ -21,9 +20,9 @@ import useWatchLists from '../hooks/useWatchLists';
 function SaveMovieDropDown({ movie }) {
   const { user, firebase } = useContext(FirebaseContext);
   const { watchLists } = useWatchLists();
+  const [savedMovies, setSavedMovies] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [added, setAdded] = useState(false);
   const toast = useToast();
 
   const newMovie = {
@@ -33,6 +32,7 @@ function SaveMovieDropDown({ movie }) {
   };
 
   const saveMovie = async (list) => {
+    setError(null);
     setLoading(true);
     const movieRef = await firebase.db
       .doc(`users/${user.uid}`)
@@ -46,9 +46,7 @@ function SaveMovieDropDown({ movie }) {
     if (!snapshot.exists) {
       try {
         await movieRef.set(newMovie);
-        setAdded(true);
-        setError(null);
-        setLoading(false);
+        setSavedMovies({ ...savedMovies, [movie.id]: [list.id] });
         toast({
           title: 'Movie added.',
           description: "We've added this to your list",
@@ -56,19 +54,19 @@ function SaveMovieDropDown({ movie }) {
           duration: 4000,
           isClosable: true,
         });
-      } catch (err) {
-        setAdded(false);
-        setError(err);
+        setError(null);
         setLoading(false);
+      } catch (err) {
         toast({
           title: 'Error adding movie.',
           status: 'error',
           duration: 4000,
           isClosable: true,
         });
+        setError(null);
+        setLoading(false);
       }
     } else if (snapshot.exists) {
-      setAdded(false);
       setError(true);
       setLoading(false);
       toast({
@@ -78,25 +76,33 @@ function SaveMovieDropDown({ movie }) {
         isClosable: true,
       });
     }
+    setError(null);
+    setLoading(false);
   };
-
   const Options = () => {
-    return watchLists.map((list) => (
-      <MenuItem key={list.id} onClick={() => saveMovie(list)}>
-        <Text mr={2}>{list.title}</Text>
-        {loading && <Spinner />}
-        {added && <Icon name="check-circle" color="green.300" ml="5px" />}
-        {error && <Icon name="warning" color="red.300" ml="5px" />}
-      </MenuItem>
-    ));
+    return watchLists.map((list) => {
+      const onList = savedMovies[movie.id]
+        ? savedMovies[movie.id].includes(list.id)
+        : false;
+      return (
+        <MenuItem key={list.id} onClick={() => saveMovie(list)}>
+          {list.title}
+          {loading && <Spinner />}
+          {error && <Icon name="warning" color="red.300" ml="5px" />}
+          {onList ? (
+            <Icon name="check-circle" color="green.300" ml="5px" />
+          ) : null}
+        </MenuItem>
+      );
+    });
   };
 
   return (
     <div>
-      <Menu closeOnSelect={false}>
-        <MenuButton m={0} p={0}>
+      <Menu>
+        <MenuButton>
           <Tooltip hasArrow label="Add to List">
-            <Icon name="add" size="16px" m={0} p={0} />
+            <Icon name="add" />
           </Tooltip>
         </MenuButton>
         <MenuList placement="right-bottom">
