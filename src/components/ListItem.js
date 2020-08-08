@@ -96,7 +96,7 @@ function ListItem({ data: movie, listDetails: list }) {
         />
         {/* Modal is in the image Container  */}
         <PseudoBox mr={4}>
-          <MovieModal isListItem movie={movie} watchLists={watchLists} />
+          <MovieModal isListItem movieId={movie.id} watchLists={watchLists} />
         </PseudoBox>
         {/* Title & Rating */}
         <Flex direction="column" mr={1}>
