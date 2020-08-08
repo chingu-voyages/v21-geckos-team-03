@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Divider, Heading, Link, Text, Flex, Spinner } from '@chakra-ui/core';
 import { SimpleBox, DeleteListModal } from '../components';
 import { FirebaseContext } from '../firebase';
@@ -28,7 +29,7 @@ const WatchLists = (props) => {
         <SimpleBox key={`${i}-${list.title}`}>
           <Flex justify="space-between">
             <Flex align="center">
-              <Link href={`/list/${list.id}`}>
+              <Link as={RouterLink} to={`/list/${list.id}`}>
                 <Heading as="h4" size="md">
                   {list.title}
                 </Heading>

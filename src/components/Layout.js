@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@chakra-ui/core';
+import { Flex, Box } from '@chakra-ui/core';
 import Navbar from './NavBar';
+import Sidebar from './Sidebar';
 
 const Layout = ({ children }) => (
   <>
     <Navbar />
-    <Box maxWidth="1200px" p={[4, 8, 10, 16]} mx="auto" my={0}>
-      {children}
-    </Box>
+    <Flex maxWidth="1200px" p={[4, 6, 8]} mx="auto" my={0}>
+      <Sidebar />
+      <Box width="100%">{children}</Box>
+    </Flex>
   </>
 );
 

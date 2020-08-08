@@ -143,9 +143,6 @@ function NavBar() {
       <Flex display={['none', 'none', 'flex', 'flex']} mt={{ base: 4, md: 0 }}>
         {user ? (
           <Flex align="center">
-            <Text mr={6} fontSize="sm" display={{ base: 'none', md: 'block' }}>
-              Hi {user.displayName}
-            </Text>
             <Button
               size="sm"
               bg="transparent"
