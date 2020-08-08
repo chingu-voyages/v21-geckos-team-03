@@ -17,7 +17,7 @@ import {
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
 
-function SaveMovieDropDown({ movie }) {
+function SaveMovieDropDown({ movie, color }) {
   const { user, firebase } = useContext(FirebaseContext);
   const { watchLists } = useWatchLists();
   const [savedMovies, setSavedMovies] = useState({});
@@ -102,7 +102,7 @@ function SaveMovieDropDown({ movie }) {
       <Menu closeOnSelect={false}>
         <MenuButton>
           <Tooltip hasArrow label="Add to List">
-            <Icon name="add" />
+            <Icon name="add" color={color} />
           </Tooltip>
         </MenuButton>
         <MenuList placement="right-bottom">
@@ -129,6 +129,11 @@ function SaveMovieDropDown({ movie }) {
 
 SaveMovieDropDown.propTypes = {
   movie: PropTypes.object.isRequired,
+  color: PropTypes.string,
+};
+
+SaveMovieDropDown.defaultProps = {
+  color: null,
 };
 
 export default SaveMovieDropDown;
