@@ -198,15 +198,6 @@ function WatchList() {
                 ))}
               </TabPanel>
             )}
-
-            {/* Unwatched items */}
-            <TabPanel>
-              <Text>Unwatched goes here...</Text>
-            </TabPanel>
-            {/* {Watched Items} */}
-            <TabPanel>
-              <Text>Watched goes here...</Text>
-            </TabPanel>
           </TabPanels>
         </Tabs>
       </Flex>

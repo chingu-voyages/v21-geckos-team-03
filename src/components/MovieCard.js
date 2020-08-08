@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Flex, Heading, Text, Box, Icon } from '@chakra-ui/core';
+import { Flex, Text, Box, Icon } from '@chakra-ui/core';
 import MovieModal from './MovieModal';
 import SaveMovieDropDown from './SaveMovieDropDown';
 import useWatchLists from '../hooks/useWatchLists';
@@ -38,9 +38,7 @@ function MovieCard({ movie }) {
         >
           <Flex flexDir="column">
             <Flex align-self="flex-start" justifyContent="space-between" mb={3}>
-              <Heading as="h2" fontSize={['xl', '2xl', '3xl']}>
-                {movie.title}
-              </Heading>
+              <MovieModal isTitle movieId={movie.id} />
               <SaveMovieDropDown movie={movie} watchLists={watchLists} />
             </Flex>
             <Text fontSize="2xs" mb={3} ml={3}>
@@ -49,7 +47,7 @@ function MovieCard({ movie }) {
           </Flex>
 
           <Flex>
-            <Text fontSize={['3xs', 'xs', 'sm', 'md']} mb={4}>
+            <Text fontSize={['3xs', 'xs', 'sm', 'md']} mb={4} ml={3}>
               {movie.tagline
                 ? movie.tagline
                 : truncateDescription(movie.overview, 150)}

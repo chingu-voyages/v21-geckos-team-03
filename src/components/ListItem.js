@@ -5,11 +5,12 @@ import {
   Text,
   Icon,
   PseudoBox,
-  Checkbox,
   IconButton,
   Tooltip,
   useToast,
   Collapse,
+  Select,
+  FormControl,
 } from '@chakra-ui/core';
 import MovieModal from './MovieModal';
 // import { formatDate } from '../utils';
@@ -56,7 +57,8 @@ function ListItem({ data: movie, listDetails: list }) {
     }
   }
 
-  function toggleWatched() {
+  function toggleWatched(e) {
+    const watched = e.target.value === 'watched';
     if (user) {
       try {
         const movieRef = firebase.db
@@ -68,8 +70,7 @@ function ListItem({ data: movie, listDetails: list }) {
 
         movieRef.get().then((doc) => {
           if (doc.exists) {
-            const prevState = doc.data().watched;
-            movieRef.update({ watched: !prevState });
+            movieRef.update({ watched });
             console.log(`Movie with id ${movie.id} updated`);
           }
         });
@@ -91,22 +92,13 @@ function ListItem({ data: movie, listDetails: list }) {
       justify="space-between"
     >
       <Flex align="center">
-        {/* Check to mark watched */}
-        <Checkbox
-          size="lg"
-          mr={[4, 6, 8, 10]}
-          isChecked={movie.watched}
-          onChange={toggleWatched}
-        />
         {/* Modal is in the image Container  */}
         <PseudoBox mr={4}>
           <MovieModal isListItem movieId={movie.id} watchLists={watchLists} />
         </PseudoBox>
         {/* Title & Rating */}
         <Flex direction="column" mr={1}>
-          <Text fontSize={['md', 'md', 'lg']} mr={4} mb={1}>
-            {movie.title}
-          </Text>
+          <MovieModal isListItemTitle movieId={movie.id} />
           <Flex flexDir="row" align="center">
             <Flex>
               <Icon name="star" size="8px" mr={2} />
@@ -127,16 +119,32 @@ function ListItem({ data: movie, listDetails: list }) {
         </Flex>
       </Flex>
       {/* <Text fontSize="xs">{formatDate(movie.added)}</Text> */}
-
-      <Tooltip hasArrow label="Delete Movie" placement="left">
-        <IconButton
-          onClick={deleteMovieFromList}
-          justifySelf="flex-end"
-          aria-label="delete movie"
-          size={['xs', 'xs', 'sm', 'md']}
-          icon="delete"
-        />
-      </Tooltip>
+      <Flex flexDir="column">
+        <Tooltip hasArrow label="Delete Movie" placement="left">
+          <IconButton
+            onClick={deleteMovieFromList}
+            justifySelf="flex-end"
+            aria-label="delete movie"
+            size={['xs', 'xs', 'sm', 'md']}
+            icon="delete"
+            variant="ghost"
+          />
+        </Tooltip>
+        {/* Check to mark watched */}
+        <FormControl>
+          <Select
+            id="watched?"
+            size="sm"
+            mt={5}
+            onChange={toggleWatched}
+            variant="unstyled"
+            defaultValue={movie.watched ? 'watched' : 'unwatched'}
+          >
+            <option value="watched">Watched</option>
+            <option value="unwatched">Unwatched</option>
+          </Select>
+        </FormControl>
+      </Flex>
     </Flex>
   );
 }

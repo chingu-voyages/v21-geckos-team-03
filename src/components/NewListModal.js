@@ -76,7 +76,7 @@ function NewListModal({ noLists }) {
       {prompt()}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent borderRadius="md">
           <ModalHeader textAlign="center">New List</ModalHeader>
           <ModalCloseButton />
           <form>

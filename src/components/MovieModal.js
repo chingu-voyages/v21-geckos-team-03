@@ -22,6 +22,7 @@ import {
   Tooltip,
   Link,
   Image,
+  Skeleton,
 } from '@chakra-ui/core';
 import MovieThumb from './MovieThumb';
 import SaveMovieDropDown from './SaveMovieDropDown';
@@ -30,16 +31,37 @@ import useMovieFetch from '../hooks/useMovieFetch';
 import { IMAGE_BASE_URL, BACKDROP_SIZE } from '../utils/config';
 import IMDB from '../images/imdb.png';
 
-const MovieModal = ({ movieId, watchLists, isListItem }) => {
+const MovieModal = ({
+  movieId,
+  watchLists,
+  isListItem,
+  isTitle,
+  isListItemTitle,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [movie, loading, error] = useMovieFetch(movieId);
 
-  if (loading) return <Spinner />;
+  if (loading && !isListItemTitle && !isTitle) return <Spinner />;
+  if (loading && (isListItemTitle || isTitle))
+    return <Skeleton height="20px" my="10px" />;
   if (error) return <Text>Error: {error}</Text>;
 
-  console.log(movie);
-  return (
-    <>
+  const prompt = () => {
+    if (isTitle) {
+      return (
+        <Heading onClick={onOpen} as="h2" fontSize={['xl', '2xl', '3xl']}>
+          {movie.title}
+        </Heading>
+      );
+    }
+    if (isListItemTitle) {
+      return (
+        <Text onClick={onOpen} fontSize={['md', 'md', 'lg']} mr={4} mb={1}>
+          {movie.title}
+        </Text>
+      );
+    }
+    return (
       <MovieThumb
         posterPath={movie.poster_path}
         movieId={movie.id}
@@ -47,6 +69,13 @@ const MovieModal = ({ movieId, watchLists, isListItem }) => {
         onClick={onOpen}
         small={isListItem}
       />
+    );
+  };
+
+  console.log(movie);
+  return (
+    <>
+      {prompt()}
       <Modal size="80%" isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent borderRadius="md">
@@ -167,10 +196,14 @@ MovieModal.propTypes = {
   movieId: PropTypes.number.isRequired,
   watchLists: PropTypes.arrayOf(PropTypes.object).isRequired,
   isListItem: PropTypes.bool,
+  isTitle: PropTypes.bool,
+  isListItemTitle: PropTypes.bool,
 };
 
 MovieModal.defaultProps = {
   isListItem: false,
+  isTitle: false,
+  isListItemTitle: false,
 };
 
 export default MovieModal;
