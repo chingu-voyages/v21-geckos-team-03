@@ -152,30 +152,38 @@ function WatchList() {
             <Tab>All</Tab>
           </TabList>
           <TabPanels>
-            <TabPanel>
-              {/* Unwatched items */}
-              {listMovies
-                .filter((movie) => !movie.watched)
-                .map((unwatchedMovie) => (
-                  <ListItem
-                    key={unwatchedMovie.id}
-                    data={unwatchedMovie}
-                    listDetails={listDetails}
-                  />
-                ))}
-            </TabPanel>
+            {!listMovies || listMovies.length === 0 ? (
+              findPrompt()
+            ) : (
+              <TabPanel>
+                {/* Unwatched items */}
+                {listMovies
+                  .filter((movie) => !movie.watched)
+                  .map((unwatchedMovie) => (
+                    <ListItem
+                      key={unwatchedMovie.id}
+                      data={unwatchedMovie}
+                      listDetails={listDetails}
+                    />
+                  ))}
+              </TabPanel>
+            )}
             {/* {Watched Items} */}
-            <TabPanel>
-              {listMovies
-                .filter((movie) => movie.watched)
-                .map((watchedMovie) => (
-                  <ListItem
-                    key={watchedMovie.id}
-                    data={watchedMovie}
-                    listDetails={listDetails}
-                  />
-                ))}
-            </TabPanel>
+            {!listMovies || listMovies.length === 0 ? (
+              findPrompt()
+            ) : (
+              <TabPanel>
+                {listMovies
+                  .filter((movie) => movie.watched)
+                  .map((watchedMovie) => (
+                    <ListItem
+                      key={watchedMovie.id}
+                      data={watchedMovie}
+                      listDetails={listDetails}
+                    />
+                  ))}
+              </TabPanel>
+            )}
             {/* All list Items */}
             {!listMovies || listMovies.length === 0 ? (
               findPrompt()
