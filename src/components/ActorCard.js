@@ -1,37 +1,37 @@
 import React from 'react';
-import { Box, Image, Text } from '@chakra-ui/core';
+import { Heading, Image, Text, Flex } from '@chakra-ui/core';
 import PropTypes from 'prop-types';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
 import NoImage from '../images/no_image.png';
 
 const ActorCard = ({ actor }) => {
   return (
-    <Box
+    <Flex
+      direction="column"
       borderColor="gray.200"
       borderWidth="1px"
       borderStyle="solid"
       textAlign="center"
       borderRadius="20px"
-      p={1}
-      minWidth="150px"
+      shadow="md"
+      width="200px"
       m={2}
     >
       <Image
         height="200px"
         objectFit="cover"
         borderRadius="15px"
-        maxWidth="150px"
-        mx="auto"
-        my={0}
         src={
           actor.profile_path
             ? `${IMAGE_BASE_URL}${POSTER_SIZE}${actor.profile_path}`
             : NoImage
         }
       />
-      <Text>{actor.name}</Text>
-      <Text>{actor.character}</Text>
-    </Box>
+      <Flex direction="column" flexWrap="wrap" p={2} mx={5}>
+        <Heading fontSize="md">{actor.name}</Heading>
+        <Text wordBreak="break-word">{actor.character}</Text>
+      </Flex>
+    </Flex>
   );
 };
 
