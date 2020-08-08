@@ -1,13 +1,7 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable prefer-destructuring */
-
 import { theme } from '@chakra-ui/core';
 
 const breakpoints = ['375px', '600px', '1024px', '1440px'];
-breakpoints.sm = breakpoints[0];
-breakpoints.md = breakpoints[1];
-breakpoints.lg = breakpoints[2];
-breakpoints.xl = breakpoints[3];
+[breakpoints.sm, breakpoints.md, breakpoints.lg, breakpoints.xl] = breakpoints;
 
 export const customTheme = {
   ...theme,
@@ -15,8 +9,6 @@ export const customTheme = {
   fonts: {
     heading: "'PT Sans', sans-serif",
     body: "'PT Sans', sans-serif",
-    // heading: "'Spartan', sans-serif",
-    // body: "'Spartan', sans-serif",
   },
   fontSizes: {
     '3xs': '0.25rem',
