@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';
 import { customTheme } from './theme';
 import firebase, { FirebaseContext } from './firebase';
-import { Home, Forgot, Login, Movie, WatchLists, WatchList } from './pages';
+import { Home, Forgot, Login, WatchLists, WatchList } from './pages';
 
-import Layout from './components/Layout';
+import { Layout } from './components';
 import useAuth from './hooks/useAuth';
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
                 <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/lists" component={WatchLists} />
+
                 <Route path="/list/:listId" component={WatchList} />
-                <Route path="/movie/:movieId" component={Movie} />
                 <Route path="/forgot" component={Forgot} />
                 <Route render={() => <h1>404</h1>} />
               </Switch>

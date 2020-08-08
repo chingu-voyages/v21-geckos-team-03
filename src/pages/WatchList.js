@@ -1,62 +1,208 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
-import { FirebaseContext } from '../firebase';
-import MovieCard from '../components/MovieCard';
-import useWatchLists from '../hooks/useWatchLists';
-
-/* 
-  Route: "/lists/:TBA"
-  Page for rendering components in a single user created watch list
-*/
+import React from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import {
+  Heading,
+  Text,
+  Box,
+  Spinner,
+  Flex,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Icon,
+  Collapse,
+  IconButton,
+  Button,
+} from '@chakra-ui/core';
+import {
+  ListItem,
+  EditListModal,
+  DeleteListModal,
+  NewListModal,
+} from '../components';
+import { formatDate } from '../utils';
+import useSingleWatchList from '../hooks/useSingleWatchList';
 
 function WatchList() {
-  const { user, firebase } = useContext(FirebaseContext);
-  const { watchLists } = useWatchLists();
+  const [show, setShow] = React.useState(false);
   const { listId } = useParams();
-  const [listMovies, setListMovies] = useState([]);
-  const [listDetails, setListDetails] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { listMovies, listDetails, error, loading } = useSingleWatchList(
+    listId
+  );
+  const history = useHistory();
 
-  useEffect(() => {
-    const currentListId = watchLists.find((list) => list.id === listId);
-    setListDetails(currentListId);
-  }, [listId, watchLists]);
+  const handleToggle = () => setShow(!show);
 
-  useEffect(() => {
-    setLoading(true);
-    if (user) {
-      try {
-        firebase.getMoviesInWatchList(user.uid, listId).then((snapshot) => {
-          const fetchedMovies = snapshot.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() };
-          });
-          setListMovies(fetchedMovies);
-          setError(null);
-          setLoading(false);
-        });
-      } catch (err) {
-        setError(err);
-      }
-    }
-  }, [listId, watchLists, user, firebase]);
+  const findPrompt = () => {
+    return (
+      <TabPanel>
+        <Flex
+          w="100%"
+          p={4}
+          mb={2}
+          border="1px"
+          borderRadius="md"
+          borderColor="gray.200"
+          textAlign="center"
+          flexDir="column"
+        >
+          <Text>This list doesn&apos;t have any movies yet!</Text>
+          <Flex justify="center">
+            <Button
+              size="sm"
+              bg="transparent"
+              border="1px"
+              mt={5}
+              onClick={() => {
+                history.push('/');
+              }}
+            >
+              Find Movies
+            </Button>
+          </Flex>
+        </Flex>
+      </TabPanel>
+    );
+  };
 
   if (loading) return <Spinner />;
   if (error) return <Text>Error Loading List</Text>;
-
   return (
-    <Box>
-      <Heading as="h2" size="lg">
-        {listDetails.title}
-      </Heading>
-      {/* <Movies movies={listMovies} /> */}
-      <Stack>
-        {listMovies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-      </Stack>
-    </Box>
+    // Two column flex row
+    <Flex>
+      {/* Sidebar */}
+      <Flex
+        display={{ base: 'none', md: 'flex' }}
+        h="80vh"
+        p={8}
+        mr={10}
+        border="1px"
+        borderRadius="md"
+        borderColor="gray.200"
+      >
+        <Box>
+          <Text>Sidebar with watchlists?</Text>
+        </Box>
+      </Flex>
+
+      {/* Watchlist Container */}
+      <Flex direction="column" mx="auto" width="100%" my="0">
+        {/*  List Details  */}
+        <Flex
+          direction="column"
+          borderBottom="1px"
+          borderBottomStyle="dashed"
+          mb={12}
+        >
+          <Flex justify="space-between">
+            <Flex>
+              <Heading as="h1" size="xl" mb={4}>
+                {listDetails.title}
+              </Heading>
+              <EditListModal list={listDetails} />
+            </Flex>
+            <Flex>
+              <NewListModal />
+              <DeleteListModal list={listDetails} />
+            </Flex>
+          </Flex>
+          <Flex align="center" mb={6}>
+            <Icon name="time" mr={2} />
+            <Text fontSize="xs" mr={6}>
+              Created:
+            </Text>
+            <Text fontSize="xs">{formatDate(listDetails.createdAt)}</Text>
+          </Flex>
+          {!listDetails.description ? null : (
+            <Box py={5}>
+              <Text fontSize="xs" mb={4}>
+                Description:
+              </Text>
+
+              {listDetails.description.length < 240 ? (
+                <Text fontSize="sm" mb={4}>
+                  {listDetails.description}
+                </Text>
+              ) : (
+                <Flex>
+                  <Collapse startingHeight={40} isOpen={show}>
+                    <Text fontSize="sm" mb={4}>
+                      {listDetails.description}
+                    </Text>
+                  </Collapse>
+                  <IconButton
+                    icon="chevron-down"
+                    variant="ghost"
+                    onClick={handleToggle}
+                    justify="right"
+                  />
+                </Flex>
+              )}
+            </Box>
+          )}
+        </Flex>
+
+        {/* Tab Panels */}
+        <Tabs defaultIndex={0} isFitted variant="enclosed">
+          <TabList mb="1em">
+            <Tab>Unwatched</Tab>
+            <Tab>Watched</Tab>
+            <Tab>All</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              {/* Unwatched items */}
+              {listMovies
+                .filter((movie) => !movie.watched)
+                .map((unwatchedMovie) => (
+                  <ListItem
+                    key={unwatchedMovie.id}
+                    data={unwatchedMovie}
+                    listDetails={listDetails}
+                  />
+                ))}
+            </TabPanel>
+            {/* {Watched Items} */}
+            <TabPanel>
+              {listMovies
+                .filter((movie) => movie.watched)
+                .map((watchedMovie) => (
+                  <ListItem
+                    key={watchedMovie.id}
+                    data={watchedMovie}
+                    listDetails={listDetails}
+                  />
+                ))}
+            </TabPanel>
+            {/* All list Items */}
+            {!listMovies || listMovies.length === 0 ? (
+              findPrompt()
+            ) : (
+              <TabPanel>
+                {listMovies.map((movie) => (
+                  <ListItem
+                    key={movie.id}
+                    data={movie}
+                    listDetails={listDetails}
+                  />
+                ))}
+              </TabPanel>
+            )}
+
+            {/* Unwatched items */}
+            <TabPanel>
+              <Text>Unwatched goes here...</Text>
+            </TabPanel>
+            {/* {Watched Items} */}
+            <TabPanel>
+              <Text>Watched goes here...</Text>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Flex>
+    </Flex>
   );
 }
 

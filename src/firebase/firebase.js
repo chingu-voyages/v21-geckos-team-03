@@ -64,13 +64,26 @@ class Firebase {
     await this.db.doc(`users/${userId}`).collection('lists').add(newList);
   }
 
-  async getMoviesInWatchList(userId, listId) {
+  async editWatchList(list, userId) {
+    const listRef = this.db
+      .doc(`users/${userId}`)
+      .collection('lists')
+      .doc(list.id);
+
+    await listRef.get().then((doc) => {
+      if (doc.exists) {
+        listRef.update(list);
+      }
+    });
+  }
+
+  async getMoviesInWatchList(userId, listId, snapshot) {
     return this.db
       .doc(`users/${userId}`)
       .collection('lists')
       .doc(`/${listId}`)
       .collection('movies')
-      .get();
+      .onSnapshot(snapshot);
   }
 }
 

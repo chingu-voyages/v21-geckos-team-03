@@ -1,4 +1,6 @@
-export default function validateLogin(values) {
+import moment from 'moment';
+
+export function validateLogin(values) {
   const errors = {};
 
   // Email Errors
@@ -14,4 +16,24 @@ export default function validateLogin(values) {
     errors.password = 'Password must be at least 6 characters';
   }
   return errors;
+}
+
+export function validateListForm(values) {
+  const errors = {};
+
+  // changed this to strictly equals
+  if (!values.title || values.title === '') {
+    errors.title = 'Title Required';
+  }
+  return errors;
+}
+
+// Format Dates
+export function formatDate(dateStr) {
+  return moment(dateStr).format('MMM Do');
+}
+
+// shorten movie description
+export function truncateDescription(string, length) {
+  return string.length > length ? `${string.substring(0, length)}...` : string;
 }

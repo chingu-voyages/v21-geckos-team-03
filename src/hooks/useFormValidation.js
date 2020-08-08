@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
   firebase auth depending on user selected form 
  */
 
-function useFormValidation(initialState, validate, authenticate) {
+function useFormValidation(initialState, validate, firebaseCall) {
   const [values, setValues] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setSubmitting] = useState(false);
@@ -17,14 +17,14 @@ function useFormValidation(initialState, validate, authenticate) {
     if (isSubmitting) {
       const noErrors = Object.keys(errors).length === 0;
       if (noErrors) {
-        authenticate();
-        console.log('authenticated', values);
+        firebaseCall();
+        // console.log('communicating with firebase', values);
         setSubmitting(false);
       } else {
         setSubmitting(false);
       }
     }
-  }, [errors]);
+  }, [errors, isSubmitting, firebaseCall]);
 
   function handleChange(event) {
     event.persist();

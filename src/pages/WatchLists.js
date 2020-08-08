@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Divider, Heading, Link, Text, Flex, Button } from '@chakra-ui/core';
-import useWatchLists from '../hooks/useWatchLists';
-import SimpleBox from '../components/SimpleBox';
+import { Divider, Heading, Link, Text, Flex, Spinner } from '@chakra-ui/core';
+import { SimpleBox, DeleteListModal } from '../components';
 import { FirebaseContext } from '../firebase';
+import useWatchLists from '../hooks/useWatchLists';
+import NewListModal from '../components/NewListModal';
 
 /* 
   Route: "/lists"
@@ -15,24 +15,7 @@ import { FirebaseContext } from '../firebase';
 
 const WatchLists = (props) => {
   const { watchLists, loading, error } = useWatchLists();
-  const { firebase, user } = useContext(FirebaseContext);
-  const history = useHistory();
-
-  const newList = {
-    createdAt: new Date(),
-    title: 'My 10th list',
-    description: 'this is a new test list created from front end',
-    movies: [10293, 10290, 1090],
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!user) {
-      history.push('/login');
-    } else {
-      firebase.createNewWatchList(newList, user.uid);
-    }
-  };
+  const { user } = useContext(FirebaseContext);
 
   const generateLists = () => {
     if (!watchLists) {
@@ -43,37 +26,62 @@ const WatchLists = (props) => {
       i += 1;
       return (
         <SimpleBox key={`${i}-${list.title}`}>
-          <Link href={`/list/${list.id}`}>
-            <Heading as="h4" size="md">
-              {list.title}
-            </Heading>
-          </Link>
+          <Flex justify="space-between">
+            <Flex align="center">
+              <Link href={`/list/${list.id}`}>
+                <Heading as="h4" size="md">
+                  {list.title}
+                </Heading>
+              </Link>
+            </Flex>
+            <Flex>
+              <DeleteListModal list={list} />
+            </Flex>
+          </Flex>
           <Divider />
-          {list.description}
+          <Flex align="center" pl={5}>
+            {list.description.length > 120
+              ? `${list.description.slice(0, 120)} ...`
+              : list.description}
+          </Flex>
         </SimpleBox>
       );
     });
     return options;
   };
 
-  if (loading) return <Text>Loading Lists...</Text>;
+  if (loading) return <Spinner />;
   if (error) return <Text>Error loading Lists</Text>;
 
   return (
     <>
-      <SimpleBox>
-        <Flex align="center" justify="space-between">
-          <Heading as="h2" size="2xl">
-            {user
-              ? `${user.displayName.toUpperCase()}'s Watch Lists`
-              : 'You Watchlists'}
-          </Heading>
-          <Button variantColor="green" type="submit" onClick={handleSubmit}>
-            Create New List
-          </Button>
+      <Flex align="center" justify="space-between" p={5}>
+        <Heading as="h2" size="xl">
+          {user
+            ? `${user.displayName.toUpperCase()}'s Watch Lists`
+            : 'Watch Lists'}
+        </Heading>
+        <NewListModal />
+      </Flex>
+      {!watchLists || watchLists.length === 0 ? (
+        <Flex
+          w="100%"
+          p={4}
+          mb={2}
+          border="1px"
+          borderRadius="md"
+          borderColor="gray.200"
+          textAlign="center"
+          flexDir="column"
+        >
+          <Text>You don&apos;t have any lists yet!</Text>
+          <Flex justify="center">
+            <NewListModal noLists />
+          </Flex>
         </Flex>
-      </SimpleBox>
-      <SimpleBox>{generateLists()}</SimpleBox>
+      ) : (
+        generateLists()
+      )}
     </>
   );
 };
