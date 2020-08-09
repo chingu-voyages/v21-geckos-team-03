@@ -95,9 +95,11 @@ function NavBar() {
             justify="right"
           />
           <MenuList mr={10} maxWidth="100%">
-            <MenuItem as={NavLink} to="/lists">
-              Lists
-            </MenuItem>
+            {user ? (
+              <MenuItem as={NavLink} to="/lists">
+                Lists
+              </MenuItem>
+            ) : null}
 
             {user ? (
               <MenuItem onClick={handleLogout}>Logout</MenuItem>

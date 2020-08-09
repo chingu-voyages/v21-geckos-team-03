@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Flex,
@@ -9,6 +9,7 @@ import {
   IconButton,
   Tooltip,
   useToast,
+  Collapse,
 } from '@chakra-ui/core';
 import MovieModal from './MovieModal';
 // import { formatDate } from '../utils';
@@ -19,6 +20,9 @@ function ListItem({ data: movie, listDetails: list }) {
   const { firebase, user } = useContext(FirebaseContext);
   const { watchLists } = useWatchLists();
   const toast = useToast();
+  const [show, setShow] = useState(false);
+
+  const handleToggle = () => setShow(!show);
 
   function deleteMovieFromList() {
     if (user) {
@@ -74,6 +78,7 @@ function ListItem({ data: movie, listDetails: list }) {
       }
     }
   }
+
   return (
     <Flex
       p={4}
@@ -88,25 +93,43 @@ function ListItem({ data: movie, listDetails: list }) {
     >
       <Flex align="center">
         {/* Check to mark watched */}
-        <Checkbox
-          size="lg"
-          mr={[4, 6, 8, 10]}
-          isChecked={movie.watched}
-          onChange={toggleWatched}
-        />
+        <Tooltip
+          hasArrow
+          label={`Mark as ${movie.watched ? 'Unwatched' : 'Watched'}`}
+          ml="10px"
+          placement="right"
+        >
+          <Checkbox
+            size="lg"
+            mr={[4, 6, 8, 10]}
+            isChecked={movie.watched}
+            onChange={toggleWatched}
+          />
+        </Tooltip>
         {/* Modal is in the image Container  */}
         <PseudoBox mr={4}>
           <MovieModal isListItem movieId={movie.id} watchLists={watchLists} />
         </PseudoBox>
         {/* Title & Rating */}
         <Flex direction="column" mr={1}>
-          <Text fontSize={['md', 'md', 'lg']} mr={4} mb={1}>
-            {movie.title}
-          </Text>
-          <Flex>
-            <Icon name="star" size="8px" mr={2} />
-            <Text fontSize="2xs">{movie.vote_average}</Text>
+          <MovieModal isListItemTitle movieId={movie.id} />
+          <Flex flexDir="row" align="center">
+            <Flex>
+              <Icon name="star" size="8px" mr={2} />
+              <Text fontSize="2xs">{movie.vote_average}</Text>
+            </Flex>
+            <Flex>
+              <IconButton
+                icon="chevron-down"
+                variant="ghost"
+                onClick={handleToggle}
+                size="xs"
+              />
+            </Flex>
           </Flex>
+          <Collapse isOpen={show} startingHeight={0} ml={1}>
+            <Text fontSize="2xs">{movie.overview}</Text>
+          </Collapse>
         </Flex>
       </Flex>
       {/* <Text fontSize="xs">{formatDate(movie.added)}</Text> */}

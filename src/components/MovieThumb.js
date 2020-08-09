@@ -10,6 +10,7 @@ const MovieThumb = ({ posterPath, clickable, onClick, small }) => {
       <PseudoBox height="100%" _hover={clickable ? { opacity: 0.8 } : null}>
         <Image
           borderRadius="lg"
+          roundedRight="0"
           src={
             posterPath
               ? `${IMAGE_BASE_URL}${POSTER_SIZE}${posterPath}`
