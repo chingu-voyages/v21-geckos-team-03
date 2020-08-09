@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import {
   Modal,
   ModalOverlay,
@@ -50,6 +50,7 @@ function EditListModal({ list }) {
       description: values.description,
       modifiedAt: Date.now(),
     };
+
     try {
       await firebase.editWatchList(editedList, user.uid);
       onClose();
@@ -149,5 +150,9 @@ function EditListModal({ list }) {
     </>
   );
 }
+
+EditListModal.propTypes = {
+  list: PropTypes.object.isRequired,
+};
 
 export default EditListModal;

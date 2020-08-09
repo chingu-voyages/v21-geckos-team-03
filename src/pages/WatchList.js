@@ -15,13 +15,9 @@ import {
   Collapse,
   IconButton,
   Button,
+  Divider,
 } from '@chakra-ui/core';
-import {
-  ListItem,
-  EditListModal,
-  DeleteListModal,
-  NewListModal,
-} from '../components';
+import { ListItem, EditListModal, DeleteListModal } from '../components';
 import { formatDate } from '../utils';
 import useSingleWatchList from '../hooks/useSingleWatchList';
 
@@ -39,6 +35,7 @@ function WatchList() {
     return (
       <Flex
         w="100%"
+        h="100%"
         p={10}
         mb={2}
         border="1px"
@@ -67,33 +64,12 @@ function WatchList() {
 
   if (loading) return <Spinner />;
   if (error) return <Text>Error Loading List</Text>;
-  return (
-    // Two column flex row
-    <Flex>
-      {/* Sidebar */}
-      <Flex
-        display={{ base: 'none', md: 'flex' }}
-        h="80vh"
-        p={8}
-        mr={10}
-        border="1px"
-        borderRadius="md"
-        borderColor="gray.200"
-      >
-        <Box>
-          <Text>Sidebar with watchlists?</Text>
-        </Box>
-      </Flex>
 
-      {/* Watchlist Container */}
-      <Flex direction="column" mx="auto" width="100%" my="0">
+  return (
+    <Box maxWidth="800px" mx="auto" my={0}>
+      <Flex direction="column">
         {/*  List Details  */}
-        <Flex
-          direction="column"
-          borderBottom="1px"
-          borderBottomStyle="dashed"
-          mb={12}
-        >
+        <Flex direction="column" mb={12}>
           <Flex justify="space-between">
             <Flex>
               <Heading as="h1" size="xl" mb={4}>
@@ -102,7 +78,6 @@ function WatchList() {
               <EditListModal list={listDetails} />
             </Flex>
             <Flex>
-              <NewListModal />
               <DeleteListModal list={listDetails} />
             </Flex>
           </Flex>
@@ -115,12 +90,11 @@ function WatchList() {
           </Flex>
           {!listDetails.description ? null : (
             <Box py={5}>
-              <Text fontSize="xs" mb={4}>
+              <Heading fontSize="sm" mb={4}>
                 Description:
-              </Text>
-
+              </Heading>
               {listDetails.description.length < 240 ? (
-                <Text fontSize="sm" mb={4}>
+                <Text fontSize="md" mb={4}>
                   {listDetails.description}
                 </Text>
               ) : (
@@ -140,6 +114,7 @@ function WatchList() {
               )}
             </Box>
           )}
+          <Divider />
         </Flex>
 
         {!listMovies || listMovies.length === 0 ? (
@@ -194,7 +169,7 @@ function WatchList() {
           </>
         )}
       </Flex>
-    </Flex>
+    </Box>
   );
 }
 

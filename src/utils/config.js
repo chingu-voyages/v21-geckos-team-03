@@ -1,3 +1,5 @@
+const REPO_LINK = 'https://github.com/chingu-voyages/v21-geckos-team-03/';
+
 // Configuration for TMDB
 // https://developers.themoviedb.org/
 
@@ -18,6 +20,7 @@ export {
   API_URL,
   API_KEY,
   BACKDROP_SIZE,
+  REPO_LINK,
   IMAGE_BASE_URL,
   POPULAR_BASE_URL,
   POSTER_SIZE,

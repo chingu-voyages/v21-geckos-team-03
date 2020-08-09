@@ -107,7 +107,9 @@ const MovieModal = ({
               <Flex mx={0} my="auto" bg="rgb(0, 0, 0, 0.7)" borderRadius="20px">
                 <Box p={8}>
                   <Flex justify="space-between" align="center">
-                    <Heading color="white">{movie.original_title}</Heading>
+                    <Heading color="white" mr={2}>
+                      {movie.original_title}
+                    </Heading>
                     {!isListItem && (
                       <SaveMovieDropDown
                         movie={movie}

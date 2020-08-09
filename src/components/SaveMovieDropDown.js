@@ -102,7 +102,7 @@ function SaveMovieDropDown({ movie, color }) {
       <Menu closeOnSelect={false}>
         <MenuButton>
           <Tooltip hasArrow label="Add to List">
-            <Icon name="add" color={color} />
+            <Icon name="add" size={['10px', '10px', '16px']} color={color} />
           </Tooltip>
         </MenuButton>
         <MenuList placement="right-bottom">
