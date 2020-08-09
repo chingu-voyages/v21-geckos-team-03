@@ -35,6 +35,7 @@ function WatchList() {
     return (
       <Flex
         w="100%"
+        h="100%"
         p={10}
         mb={2}
         border="1px"
@@ -65,108 +66,110 @@ function WatchList() {
   if (error) return <Text>Error Loading List</Text>;
 
   return (
-    <Flex direction="column" width="100%">
-      {/*  List Details  */}
-      <Flex direction="column" mb={12}>
-        <Flex justify="space-between">
-          <Flex>
-            <Heading as="h1" size="xl" mb={4}>
-              {listDetails.title}
-            </Heading>
-            <EditListModal list={listDetails} />
+    <Box maxWidth="800px" mx="auto" my={0}>
+      <Flex direction="column">
+        {/*  List Details  */}
+        <Flex direction="column" mb={12}>
+          <Flex justify="space-between">
+            <Flex>
+              <Heading as="h1" size="xl" mb={4}>
+                {listDetails.title}
+              </Heading>
+              <EditListModal list={listDetails} />
+            </Flex>
+            <Flex>
+              <DeleteListModal list={listDetails} />
+            </Flex>
           </Flex>
-          <Flex>
-            <DeleteListModal list={listDetails} />
+          <Flex align="center" mb={6}>
+            <Icon name="time" mr={2} />
+            <Text fontSize="xs" mr={6}>
+              Created:
+            </Text>
+            <Text fontSize="xs">{formatDate(listDetails.createdAt)}</Text>
           </Flex>
-        </Flex>
-        <Flex align="center" mb={6}>
-          <Icon name="time" mr={2} />
-          <Text fontSize="xs" mr={6}>
-            Created:
-          </Text>
-          <Text fontSize="xs">{formatDate(listDetails.createdAt)}</Text>
-        </Flex>
-        {!listDetails.description ? null : (
-          <Box py={5}>
-            <Heading fontSize="sm" mb={4}>
-              Description:
-            </Heading>
-            {listDetails.description.length < 240 ? (
-              <Text fontSize="md" mb={4}>
-                {listDetails.description}
-              </Text>
-            ) : (
-              <Flex>
-                <Collapse startingHeight={40} isOpen={show}>
-                  <Text fontSize="sm" mb={4}>
-                    {listDetails.description}
-                  </Text>
-                </Collapse>
-                <IconButton
-                  icon="chevron-down"
-                  variant="ghost"
-                  onClick={handleToggle}
-                  justify="right"
-                />
-              </Flex>
-            )}
-          </Box>
-        )}
-        <Divider />
-      </Flex>
-
-      {!listMovies || listMovies.length === 0 ? (
-        findPrompt()
-      ) : (
-        <>
-          {/* Tab Panels */}
-          <Tabs defaultIndex={0} isFitted variant="enclosed">
-            <TabList mb="1em">
-              <Tab>Unwatched</Tab>
-              <Tab>Watched</Tab>
-              <Tab>All</Tab>
-            </TabList>
-
-            <TabPanels>
-              <TabPanel>
-                {/* Unwatched items */}
-                {listMovies
-                  .filter((movie) => !movie.watched)
-                  .map((unwatchedMovie) => (
-                    <ListItem
-                      key={unwatchedMovie.id}
-                      data={unwatchedMovie}
-                      listDetails={listDetails}
-                    />
-                  ))}
-              </TabPanel>
-              {/* {Watched Items} */}
-              <TabPanel>
-                {listMovies
-                  .filter((movie) => movie.watched)
-                  .map((watchedMovie) => (
-                    <ListItem
-                      key={watchedMovie.id}
-                      data={watchedMovie}
-                      listDetails={listDetails}
-                    />
-                  ))}
-              </TabPanel>
-              {/* All list Items */}
-              <TabPanel>
-                {listMovies.map((movie) => (
-                  <ListItem
-                    key={movie.id}
-                    data={movie}
-                    listDetails={listDetails}
+          {!listDetails.description ? null : (
+            <Box py={5}>
+              <Heading fontSize="sm" mb={4}>
+                Description:
+              </Heading>
+              {listDetails.description.length < 240 ? (
+                <Text fontSize="md" mb={4}>
+                  {listDetails.description}
+                </Text>
+              ) : (
+                <Flex>
+                  <Collapse startingHeight={40} isOpen={show}>
+                    <Text fontSize="sm" mb={4}>
+                      {listDetails.description}
+                    </Text>
+                  </Collapse>
+                  <IconButton
+                    icon="chevron-down"
+                    variant="ghost"
+                    onClick={handleToggle}
+                    justify="right"
                   />
-                ))}
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </>
-      )}
-    </Flex>
+                </Flex>
+              )}
+            </Box>
+          )}
+          <Divider />
+        </Flex>
+
+        {!listMovies || listMovies.length === 0 ? (
+          findPrompt()
+        ) : (
+          <>
+            {/* Tab Panels */}
+            <Tabs defaultIndex={0} isFitted variant="enclosed">
+              <TabList mb="1em">
+                <Tab>Unwatched</Tab>
+                <Tab>Watched</Tab>
+                <Tab>All</Tab>
+              </TabList>
+
+              <TabPanels>
+                <TabPanel>
+                  {/* Unwatched items */}
+                  {listMovies
+                    .filter((movie) => !movie.watched)
+                    .map((unwatchedMovie) => (
+                      <ListItem
+                        key={unwatchedMovie.id}
+                        data={unwatchedMovie}
+                        listDetails={listDetails}
+                      />
+                    ))}
+                </TabPanel>
+                {/* {Watched Items} */}
+                <TabPanel>
+                  {listMovies
+                    .filter((movie) => movie.watched)
+                    .map((watchedMovie) => (
+                      <ListItem
+                        key={watchedMovie.id}
+                        data={watchedMovie}
+                        listDetails={listDetails}
+                      />
+                    ))}
+                </TabPanel>
+                {/* All list Items */}
+                <TabPanel>
+                  {listMovies.map((movie) => (
+                    <ListItem
+                      key={movie.id}
+                      data={movie}
+                      listDetails={listDetails}
+                    />
+                  ))}
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </>
+        )}
+      </Flex>
+    </Box>
   );
 }
 

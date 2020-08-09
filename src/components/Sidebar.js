@@ -19,60 +19,68 @@ const Sidebar = () => {
   const { user } = useContext(FirebaseContext);
   const { watchLists } = useWatchLists();
   return (
-    <Flex display={{ base: 'none', md: 'flex' }}>
-      <Flex width="100%" maxWidth="200px" direction="column">
-        {user && (
-          <Box alignSelf="center" p={4}>
-            <Box as={FaUserCircle} size="48px" mb={2} />
-            <Heading textAlign="center" fontSize="lg">
-              {user.displayName}
-            </Heading>
-          </Box>
-        )}
-        <Box my={3}>
-          <Divider />
-          <Heading fontSize="xl">Total Lists</Heading>
-          <Divider />
-          <Box mx="auto">
-            <Text p={3} height="100%" textAlign="center" fontSize="xl">
-              {watchLists.length}
-            </Text>
-          </Box>
-        </Box>
-        <Box mb={3}>
-          <Box mb={6}>
+    <Box p={4}>
+      <Flex
+        position="fixed"
+        overflowY="hidden"
+        overflowX="scroll"
+        height="100%"
+        top="150px"
+        bottom="0"
+        maxWidth="18rem"
+      >
+        <Flex direction="column" w="100%">
+          {user && (
+            <Box p={4}>
+              <Box as={FaUserCircle} size="48px" mb={2} />
+              <Heading fontSize="lg">{user.displayName}</Heading>
+            </Box>
+          )}
+          <Box my={3}>
             <Divider />
-            <Heading fontSize="xl">Current Lists</Heading>
+            <Heading fontSize="xl">Total Lists</Heading>
             <Divider />
+            <Box mx="auto">
+              <Text p={3} height="100%" fontSize="xl">
+                {watchLists.length}
+              </Text>
+            </Box>
           </Box>
+          <Box mb={3}>
+            <Box mb={6}>
+              <Divider />
+              <Heading fontSize="xl">Current Lists</Heading>
+              <Divider />
+            </Box>
 
-          <Stack spacing={10}>
-            {watchLists &&
-              watchLists.map((list) => (
-                <Link key={list.id} as={RouterLink} to={`/list/${list.id}`}>
-                  <Text fontSize="lg">{list.title}</Text>
-                </Link>
-              ))}
-            <Button
-              as={RouterLink}
-              to="/lists"
-              bg="transparent"
-              border="1px"
-              size="xs"
-            >
-              View All
-            </Button>
-          </Stack>
-          <Box mt={8}>
-            <Divider />
-            <Flex mt={6} justify="center">
-              <NewListModal full />
-            </Flex>
+            <Stack spacing={10}>
+              {watchLists &&
+                watchLists.map((list) => (
+                  <Link key={list.id} as={RouterLink} to={`/list/${list.id}`}>
+                    <Text fontSize="lg">{list.title}</Text>
+                  </Link>
+                ))}
+              <Button
+                as={RouterLink}
+                to="/lists"
+                bg="transparent"
+                border="1px"
+                size="xs"
+              >
+                View All
+              </Button>
+            </Stack>
+            <Box mt={8}>
+              <Divider />
+              <Flex mt={6} justify="center">
+                <NewListModal full />
+              </Flex>
+            </Box>
           </Box>
-        </Box>
+        </Flex>
+        <Divider mx={12} orientation="vertical" height="100%" />
       </Flex>
-      <Divider mx={12} orientation="vertical" />
-    </Flex>
+    </Box>
   );
 };
 

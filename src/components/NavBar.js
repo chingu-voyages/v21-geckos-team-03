@@ -52,13 +52,20 @@ function NavBar() {
 
   return (
     <Flex
+      bg={colorMode === 'light' ? 'white' : '#1A202C'}
       as="nav"
       align="center"
       justify={['center', 'space-between', 'space-between', 'space-between']}
       wrap="wrap"
       p={6}
+      mb={10}
       borderBottom="1px solid #C8C8C8"
       flexDir={['column', 'row', 'row', 'row']}
+      position="fixed"
+      overflow="hidden"
+      top={0}
+      width="100%"
+      zIndex={100}
     >
       <Flex
         align="center"
