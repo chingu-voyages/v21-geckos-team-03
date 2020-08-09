@@ -66,9 +66,15 @@ const Home = () => {
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </Stack>
-        <Flex align="center" justify="center">
+        <Flex align="center" justify="center" mb={16}>
           {state.currentPage < state.totalPages && !loading && (
-            <Button type="submit" onClick={loadMoreMovies}>
+            <Button
+              type="submit"
+              bg="primary"
+              size="lg"
+              mb={10}
+              onClick={loadMoreMovies}
+            >
               Load More
             </Button>
           )}

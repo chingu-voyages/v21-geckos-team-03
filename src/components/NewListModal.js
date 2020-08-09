@@ -28,7 +28,7 @@ const INITIAL_STATE = {
   description: '',
 };
 
-function NewListModal({ noLists }) {
+function NewListModal({ noLists, full }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
@@ -66,7 +66,13 @@ function NewListModal({ noLists }) {
     }
     return (
       <Tooltip hasArrow label="New List" placement="bottom">
-        <IconButton icon="add" variant="ghost" onClick={onOpen} />
+        {full ? (
+          <Button bg="primary" onClick={onOpen}>
+            Create new list
+          </Button>
+        ) : (
+          <IconButton icon="add" variant="ghost" onClick={onOpen} />
+        )}
       </Tooltip>
     );
   };
@@ -140,10 +146,12 @@ function NewListModal({ noLists }) {
 
 NewListModal.propTypes = {
   noLists: PropTypes.bool,
+  full: PropTypes.bool,
 };
 
 NewListModal.defaultProps = {
   noLists: false,
+  full: false,
 };
 
 export default NewListModal;

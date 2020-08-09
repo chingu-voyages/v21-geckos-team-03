@@ -18,6 +18,7 @@ import {
   FormErrorMessage,
   Textarea,
   Flex,
+  useToast,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import useFormValidation from '../hooks/useFormValidation';
@@ -27,6 +28,7 @@ function EditListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
+  const toast = useToast();
   const INITIAL_STATE = {
     title: list.title,
     description: list.description,
@@ -48,11 +50,25 @@ function EditListModal({ list }) {
       description: values.description,
       modifiedAt: Date.now(),
     };
+
     try {
       await firebase.editWatchList(editedList, user.uid);
       onClose();
+      toast({
+        title: 'List Edited',
+        status: 'success',
+        duration: 4000,
+        isClosable: true,
+      });
     } catch (error) {
       setFirebaseError(error.message);
+      toast({
+        title: 'Something went wrong',
+        description: error,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
     }
   }
 
@@ -134,6 +150,10 @@ function EditListModal({ list }) {
     </>
   );
 }
+EditListModal.propTypes = {
+  list: PropTypes.object.isRequired,
+};
+
 EditListModal.propTypes = {
   list: PropTypes.object.isRequired,
 };

@@ -1,41 +1,52 @@
 import React from 'react';
-import { Box, Text, Image, Flex } from '@chakra-ui/core';
+import { Box, Text, Image, Flex, useColorMode, Link } from '@chakra-ui/core';
+import { FaGithub } from 'react-icons/fa';
 import Film from '../images/film.png';
+import { REPO_LINK, API_LOGO } from '../utils/config';
 import './style.css';
-import { API_LOGO } from '../utils/config';
 
 function Footer() {
+  const { colorMode } = useColorMode();
   return (
     <Box
-      bg="black"
+      as="footer"
+      bg={colorMode === 'light' ? 'white' : '#1A202C'}
       w="100%"
-      p={4}
-      color="white"
-      position="absolute"
-      left="0px"
-      mt="50px"
-      height="300px"
+      mt="-200px"
+      position="fixed"
+      borderTop="1px solid #C8C8C8"
+      overflowY="scroll"
+      bottom="0"
+      zIndex={100}
     >
-      <Box padding="30px">
+      <Box p={4}>
         <Flex
-          justify={['center', 'center', 'space-between', 'space-between']}
+          justify={['space-around']}
           align="center"
-          direction={['column', 'column', 'row', 'row']}
+          direction={['row', 'row']}
         >
+          <Link href={REPO_LINK} target="_blank">
+            <Box as={FaGithub} size={['24px', '36px']} />
+          </Link>
           <Flex align="center">
-            <Image src={Film} h={5} paddingRight="10px" />
-            <Text fontSize="4xl">UnReel</Text>
+            <Image src={Film} h={5} />
+            <Text fontSize={['sm', 'md', 'lg', 'xl']}>UnReel</Text>
           </Flex>
 
           <div>
             <Text
-              fontSize={['2xl', '2xl', '3xl', '4xl']}
+              fontSize={['sm', 'md', 'lg', 'xl']}
               fontWeight="bold"
               className="text-gradient"
             >
               Powered By
             </Text>
-            <Image src={API_LOGO} size={['120px', '130', '150px', '150px']} />
+            <Image
+              mx="auto"
+              my={0}
+              src={API_LOGO}
+              size={['35px', '30px', '40px', '50px']}
+            />
           </div>
         </Flex>
       </Box>
