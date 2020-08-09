@@ -61,9 +61,9 @@ function NavBar() {
       mb={10}
       borderBottom="1px solid #C8C8C8"
       flexDir={['column', 'row', 'row', 'row']}
-      position="fixed"
-      overflow="hidden"
-      top={0}
+      // position="fixed"
+      // overflow="hidden"
+      // top={0}
       width="100%"
       zIndex={100}
     >
