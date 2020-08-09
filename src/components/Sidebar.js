@@ -19,22 +19,21 @@ const Sidebar = () => {
   const { user } = useContext(FirebaseContext);
   const { watchLists } = useWatchLists();
   return (
-    <Box p={4}>
+    <Box p={4} display={['none', 'none', 'block']}>
       <Flex
         position="fixed"
         overflowY="hidden"
         overflowX="scroll"
-        // height="100%"
         top="150px"
         bottom="0"
         maxWidth="18rem"
       >
         <Flex direction="column" w="100%">
           {user && (
-            <Box p={4}>
-              <Box as={FaUserCircle} size="48px" mb={2} />
+            <Flex mb={2} align="center">
+              <Box as={FaUserCircle} size="48px" mb={2} mr={2} />
               <Heading fontSize="lg">{user.displayName}</Heading>
-            </Box>
+            </Flex>
           )}
           <Box my={3}>
             <Divider />
