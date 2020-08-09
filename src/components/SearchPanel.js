@@ -7,7 +7,6 @@ import {
   Icon,
   Flex,
   InputLeftElement,
-  // PseudoBox
 } from '@chakra-ui/core';
 
 const SearchPanel = ({ callback }) => {
@@ -17,11 +16,8 @@ const SearchPanel = ({ callback }) => {
 
   const handleSearch = (event) => {
     const { value } = event.target;
-
     clearTimeout(timeOut.current);
     setState(value);
-    // when a user types into the input it will wait for 1/2 second before invoking the callback function
-    // which will trigger a search.  otherwise the search happens on first keypress which was weird UX
     timeOut.current = setTimeout(() => {
       callback(value);
     }, 300);

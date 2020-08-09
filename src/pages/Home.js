@@ -14,11 +14,6 @@ import { SEARCH_BASE_URL, TRENDING_BASE_URL } from '../utils/config';
 import useHomeFetch from '../hooks/useHomeFetch';
 import { SearchPanel, MovieCard } from '../components';
 
-/* 
-  Route: "/"
-  will contain search movie, movie results components
-*/
-
 const Home = () => {
   const [{ state, loading, error }, fetchMovies] = useHomeFetch();
   const [searchTerm, setSearchTerm] = useState('');
