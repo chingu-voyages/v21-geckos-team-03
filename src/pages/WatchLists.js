@@ -55,7 +55,7 @@ const WatchLists = (props) => {
 
   return (
     <>
-      <Flex align="center" justify="space-between" p={5}>
+      <Flex align="center" justify="space-between" ml={5} mr={5}>
         <Heading fontSize="2xl">
           {user
             ? `${user.displayName.toUpperCase()}'s Watch Lists`
