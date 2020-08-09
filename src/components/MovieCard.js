@@ -19,44 +19,33 @@ function MovieCard({ movie }) {
       p={0}
       w="100%"
     >
-      <Flex
-        direction={['row', 'row', 'row']}
-        align-items="stretch"
-        justify="center"
-        p={0}
-      >
-        <Flex>
+      <Flex direction={['row', 'row', 'row']} justify="center" p={0}>
+        <Box>
           <MovieModal movieId={movie.id} watchLists={watchLists} />
-        </Flex>
+        </Box>
 
-        <Flex
-          p={[0, 0, 6, 6]}
-          mx={4}
-          w="100%"
-          flexDirection="column"
-          justifyContent="space-between"
-        >
+        <Flex mx={4} w="100%" flexDirection="column" justifyContent="center">
           <Flex flexDir="column">
-            <Flex align-self="flex-start" justifyContent="space-between" mb={3}>
+            <Flex align-self="flex-start" justifyContent="space-between" mb={1}>
               <MovieModal isTitle movieId={movie.id} />
               <SaveMovieDropDown movie={movie} watchLists={watchLists} />
             </Flex>
-            <Text fontSize="2xs" mb={3} ml={3}>
+            <Text fontSize={['2xs', 'xs']} mb={2}>
               {movie.release_date}
             </Text>
           </Flex>
 
           <Flex>
-            <Text fontSize={['3xs', 'xs', 'sm', 'md']} mb={4} ml={3}>
+            <Text fontSize={['3xs', 'xs', 'sm', 'md']} mb={4}>
               {movie.tagline
                 ? movie.tagline
-                : truncateDescription(movie.overview, 150)}
+                : truncateDescription(movie.overview, 120)}
             </Text>
           </Flex>
           <Flex
             alignSelf="flex-end"
             w="100%"
-            ml={3}
+            // ml={3}
             items="center"
             justify="space-between"
             flexDir="row"
