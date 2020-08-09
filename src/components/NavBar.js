@@ -21,13 +21,6 @@ import Film from '../images/film.png';
 
 import { FirebaseContext } from '../firebase';
 
-/* 
-Primary navigation bar for the app.
-Responsive/mobile first
-Hides watchlist navlink  with no logged in user.  
-Says hello to logged in user's display name
-*/
-
 const MenuItems = ({ children }) => (
   <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
     {children}

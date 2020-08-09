@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Text, Image, Flex, useColorMode, Link } from '@chakra-ui/core';
 import { FaGithub } from 'react-icons/fa';
 import Film from '../images/film.png';
-import { REPO_LINK } from '../utils/config';
+import { REPO_LINK, API_LOGO } from '../utils/config';
 import './style.css';
 
 function Footer() {
@@ -44,7 +44,7 @@ function Footer() {
             <Image
               mx="auto"
               my={0}
-              src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
+              src={API_LOGO}
               size={['35px', '30px', '40px', '50px']}
             />
           </div>

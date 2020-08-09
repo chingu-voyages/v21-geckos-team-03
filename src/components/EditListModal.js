@@ -150,6 +150,9 @@ function EditListModal({ list }) {
     </>
   );
 }
+EditListModal.propTypes = {
+  list: PropTypes.object.isRequired,
+};
 
 EditListModal.propTypes = {
   list: PropTypes.object.isRequired,

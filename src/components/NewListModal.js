@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Modal,
   ModalOverlay,
@@ -28,7 +28,7 @@ const INITIAL_STATE = {
   description: '',
 };
 
-function NewListModal({ noLists, movieDropDown, full }) {
+function NewListModal({ noLists, full }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
@@ -143,5 +143,15 @@ function NewListModal({ noLists, movieDropDown, full }) {
     </>
   );
 }
+
+NewListModal.propTypes = {
+  noLists: PropTypes.bool,
+  full: PropTypes.bool,
+};
+
+NewListModal.defaultProps = {
+  noLists: false,
+  full: false,
+};
 
 export default NewListModal;

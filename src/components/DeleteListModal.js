@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import {
   Modal,
   ModalOverlay,
@@ -22,16 +22,14 @@ function DeleteListModal({ list }) {
   const toast = useToast();
   const history = useHistory();
 
-  const deleteWatchList = (listId, userId) => {
+  const deleteWatchList = () => {
     try {
       const listRef = firebase.db
         .doc(`users/${user.uid}`)
         .collection('lists')
         .doc(list.id);
-
       history.push('/lists');
       listRef.delete().then(() => {
-        console.log(`List with ID ${list.id} deleted`);
         toast({
           title: 'List deleted',
           status: 'success',
@@ -40,7 +38,6 @@ function DeleteListModal({ list }) {
         });
       });
     } catch (error) {
-      console.log('Error deleting list', error);
       toast({
         title: 'Something went wrong',
         description: error,
@@ -57,14 +54,13 @@ function DeleteListModal({ list }) {
         <IconButton icon="delete" variant="ghost" mr={2} onClick={onOpen} />
       </Tooltip>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} p={8}>
         <ModalOverlay />
         <ModalContent borderRadius="md">
-          <ModalHeader>
+          <ModalHeader mt={3}>
             Are you sure you want to delete {list.title}?
           </ModalHeader>
           <ModalCloseButton />
-          {/* <ModalBody>form goes here</ModalBody> */}
           <ModalFooter>
             <Button
               variantColor="red"
@@ -83,5 +79,9 @@ function DeleteListModal({ list }) {
     </>
   );
 }
+
+DeleteListModal.propTypes = {
+  list: PropTypes.object.isRequired,
+};
 
 export default DeleteListModal;

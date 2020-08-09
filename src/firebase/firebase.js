@@ -23,12 +23,8 @@ class Firebase {
       password
     );
 
-    // create a reference to the user uid generated above
     const userRef = this.db.doc(`users/${user.uid}`);
-    // take a snapshot of the reference
     const snapShot = await userRef.get();
-    // check exists property on userRef snapshot.
-    // if false, set (aka create) new document in the collection ref with the passed in values
     if (!snapShot.exists) {
       const createdAt = new Date();
       try {
@@ -39,10 +35,10 @@ class Firebase {
           ...additionalData,
         });
       } catch (error) {
-        console.log('error creating user', error.message);
+        // eslint-disable-next-line no-console
+        console.error('error creating user', error.message);
       }
     }
-    // returns so newly created displayName name is passed into state for UI
     return user.updateProfile({
       displayName: name,
     });

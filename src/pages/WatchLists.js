@@ -6,14 +6,6 @@ import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
 import NewListModal from '../components/NewListModal';
 
-/* 
-  Route: "/lists"
-  Page for rendering all user created watch lists
-
-  Currently contains mvp functionality for fetching all created lists in a logged in users list collection.
-  This should be moved eventually
-*/
-
 const WatchLists = (props) => {
   const { watchLists, loading, error } = useWatchLists();
   const { user } = useContext(FirebaseContext);
