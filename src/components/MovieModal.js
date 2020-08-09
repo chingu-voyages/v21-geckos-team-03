@@ -72,7 +72,6 @@ const MovieModal = ({
     );
   };
 
-  console.log(movie);
   return (
     <>
       {prompt()}

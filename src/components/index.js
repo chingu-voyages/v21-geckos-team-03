@@ -1,6 +1,7 @@
 import AuthForm from './AuthForm';
 import DeleteListModal from './DeleteListModal';
 import EditListModal from './EditListModal';
+import Footer from './Footer';
 import Layout from './Layout';
 import ListItem from './ListItem';
 import MovieCard from './MovieCard';
@@ -16,6 +17,7 @@ export {
   AuthForm,
   DeleteListModal,
   EditListModal,
+  Footer,
   NewListModal,
   Layout,
   ListItem,
