@@ -59,7 +59,7 @@ function DeleteListModal({ list }) {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent borderRadius="md">
           <ModalHeader>
             Are you sure you want to delete {list.title}?
           </ModalHeader>
