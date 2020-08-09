@@ -12,22 +12,26 @@ function Footer() {
       position="absolute"
       left="0px"
       mt="50px"
-      height="400px"
+      height="300px"
     >
-      <Box padding="50px">
-        <Flex justify="space-between" align="center">
+      <Box padding="30px">
+        <Flex
+          justify={['center', 'center', 'space-between', 'space-between']}
+          align="center"
+          direction={['column', 'column', 'row', 'row']}
+        >
           <Flex align="center">
-            <Image src={Film} h={10} paddingRight="10px" />
+            <Image src={Film} h={5} paddingRight="10px" />
             <Text fontSize="4xl">UnReel</Text>
           </Flex>
 
           <div>
-            <Text fontSize="4xl" fontWeight="bold">
+            <Text fontSize={['2xl', '2xl', '3xl', '4xl']} fontWeight="bold">
               Powered By
             </Text>
             <Image
               src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
-              size="150px"
+              size={['120px', '130', '150px', '150px']}
             />
           </div>
         </Flex>
