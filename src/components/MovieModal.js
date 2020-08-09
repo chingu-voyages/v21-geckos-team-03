@@ -193,13 +193,14 @@ const MovieModal = ({
 
 MovieModal.propTypes = {
   movieId: PropTypes.number.isRequired,
-  watchLists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  watchLists: PropTypes.arrayOf(PropTypes.object),
   isListItem: PropTypes.bool,
   isTitle: PropTypes.bool,
   isListItemTitle: PropTypes.bool,
 };
 
 MovieModal.defaultProps = {
+  watchLists: [],
   isListItem: false,
   isTitle: false,
   isListItemTitle: false,

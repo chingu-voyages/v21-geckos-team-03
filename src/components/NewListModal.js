@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Modal,
   ModalOverlay,
@@ -137,5 +137,13 @@ function NewListModal({ noLists }) {
     </>
   );
 }
+
+NewListModal.propTypes = {
+  noLists: PropTypes.bool,
+};
+
+NewListModal.defaultProps = {
+  noLists: false,
+};
 
 export default NewListModal;
