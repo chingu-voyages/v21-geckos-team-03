@@ -13,13 +13,7 @@ const Layout = ({ children }) => {
     <Flex direction="column" minHeight="100vh" mx="auto" my={0}>
       <Navbar />
       <Flex p={[4, 6, 8]} flex={1} direction={['column', 'column', 'row']}>
-        <Box
-          flex={1}
-          minWidth={0}
-          mt={20}
-          ml={['0', '0 ', '18rem']}
-          maxWidth="800px"
-        >
+        <Box flex={1} minWidth={0} mt={20} ml={['0', '0 ', '18rem']} my={0}>
           {children}
         </Box>
         <Box flexBasis={['auto', 'auto', '64']} order="-1">
