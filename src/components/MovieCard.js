@@ -45,7 +45,6 @@ function MovieCard({ movie }) {
           <Flex
             alignSelf="flex-end"
             w="100%"
-            // ml={3}
             items="center"
             justify="space-between"
             flexDir="row"
