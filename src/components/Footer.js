@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Text, Image, Flex } from '@chakra-ui/core';
 import Film from '../images/film.png';
+import './style.css';
 
 function Footer() {
   return (
@@ -26,7 +27,11 @@ function Footer() {
           </Flex>
 
           <div>
-            <Text fontSize={['2xl', '2xl', '3xl', '4xl']} fontWeight="bold">
+            <Text
+              fontSize={['2xl', '2xl', '3xl', '4xl']}
+              fontWeight="bold"
+              className="text-gradient"
+            >
               Powered By
             </Text>
             <Image
