@@ -10,7 +10,6 @@ import {
   Divider,
 } from '@chakra-ui/core';
 
-import Footer from '../components/Footer';
 import { SEARCH_BASE_URL, TRENDING_BASE_URL } from '../utils/config';
 import useHomeFetch from '../hooks/useHomeFetch';
 import { SearchPanel, MovieCard } from '../components';
@@ -80,8 +79,6 @@ const Home = () => {
           )}
         </Flex>
       </Box>
-
-      <Footer />
     </>
   );
 };
