@@ -24,7 +24,7 @@ const Sidebar = () => {
         position="fixed"
         overflowY="hidden"
         overflowX="scroll"
-        height="100%"
+        // height="100%"
         top="150px"
         bottom="0"
         maxWidth="18rem"

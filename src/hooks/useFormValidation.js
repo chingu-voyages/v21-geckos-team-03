@@ -46,6 +46,14 @@ function useFormValidation(initialState, validate, firebaseCall) {
     setSubmitting(true);
   }
 
+  function clearValues() {
+    setValues(initialState);
+  }
+
+  function clearErrors() {
+    setErrors({});
+  }
+
   return {
     errors,
     handleChange,
@@ -53,6 +61,8 @@ function useFormValidation(initialState, validate, firebaseCall) {
     handleSubmit,
     isSubmitting,
     values,
+    clearValues,
+    clearErrors,
   };
 }
 

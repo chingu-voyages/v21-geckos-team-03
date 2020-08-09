@@ -92,37 +92,33 @@ function NavBar() {
       </Flex>
 
       {/* Mobile dropdown,shown until md breakpoint (768px) */}
-      <Flex display={['flex', 'flex', 'none', 'none']} onClick={handleToggle}>
-        <Menu>
-          <MenuButton
-            as={IconButton}
-            icon="chevron-down"
-            variant="ghost"
-            onClick={handleToggle}
-            justify="right"
-          />
-          <MenuList mr={10} maxWidth="100%">
-            {user ? (
+      {user && (
+        <Flex display={['flex', 'flex', 'none', 'none']} onClick={handleToggle}>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              icon="chevron-down"
+              variant="ghost"
+              onClick={handleToggle}
+              justify="right"
+            />
+            <MenuList mr={10} maxWidth="100%">
               <MenuItem as={NavLink} to="/lists">
                 Lists
               </MenuItem>
-            ) : null}
-
-            {user ? (
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            ) : (
-              <MenuItem as={NavLink} to="/login">
-                Log In
-              </MenuItem>
-            )}
 
-            <MenuItem onClick={() => toggleColorMode()}>
-              {colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}
-              <Icon name={colorMode === 'light' ? 'moon' : 'sun'} ml={2} />{' '}
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      </Flex>
+              <MenuItem onClick={() => toggleColorMode()}>
+                {colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}
+                <Icon
+                  name={colorMode === 'light' ? 'moon' : 'sun'}
+                  ml={2}
+                />{' '}
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+      )}
 
       {/* Container for navlinks, show from md breakpoint on */}
       <Flex
@@ -152,6 +148,16 @@ function NavBar() {
       <Flex display={['none', 'none', 'flex', 'flex']} mt={{ base: 4, md: 0 }}>
         {user ? (
           <Flex align="center">
+            {user.displayName && (
+              <Text
+                mr={6}
+                fontSize="sm"
+                display={{ base: 'none', md: 'block' }}
+              >
+                Hi {user.displayName}
+              </Text>
+            )}
+
             <Button
               size="sm"
               bg="transparent"
@@ -175,7 +181,7 @@ function NavBar() {
         )}
       </Flex>
 
-      <Flex ml={6} display={['none', 'none', 'flex', 'flex']}>
+      <Flex ml={6} display={[user && 'none', user && 'none', 'flex', 'flex']}>
         <Button rounded="50%" onClick={() => toggleColorMode()}>
           <Icon name={colorMode === 'light' ? 'moon' : 'sun'} />
         </Button>

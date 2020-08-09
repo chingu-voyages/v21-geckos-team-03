@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Flex, Box } from '@chakra-ui/core';
 import Navbar from './NavBar';
 import Sidebar from './Sidebar';
+import Footer from './Footer';
 import { FirebaseContext } from '../firebase';
 
 const Layout = ({ children }) => {
@@ -27,7 +28,7 @@ const Layout = ({ children }) => {
           {user && <Sidebar />}
         </Box>
       </Flex>
-      <div>Footer</div>
+      <Footer />
     </Flex>
   );
 };

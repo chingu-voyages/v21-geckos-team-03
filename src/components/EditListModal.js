@@ -23,15 +23,14 @@ import { FirebaseContext } from '../firebase';
 import useFormValidation from '../hooks/useFormValidation';
 import { validateListForm } from '../utils';
 
-const INITIAL_STATE = {
-  title: '',
-  description: '',
-};
-
 function EditListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
+  const INITIAL_STATE = {
+    title: list.title,
+    description: list.description,
+  };
 
   const {
     errors,
