@@ -18,6 +18,7 @@ import {
   FormErrorMessage,
   Textarea,
   Flex,
+  useToast,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import useFormValidation from '../hooks/useFormValidation';
@@ -27,6 +28,7 @@ function EditListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
+  const toast = useToast();
   const INITIAL_STATE = {
     title: list.title,
     description: list.description,
@@ -43,8 +45,6 @@ function EditListModal({ list }) {
 
   async function editList() {
     const editedList = {
-      // weird that the list ID is being spread in in firebase
-      // can't figure out how to make it stop
       ...list,
       title: values.title,
       description: values.description,
@@ -53,8 +53,21 @@ function EditListModal({ list }) {
     try {
       await firebase.editWatchList(editedList, user.uid);
       onClose();
+      toast({
+        title: 'List Edited',
+        status: 'success',
+        duration: 4000,
+        isClosable: true,
+      });
     } catch (error) {
       setFirebaseError(error.message);
+      toast({
+        title: 'Something went wrong',
+        description: error,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
     }
   }
 
