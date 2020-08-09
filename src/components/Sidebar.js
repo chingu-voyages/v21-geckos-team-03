@@ -3,12 +3,14 @@ import {
   Divider,
   Text,
   Stack,
+  Button,
   Box,
   Link,
   Heading,
 } from '@chakra-ui/core';
 import React, { useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { FaUserCircle } from 'react-icons/fa';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
 import NewListModal from './NewListModal';
@@ -20,18 +22,25 @@ const Sidebar = () => {
     <Flex display={{ base: 'none', md: 'flex' }}>
       <Flex width="100%" maxWidth="200px" direction="column">
         {user && (
-          <Box my={4}>
-            <Heading fontSize="md">Hello, {user.displayName}!</Heading>
+          <Box alignSelf="center" p={4}>
+            <Box as={FaUserCircle} size="48px" mb={2} />
+            <Heading textAlign="center" fontSize="lg">
+              {user.displayName}
+            </Heading>
           </Box>
         )}
-        <Box my={6}>
+        <Box my={3}>
           <Divider />
           <Heading fontSize="xl">Total Lists</Heading>
           <Divider />
-          <Text>{watchLists.length}</Text>
+          <Box mx="auto">
+            <Text p={3} height="100%" textAlign="center" fontSize="xl">
+              {watchLists.length}
+            </Text>
+          </Box>
         </Box>
-        <Box my={6}>
-          <Box mb={4}>
+        <Box mb={3}>
+          <Box mb={6}>
             <Divider />
             <Heading fontSize="xl">Current Lists</Heading>
             <Divider />
@@ -44,12 +53,21 @@ const Sidebar = () => {
                   <Text fontSize="lg">{list.title}</Text>
                 </Link>
               ))}
+            <Button
+              as={RouterLink}
+              to="/lists"
+              bg="transparent"
+              border="1px"
+              size="xs"
+            >
+              View All
+            </Button>
           </Stack>
           <Box mt={8}>
             <Divider />
-            <Box mt={6}>
+            <Flex mt={6} justify="center">
               <NewListModal full />
-            </Box>
+            </Flex>
           </Box>
         </Box>
       </Flex>
