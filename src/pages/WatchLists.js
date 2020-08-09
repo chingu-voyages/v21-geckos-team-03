@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Divider, Heading, Link, Text, Flex, Spinner } from '@chakra-ui/core';
-import { SimpleBox, DeleteListModal } from '../components';
+import { SimpleBox, DeleteListModal, EditListModal } from '../components';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
 import NewListModal from '../components/NewListModal';
@@ -35,6 +35,7 @@ const WatchLists = (props) => {
               </Link>
             </Flex>
             <Flex>
+              <EditListModal list={list} />
               <DeleteListModal list={list} />
             </Flex>
           </Flex>
