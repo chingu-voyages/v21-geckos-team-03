@@ -57,7 +57,7 @@ const AuthForm = () => {
     <Flex align="center" justify="center" height="auto" mx={0}>
       <SimpleBox>
         <Flex align="center" p={4} justify="center" direction="column">
-          <Heading fontSize="lg" color="white" mb={4}>
+          <Heading fontSize="lg" mb={4}>
             {login ? 'Login' : 'Create account'}
           </Heading>
           <Tabs mt={4} isFitted>
