@@ -37,6 +37,8 @@ const AuthForm = () => {
     handleSubmit,
     isSubmitting,
     values,
+    clearValues,
+    clearErrors,
   } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
 
   async function authenticateUser() {
@@ -55,13 +57,29 @@ const AuthForm = () => {
     <Flex align="center" justify="center" height="auto" mx={0}>
       <SimpleBox>
         <Flex align="center" p={4} justify="center" direction="column">
-          <Heading fontSize="lg" color="white" mb={4}>
+          <Heading fontSize="lg" mb={4}>
             {login ? 'Login' : 'Create account'}
           </Heading>
           <Tabs mt={4} isFitted>
             <TabList mb={6}>
-              <Tab onClick={() => setLogin(true)}>Login</Tab>
-              <Tab onClick={() => setLogin(false)}>Register</Tab>
+              <Tab
+                onClick={() => {
+                  setLogin(true);
+                  clearValues(INITIAL_STATE);
+                  clearErrors();
+                }}
+              >
+                Login
+              </Tab>
+              <Tab
+                onClick={() => {
+                  setLogin(false);
+                  clearValues(INITIAL_STATE);
+                  clearErrors();
+                }}
+              >
+                Register
+              </Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
