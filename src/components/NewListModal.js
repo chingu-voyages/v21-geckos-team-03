@@ -18,7 +18,6 @@ import {
   FormErrorMessage,
   Textarea,
   Flex,
-  MenuItem,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import useFormValidation from '../hooks/useFormValidation';
@@ -65,13 +64,6 @@ function NewListModal({ noLists, movieDropDown, full }) {
         </Button>
       );
     }
-    if (movieDropDown) {
-      return (
-        <MenuItem as="Button" onClick={onOpen}>
-          + New List
-        </MenuItem>
-      );
-    }
     return (
       <Tooltip hasArrow label="New List" placement="bottom">
         {full ? (
@@ -90,7 +82,7 @@ function NewListModal({ noLists, movieDropDown, full }) {
       {prompt()}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent borderRadius="md">
           <ModalHeader textAlign="center">New List</ModalHeader>
           <ModalCloseButton />
           <form>

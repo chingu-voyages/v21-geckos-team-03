@@ -72,7 +72,7 @@ function EditListModal({ list }) {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent borderRadius="md">
           <ModalHeader>Edit List Details</ModalHeader>
           <ModalCloseButton />
           <form>

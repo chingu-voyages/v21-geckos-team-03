@@ -18,22 +18,50 @@ import {
   Heading,
   Flex,
   Spinner,
+  Icon,
+  Tooltip,
+  Link,
+  Image,
+  Skeleton,
 } from '@chakra-ui/core';
 import MovieThumb from './MovieThumb';
 import SaveMovieDropDown from './SaveMovieDropDown';
 import ActorCard from './ActorCard';
 import useMovieFetch from '../hooks/useMovieFetch';
 import { IMAGE_BASE_URL, BACKDROP_SIZE } from '../utils/config';
+import IMDB from '../images/imdb.png';
 
-const MovieModal = ({ movieId, watchLists, isListItem }) => {
+const MovieModal = ({
+  movieId,
+  watchLists,
+  isListItem,
+  isTitle,
+  isListItemTitle,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [movie, loading, error] = useMovieFetch(movieId);
 
-  if (loading) return <Spinner />;
+  if (loading && !isListItemTitle && !isTitle) return <Spinner />;
+  if (loading && (isListItemTitle || isTitle))
+    return <Skeleton height="20px" my="10px" />;
   if (error) return <Text>Error: {error}</Text>;
 
-  return (
-    <>
+  const prompt = () => {
+    if (isTitle) {
+      return (
+        <Heading onClick={onOpen} as="h2" fontSize={['xl', '2xl', '3xl']}>
+          {movie.title}
+        </Heading>
+      );
+    }
+    if (isListItemTitle) {
+      return (
+        <Text onClick={onOpen} fontSize={['md', 'md', 'lg']} mr={4} mb={1}>
+          {movie.title}
+        </Text>
+      );
+    }
+    return (
       <MovieThumb
         posterPath={movie.poster_path}
         movieId={movie.id}
@@ -41,15 +69,22 @@ const MovieModal = ({ movieId, watchLists, isListItem }) => {
         onClick={onOpen}
         small={isListItem}
       />
+    );
+  };
 
+  console.log(movie);
+  return (
+    <>
+      {prompt()}
       <Modal size="80%" isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent borderRadius="md">
           <ModalHeader>
             <Flex align="center">
               <Heading mr={2} fontSize="2xl">
                 {movie.title}
               </Heading>
+              <Text>{` - ${movie.release_date.slice(0, 4)}`}</Text>
             </Flex>
           </ModalHeader>
           <ModalCloseButton />
@@ -67,6 +102,7 @@ const MovieModal = ({ movieId, watchLists, isListItem }) => {
               px={10}
               py={10}
               mb={10}
+              borderRadius="md"
             >
               <Flex mx={0} my="auto" bg="rgb(0, 0, 0, 0.7)" borderRadius="20px">
                 <Box p={8}>
@@ -92,7 +128,8 @@ const MovieModal = ({ movieId, watchLists, isListItem }) => {
                       ))}
                   </Flex>
                   <Text color="white" mb={4}>
-                    Rating : {movie.vote_average}
+                    <Icon name="star" size="8px" mb={1} mr={2} />
+                    {movie.vote_average}
                   </Text>
                   <Text color="white" mb={4}>
                     {movie.overview}
@@ -100,9 +137,28 @@ const MovieModal = ({ movieId, watchLists, isListItem }) => {
                 </Box>
               </Flex>
             </Box>
-            <Heading fontSize="2xl" mb={4}>
-              Cast
-            </Heading>
+            <Flex
+              justifyContent="space-between"
+              flexDir="row"
+              align="center"
+              ml={5}
+              mr={5}
+            >
+              <Flex>
+                <Heading fontSize="2xl" mb={4}>
+                  Cast
+                </Heading>
+              </Flex>
+              {movie.imdb_id ? (
+                <Flex maxH="5">
+                  <Tooltip hasArrow label="View Movie on IMDb" placement="left">
+                    <Link href={`https://www.imdb.com/title/${movie.imdb_id}/`}>
+                      <Image src={IMDB} h="30px" />
+                    </Link>
+                  </Tooltip>
+                </Flex>
+              ) : null}
+            </Flex>
             <Tabs variant="enclosed">
               <TabList>
                 <Tab>Top Actors</Tab>
@@ -140,10 +196,14 @@ MovieModal.propTypes = {
   movieId: PropTypes.number.isRequired,
   watchLists: PropTypes.arrayOf(PropTypes.object).isRequired,
   isListItem: PropTypes.bool,
+  isTitle: PropTypes.bool,
+  isListItemTitle: PropTypes.bool,
 };
 
 MovieModal.defaultProps = {
   isListItem: false,
+  isTitle: false,
+  isListItemTitle: false,
 };
 
 export default MovieModal;

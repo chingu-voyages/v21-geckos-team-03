@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import {
   Heading,
@@ -22,8 +22,7 @@ import { formatDate } from '../utils';
 import useSingleWatchList from '../hooks/useSingleWatchList';
 
 function WatchList() {
-  const [show, setShow] = React.useState(false);
-
+  const [show, setShow] = useState(false);
   const { listId } = useParams();
   const { listMovies, listDetails, error, loading } = useSingleWatchList(
     listId
@@ -34,24 +33,31 @@ function WatchList() {
 
   const findPrompt = () => {
     return (
-      <TabPanel>
-        <Flex w="100%" p={4} mt={16} textAlign="center" flexDir="column">
-          <Text>This list doesn&apos;t have any movies yet!</Text>
-          <Flex justify="center">
-            <Button
-              size="sm"
-              bg="transparent"
-              border="1px"
-              mt={5}
-              onClick={() => {
-                history.push('/');
-              }}
-            >
-              Find Movies
-            </Button>
-          </Flex>
+      <Flex
+        w="100%"
+        p={10}
+        mb={2}
+        border="1px"
+        borderRadius="md"
+        borderColor="gray.200"
+        textAlign="center"
+        flexDir="column"
+      >
+        <Text>This list doesn&apos;t have any movies yet!</Text>
+        <Flex justify="center">
+          <Button
+            size="sm"
+            bg="transparent"
+            border="1px"
+            mt={5}
+            onClick={() => {
+              history.push('/');
+            }}
+          >
+            Find Movies
+          </Button>
         </Flex>
-      </TabPanel>
+      </Flex>
     );
   };
 
@@ -85,7 +91,6 @@ function WatchList() {
             <Heading fontSize="sm" mb={4}>
               Description:
             </Heading>
-
             {listDetails.description.length < 240 ? (
               <Text fontSize="md" mb={4}>
                 {listDetails.description}
@@ -110,63 +115,57 @@ function WatchList() {
         <Divider />
       </Flex>
 
-      {/* Tab Panels */}
-      <Tabs defaultIndex={0} isFitted variant="enclosed">
-        <TabList mb="1em">
-          <Tab>Unwatched</Tab>
-          <Tab>Watched</Tab>
-          <Tab>All</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            {/* Unwatched items */}
-            {listMovies
-              .filter((movie) => !movie.watched)
-              .map((unwatchedMovie) => (
-                <ListItem
-                  key={unwatchedMovie.id}
-                  data={unwatchedMovie}
-                  listDetails={listDetails}
-                />
-              ))}
-          </TabPanel>
-          {/* {Watched Items} */}
-          <TabPanel>
-            {listMovies
-              .filter((movie) => movie.watched)
-              .map((watchedMovie) => (
-                <ListItem
-                  key={watchedMovie.id}
-                  data={watchedMovie}
-                  listDetails={listDetails}
-                />
-              ))}
-          </TabPanel>
-          {/* All list Items */}
-          {!listMovies || listMovies.length === 0 ? (
-            findPrompt()
-          ) : (
-            <TabPanel>
-              {listMovies.map((movie) => (
-                <ListItem
-                  key={movie.id}
-                  data={movie}
-                  listDetails={listDetails}
-                />
-              ))}
-            </TabPanel>
-          )}
+      {!listMovies || listMovies.length === 0 ? (
+        findPrompt()
+      ) : (
+        <>
+          {/* Tab Panels */}
+          <Tabs defaultIndex={0} isFitted variant="enclosed">
+            <TabList mb="1em">
+              <Tab>Unwatched</Tab>
+              <Tab>Watched</Tab>
+              <Tab>All</Tab>
+            </TabList>
 
-          {/* Unwatched items */}
-          <TabPanel>
-            <Text>Unwatched goes here...</Text>
-          </TabPanel>
-          {/* {Watched Items} */}
-          <TabPanel>
-            <Text>Watched goes here...</Text>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+            <TabPanels>
+              <TabPanel>
+                {/* Unwatched items */}
+                {listMovies
+                  .filter((movie) => !movie.watched)
+                  .map((unwatchedMovie) => (
+                    <ListItem
+                      key={unwatchedMovie.id}
+                      data={unwatchedMovie}
+                      listDetails={listDetails}
+                    />
+                  ))}
+              </TabPanel>
+              {/* {Watched Items} */}
+              <TabPanel>
+                {listMovies
+                  .filter((movie) => movie.watched)
+                  .map((watchedMovie) => (
+                    <ListItem
+                      key={watchedMovie.id}
+                      data={watchedMovie}
+                      listDetails={listDetails}
+                    />
+                  ))}
+              </TabPanel>
+              {/* All list Items */}
+              <TabPanel>
+                {listMovies.map((movie) => (
+                  <ListItem
+                    key={movie.id}
+                    data={movie}
+                    listDetails={listDetails}
+                  />
+                ))}
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </>
+      )}
     </Flex>
   );
 }

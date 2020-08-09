@@ -21,6 +21,7 @@ const ActorCard = ({ actor }) => {
         height="200px"
         objectFit="cover"
         borderRadius="15px"
+        roundedBottom="0"
         src={
           actor.profile_path
             ? `${IMAGE_BASE_URL}${POSTER_SIZE}${actor.profile_path}`
