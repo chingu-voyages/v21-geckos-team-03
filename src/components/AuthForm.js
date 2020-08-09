@@ -37,6 +37,8 @@ const AuthForm = () => {
     handleSubmit,
     isSubmitting,
     values,
+    clearValues,
+    clearErrors,
   } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser);
 
   async function authenticateUser() {
@@ -60,8 +62,24 @@ const AuthForm = () => {
           </Heading>
           <Tabs mt={4} isFitted>
             <TabList mb={6}>
-              <Tab onClick={() => setLogin(true)}>Login</Tab>
-              <Tab onClick={() => setLogin(false)}>Register</Tab>
+              <Tab
+                onClick={() => {
+                  setLogin(true);
+                  clearValues(INITIAL_STATE);
+                  clearErrors();
+                }}
+              >
+                Login
+              </Tab>
+              <Tab
+                onClick={() => {
+                  setLogin(false);
+                  clearValues(INITIAL_STATE);
+                  clearErrors();
+                }}
+              >
+                Register
+              </Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
