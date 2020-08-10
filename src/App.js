@@ -20,7 +20,6 @@ function App() {
                 <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/lists" component={WatchLists} />
-
                 <Route path="/list/:listId" component={WatchList} />
                 <Route path="/forgot" component={Forgot} />
                 <Route render={() => <h1>404</h1>} />

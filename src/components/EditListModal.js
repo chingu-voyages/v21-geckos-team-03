@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import {
   Modal,
   ModalOverlay,
@@ -18,20 +18,21 @@ import {
   FormErrorMessage,
   Textarea,
   Flex,
+  useToast,
 } from '@chakra-ui/core';
 import { FirebaseContext } from '../firebase';
 import useFormValidation from '../hooks/useFormValidation';
 import { validateListForm } from '../utils';
 
-const INITIAL_STATE = {
-  title: '',
-  description: '',
-};
-
 function EditListModal({ list }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { firebase, user } = useContext(FirebaseContext);
   const [firebaseError, setFirebaseError] = useState(null);
+  const toast = useToast();
+  const INITIAL_STATE = {
+    title: list.title,
+    description: list.description,
+  };
 
   const {
     errors,
@@ -44,18 +45,30 @@ function EditListModal({ list }) {
 
   async function editList() {
     const editedList = {
-      // weird that the list ID is being spread in in firebase
-      // can't figure out how to make it stop
       ...list,
       title: values.title,
       description: values.description,
       modifiedAt: Date.now(),
     };
+
     try {
       await firebase.editWatchList(editedList, user.uid);
       onClose();
+      toast({
+        title: 'List Edited',
+        status: 'success',
+        duration: 4000,
+        isClosable: true,
+      });
     } catch (error) {
       setFirebaseError(error.message);
+      toast({
+        title: 'Something went wrong',
+        description: error,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
     }
   }
 
@@ -73,7 +86,7 @@ function EditListModal({ list }) {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent borderRadius="md">
           <ModalHeader>Edit List Details</ModalHeader>
           <ModalCloseButton />
           <form>
@@ -137,5 +150,12 @@ function EditListModal({ list }) {
     </>
   );
 }
+EditListModal.propTypes = {
+  list: PropTypes.object.isRequired,
+};
+
+EditListModal.propTypes = {
+  list: PropTypes.object.isRequired,
+};
 
 export default EditListModal;

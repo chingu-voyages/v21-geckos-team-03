@@ -1,6 +1,6 @@
 import React from 'react';
-import { Heading, Image, Text, Flex } from '@chakra-ui/core';
 import PropTypes from 'prop-types';
+import { Heading, Image, Text, Flex } from '@chakra-ui/core';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../utils/config';
 import NoImage from '../images/no_image.png';
 
@@ -21,6 +21,7 @@ const ActorCard = ({ actor }) => {
         height="200px"
         objectFit="cover"
         borderRadius="15px"
+        roundedBottom="0"
         src={
           actor.profile_path
             ? `${IMAGE_BASE_URL}${POSTER_SIZE}${actor.profile_path}`

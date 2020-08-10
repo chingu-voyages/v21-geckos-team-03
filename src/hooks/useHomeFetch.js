@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { TRENDING_BASE_URL } from '../utils/config';
 
 const useHomeFetch = () => {
@@ -6,40 +6,36 @@ const useHomeFetch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const fetchMovies = async (endpoint) => {
-    setError(false);
-    setLoading(true);
+  const fetchMovies = useCallback(
+    async (endpoint) => {
+      setError(false);
+      setLoading(true);
 
-    // If the endpoint passed in contains the string 'page', we know its a request to load more movies.
-    // If its a request to load more movies will need to be appended to state, rather than a search request where
-    // movies will need to be wiped and repopulated
-    const isLoadMore = endpoint.search('page');
+      const isLoadMore = endpoint.search('page');
 
-    try {
-      const result = await (await fetch(endpoint)).json();
+      try {
+        const result = await (await fetch(endpoint)).json();
 
-      setState((prev) => ({
-        ...prev,
-        movies:
-          isLoadMore !== -1
-            ? [...prev.movies, ...result.results]
-            : [...result.results],
-        currentPage: result.page,
-        totalPages: result.total_pages,
-      }));
-    } catch (err) {
-      console.log(err);
-      setError(true);
-    }
-    setLoading(false);
-  };
+        setState((prev) => ({
+          ...prev,
+          movies:
+            isLoadMore !== -1
+              ? [...prev.movies, ...result.results]
+              : [...result.results],
+          currentPage: result.page,
+          totalPages: result.total_pages,
+        }));
+      } catch (err) {
+        setError(error);
+      }
+      setLoading(false);
+    },
+    [error]
+  );
 
   useEffect(() => {
-    // fetchMovies(`${API_URL}movie/popular?api_key=${API_KEY}`);
-    // fetchMovies(`${API_URL}trending/movie/week?api_key=${API_KEY}`);
     fetchMovies(TRENDING_BASE_URL);
-    // fetchMovies(POPULAR_BASE_URL)
-  }, []);
+  }, [fetchMovies]);
 
   return [{ state, loading, error }, fetchMovies];
 };

@@ -9,14 +9,10 @@ import {
   Box,
   Divider,
 } from '@chakra-ui/core';
+
 import { SEARCH_BASE_URL, TRENDING_BASE_URL } from '../utils/config';
 import useHomeFetch from '../hooks/useHomeFetch';
 import { SearchPanel, MovieCard } from '../components';
-
-/* 
-  Route: "/"
-  will contain search movie, movie results components
-*/
 
 const Home = () => {
   const [{ state, loading, error }, fetchMovies] = useHomeFetch();
@@ -70,9 +66,15 @@ const Home = () => {
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </Stack>
-        <Flex align="center" justify="center">
+        <Flex align="center" justify="center" mb={16}>
           {state.currentPage < state.totalPages && !loading && (
-            <Button type="submit" onClick={loadMoreMovies}>
+            <Button
+              type="submit"
+              bg="primary"
+              size="lg"
+              mb={10}
+              onClick={loadMoreMovies}
+            >
               Load More
             </Button>
           )}

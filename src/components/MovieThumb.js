@@ -10,6 +10,7 @@ const MovieThumb = ({ posterPath, clickable, onClick, small }) => {
       <PseudoBox height="100%" _hover={clickable ? { opacity: 0.8 } : null}>
         <Image
           borderRadius="lg"
+          roundedRight="0"
           src={
             posterPath
               ? `${IMAGE_BASE_URL}${POSTER_SIZE}${posterPath}`
@@ -17,8 +18,8 @@ const MovieThumb = ({ posterPath, clickable, onClick, small }) => {
           }
           maxWidth={
             small
-              ? ['50px', '60px', '70px', '80px']
-              : ['100%', '100%', '150px', '175px']
+              ? ['50px', '60px', '65px', '65px']
+              : ['100%', '100%', '140px', '160px']
           }
           maxHeight={!small ? '100%' : null}
           objectFit="contain"

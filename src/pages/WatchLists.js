@@ -1,17 +1,10 @@
 import React, { useContext } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Divider, Heading, Link, Text, Flex, Spinner } from '@chakra-ui/core';
-import { SimpleBox, DeleteListModal } from '../components';
+import { SimpleBox, DeleteListModal, EditListModal } from '../components';
 import { FirebaseContext } from '../firebase';
 import useWatchLists from '../hooks/useWatchLists';
 import NewListModal from '../components/NewListModal';
-
-/* 
-  Route: "/lists"
-  Page for rendering all user created watch lists
-
-  Currently contains mvp functionality for fetching all created lists in a logged in users list collection.
-  This should be moved eventually
-*/
 
 const WatchLists = (props) => {
   const { watchLists, loading, error } = useWatchLists();
@@ -28,13 +21,14 @@ const WatchLists = (props) => {
         <SimpleBox key={`${i}-${list.title}`}>
           <Flex justify="space-between">
             <Flex align="center">
-              <Link href={`/list/${list.id}`}>
+              <Link as={RouterLink} to={`/list/${list.id}`}>
                 <Heading as="h4" size="md">
                   {list.title}
                 </Heading>
               </Link>
             </Flex>
             <Flex>
+              <EditListModal list={list} />
               <DeleteListModal list={list} />
             </Flex>
           </Flex>
@@ -55,14 +49,16 @@ const WatchLists = (props) => {
 
   return (
     <>
-      <Flex align="center" justify="space-between" p={5}>
-        <Heading as="h2" size="xl">
+      <Flex align="center" justify="space-between" ml={5} mr={5}>
+        <Heading fontSize="2xl">
           {user
             ? `${user.displayName.toUpperCase()}'s Watch Lists`
             : 'Watch Lists'}
         </Heading>
+
         <NewListModal />
       </Flex>
+      <Divider mb={8} />
       {!watchLists || watchLists.length === 0 ? (
         <Flex
           w="100%"
