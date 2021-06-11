@@ -3,7 +3,7 @@ const REPO_LINK = 'https://github.com/chingu-voyages/v21-geckos-team-03/';
 // Configuration for TMDB
 // https://developers.themoviedb.org/
 const API_URL = 'https://api.themoviedb.org/3/';
-const API_KEY = '6ee25636d25df9899ed46e80a13383ff';
+const API_KEY = '350b584ddf1ac23fddb47c4afe61e290';
 const API_LOGO =
   'https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg';
 
