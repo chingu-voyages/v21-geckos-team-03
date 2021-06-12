@@ -62,9 +62,10 @@ const Home = () => {
               <Spinner size="xl" />
             </Box>
           )}
-          {state.movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
+          {state.movies.length &&
+            state.movies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
         </Stack>
         <Flex align="center" justify="center" mb={16}>
           {state.currentPage < state.totalPages && !loading && (
